@@ -1,0 +1,98 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-09-29 13:03:32
+ * @LastEditTime: 2020-09-29 14:13:01
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Html语义化结构元素</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 60px 1fr 60px;
+        gap: 10px;
+      }
+      header {
+        line-height: 60px;
+        background-color: green;
+      }
+      footer {
+        line-height: 60px;
+        background-color: aquamarine;
+      }
+      h1 {
+        text-align: center;
+      }
+      .container {
+        background-color: cadetblue;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 10px;
+        padding: 10px;
+      }
+      aside {
+        background-color: chocolate;
+        display: grid;
+        align-items: center;
+      }
+      main {
+        background-color: white;
+        display: grid;
+        grid-template-rows: 1fr 100px;
+        gap: 10px;
+        padding: 5px;
+      }
+      article {
+        display: grid;
+        align-items: center;
+      }
+      .section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      section {
+        background-color: cornflowerblue;
+        display: grid;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 头部 -->
+    <header>
+      <h1>&lt;Header&gt;</h1>
+    </header>
+    <!-- 主体 -->
+    <div class="container">
+      <aside>
+        <h1>&lt;Aside&gt;</h1>
+      </aside>
+      <main>
+        <article><h1>&lt;Main&gt;</h1></article>
+        <div class="section">
+          <section>
+            <h1>&lt;Section&gt;</h1>
+          </section>
+          <section>
+            <h1>&lt;Section&gt;</h1>
+          </section>
+        </div>
+      </main>
+    </div>
+    <!-- 底部 -->
+    <footer>
+      <h1>&lt;Footer&gt;</h1>
+    </footer>
+  </body>
+</html>
