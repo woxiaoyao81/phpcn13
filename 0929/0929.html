@@ -1,0 +1,175 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-09-30 13:00:15
+ * @LastEditTime: 2020-09-30 13:11:39
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>语义化元素演示-文本、链接、列表和表格</title>
+    <style>
+      /* 无序列表实现导航 */
+      .nav {
+        list-style: none;
+        height: 50px;
+        display: flex;
+        line-height: 50px;
+        background-color: #444;
+      }
+      .nav li {
+        align-self: stretch;
+        padding: 0 15px;
+      }
+      .nav li:last-of-type {
+        margin-left: auto;
+      }
+      .nav li:hover {
+        background-color: seagreen;
+        cursor: pointer;
+      }
+      .nav a {
+        color: #ccc;
+        text-decoration: none;
+      }
+      .nav a:hover {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>文本演示</h2>
+    <p>
+      <abbr title="HyperText Markup Language">html</abbr
+      >文档,是采用超文本标记编写的文档
+    </p>
+    <p>2 <sup>4</sup> = 16</p>
+    <footer>
+      <strong>联系地址:</strong>
+      <address>合肥市政务新区99号</address>
+    </footer>
+    <p><em>猪肉原价</em>: <del> 38.88</del>, <mark>现价</mark>: 28.88</p>
+    <p><progress max="100" value="50">已完成50%</progress></p>
+
+    <h2>链接演示</h2>
+    <a href="https://www.php.cn/" target="_blank">php中文网</a>
+    <a href="tel:1896644****">咨询电话</a>
+    <a href="mailto:123456@qq.com">发邮件</a>
+    <!-- 通过锚点, 可以实现在当前页面内部跳转 -->
+    <a href="#anchor">当前页面跳转</a>
+    <h1 id="anchor" style="margin-top: 1000px">跳到这里了</h1>
+
+    <h2>无序列表实现导航</h2>
+    <ul class="nav">
+      <li><a href="">首页</a></li>
+      <li><a href="">基础知识</a></li>
+      <li><a href="">实战练习</a></li>
+      <li><a href="">课后总结</a></li>
+    </ul>
+
+    <h2>有序列表实现工作计划</h2>
+    <ol class="plan" start="3" type="A">
+      <li>给客户打回访电话</li>
+      <li>整理新客户资料</li>
+      <li>准备晚上的约会</li>
+    </ol>
+
+    <h2>自定义列表</h2>
+    <dl class="explain">
+      <dt>html:</dt>
+      <div>
+        <dd>超文本标记语言</dd>
+        <dd>主要用来写页面的结构</dd>
+      </div>
+
+      <dt>CSS:</dt>
+      <dd>层叠样式表</dd>
+
+      <dt>JS:</dt>
+      <dd>前端的通用脚本编程语言</dd>
+    </dl>
+
+    <h2>表格演示</h2>
+    <table
+      width="600"
+      border="1"
+      cellspacing="0"
+      cellpadding="5"
+      align="center"
+    >
+      <thead>
+        <tr bgcolor="lightblue">
+          <th colspan="2"></th>
+          <th>星期一</th>
+          <th>星期二</th>
+          <th>星期三</th>
+          <th>星期四</th>
+          <th>星期五</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="4" align="center">上午</td>
+          <td>1</td>
+          <td>数学</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>数学</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>音乐</td>
+          <td>科学</td>
+          <td>美术</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>语文</td>
+          <td>美术</td>
+          <td>数学</td>
+          <td>数学</td>
+          <td>语文</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>科学</td>
+          <td>数学</td>
+          <td>语文</td>
+          <td>体育</td>
+          <td>道法</td>
+        </tr>
+        <tr>
+          <td colspan="7" align="center">午休</td>
+        </tr>
+        <tr>
+          <td rowspan="3" align="center">下午</td>
+          <td>5</td>
+          <td>数学</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>数学</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>语文</td>
+          <td>语文</td>
+          <td>音乐</td>
+          <td>科学</td>
+          <td>美术</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>课外活动</td>
+          <td colspan="4" align="center">各班自行组织</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
