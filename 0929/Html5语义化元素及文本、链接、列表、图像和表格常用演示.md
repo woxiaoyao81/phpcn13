@@ -120,39 +120,7 @@
 </ul>
 ```
 
-<style>
-.nav {
-  list-style: none;
-  height: 50px;
-  display: flex;
-  line-height: 50px;
-  background-color: #444;
-}
-.nav li {
-  align-self: stretch;
-  padding: 0 15px;
-}
-.nav li:last-of-type {
-  margin-left: auto;
-}
-.nav li:hover {
-  background-color: seagreen;
-  cursor: pointer;
-}
-.nav a {
-  color: #ccc;
-  text-decoration: none;
-}
-.nav a:hover {
-  color: white;
-}
-</style>
- <ul class="nav">
-    <li><a href="">首页</a></li>
-    <li><a href="">基础知识</a></li>
-    <li><a href="">实战练习</a></li>
-    <li><a href="">课后总结</a></li>
-</ul>
+![导航](4.gif)
 
 #### 有序列表实现工作计划
 
