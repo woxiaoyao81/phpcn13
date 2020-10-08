@@ -1,0 +1,125 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-07 14:32:13
+ * @LastEditTime: 2020-10-07 17:29:24
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>表单中文件处理</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        line-height: 25px;
+      }
+      h3 {
+        text-align: center;
+      }
+      .register {
+        width: 500px;
+        margin: 10px auto;
+        padding: 20px 30px 10px;
+        border-radius: 5px;
+        background: linear-gradient(to top left, lightcyan, white);
+        box-shadow: 0 0 8px #888;
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        gap: 10px;
+      }
+      .register > button {
+        grid-column: span 2;
+        outline: none;
+        border: none;
+        background-color: seagreen;
+        color: white;
+        height: 32px;
+        border-radius: 5px;
+      }
+      /* 提交按钮悬停效果 */
+      .register > button:hover {
+        background-color: coral;
+        cursor: pointer;
+        box-shadow: 0 0 6px #888;
+      }
+      /* 去掉控件的默认样式 */
+      .register input
+     {
+        border: none;
+        outline: none;
+        box-shadow: 0 0 3px skyblue;
+        border-radius: 3px;
+        resize: none;
+      }
+      /* 控件获取焦点以及鼠标悬停时的样式 */
+      .register input:focus,
+      .register input:hover{
+        box-shadow: 0 0 3px green;
+      }
+      .register label {
+        text-align: right;
+      }
+      .register > div {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        column-gap: 5px;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h3>文件处理</h3>
+    <form action="file.php" class="register" name="register">
+      <label for="image">图片:</label>
+      <input type="file" name="image" value="" id="image" accept=".jpg,.png" />
+      <div class="image" style="grid-column: 2"></div>
+
+      <label for="txt">文本:</label>
+      <input type="file" name="txt" id="txt" accept=".txt,.html" />
+      <div class="txt" style="grid-column: 2"></div>
+      <button>提交</button>
+    </form>
+  </body>
+
+  <script>
+    // 1. 读取图片并预览
+    const fileImg = document.querySelector('#image');
+    fileImg.addEventListener('change', showImg, false);
+    function showImg() {
+      console.log(fileImg.files);
+      const reader = new FileReader();
+      // fileImg.files[0]为第一个图片
+      reader.readAsDataURL(fileImg.files[0]);
+      reader.onload = () => {
+        const img = new Image();
+        // reader.result为获取结果
+        console.log(reader.result);
+        img.src = reader.result;
+        img.width = '100';
+        // 先清空之前的选择的图片
+        document.querySelector('.image').innerHTML = null;
+        // 将用户选择的图片显示到指定元素中
+        document.querySelector('.image').appendChild(img);
+      };
+    }
+
+    // 2. 读取文本并预览
+    const fileText = document.querySelector('#txt');
+    fileText.addEventListener('change', showText, false);
+    //读取文本的回调方法
+    function showText() {
+      const reader = new FileReader();
+      // 做为文本读取, files[0]表示第一个文件,utf8是默认编码
+      // reader.readAsText(fileText.files[0],'ANSI');
+      reader.readAsText(fileText.files[0], 'utf8');
+      reader.onload = () => (document.querySelector('.txt').innerText = reader.result);
+    }
+  </script>
+</html>

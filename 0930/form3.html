@@ -1,0 +1,105 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-07 17:27:27
+ * @LastEditTime: 2020-10-08 07:56:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单中按钮</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          line-height: 25px;
+        }
+        h3 {
+          text-align: center;
+        }
+        .register {
+          width: 500px;
+          margin: 10px auto;
+          padding: 20px 30px 10px;
+          border-radius: 5px;
+          background: linear-gradient(to top left, lightcyan, white);
+          box-shadow: 0 0 8px #888;
+          display: grid;
+          grid-template-columns: 70px 1fr;
+          gap: 10px;
+        }
+        .register > button {
+          grid-column: span 2;
+          outline: none;
+          border: none;
+          background-color: seagreen;
+          color: white;
+          height: 32px;
+          border-radius: 5px;
+        }
+        .register label {
+            text-align: right;
+          }
+        /* 提交按钮悬停效果 */
+        .register > button:hover {
+          background-color: coral;
+          cursor: pointer;
+          box-shadow: 0 0 6px #888;
+        }
+        /* 去掉控件的默认样式 */
+        .register input
+       {
+          border: none;
+          outline: none;
+          box-shadow: 0 0 3px skyblue;
+          border-radius: 3px;
+          resize: none;
+        }
+        /* 控件获取焦点以及鼠标悬停时的样式 */
+        .register input:focus,
+        .register input:hover{
+          box-shadow: 0 0 3px green;
+        }
+        .inputbotton{
+            grid-template-columns: repeat(3,33.33%);
+        }
+      </style>
+</head>
+<body>
+    <h3>表单中按钮</h3>
+    <form action="button.php" class="register" name="login" id="login">
+        <label for="username">用户名:</label>
+        <input type="text" name="username" value="" id="username" placeholder="请输入用户名">
+
+        <label for="pwd">密码:</label>
+        <input type="password" name="pwd" value="" id="pwd" placeholder="请输入密码">
+
+        <button formaction="login.php">提交(Button)</button>
+        <button type="reset">重置(Button)</button>
+        <button type="button" formmethod="POST" formenctype="multipart/form-data">普通按钮(Button)</button>
+    </form>
+    <form action="reg.php" class="register" name="reg" id="reg">
+        <label for="email">邮箱:</label>
+        <input type="email" name="email" value="" id="email" placeholder="请输入邮箱">
+    </form>
+    <div class="register inputbotton">
+        <input type="submit" form="login" value="提交(input)">
+        <input type="reset" form="reg" value="重置(input)" onclick="test(this)">
+        <input type="button" form="reg" formmethod="POST" value="注册(input)">
+    </div>    
+</body>
+<script>
+    const form1=document.forms.login;
+    console.log(form1);
+    const form2=document.forms.reg;
+    console.log(form2);
+    function test(el){
+        console.log('haha');
+        console.log(el.form['reg']);
+    }
+</script>
+</html>

@@ -1,0 +1,318 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-07 10:34:58
+ * @LastEditTime: 2020-10-08 08:25:28
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单应用演示</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        line-height: 25px;
+      }
+      h3 {
+        text-align: center;
+      }
+      .register {
+        width: 500px;
+        margin: 10px auto;
+        padding: 20px 30px 10px;
+        border-radius: 5px;
+        background: linear-gradient(to top left, lightcyan, white);
+        box-shadow: 0 0 8px #888;
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        gap: 10px;
+      }
+      .register > button {
+        grid-column: span 2;
+        outline: none;
+        border: none;
+        background-color: seagreen;
+        color: white;
+        height: 32px;
+        border-radius: 5px;
+      }
+      /* 提交按钮悬停效果 */
+      .register > button:hover {
+        background-color: coral;
+        cursor: pointer;
+        box-shadow: 0 0 6px #888;
+      }
+      /* 去掉控件的默认样式 */
+      .register input,
+      textarea {
+        border: none;
+        outline: none;
+        box-shadow: 0 0 3px skyblue;
+        border-radius: 3px;
+        resize: none;
+      }
+      /* 控件获取焦点以及鼠标悬停时的样式 */
+      .register input:focus,
+      .register input:hover,
+      textarea:focus,
+      textarea:hover {
+        box-shadow: 0 0 3px green;
+      }
+      .register label {
+        text-align: right;
+      }
+      .register > div {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        column-gap: 5px;
+        align-items: center;
+      }
+      .tips {
+        position: absolute;
+        bottom: 5px;
+        right: 20px;
+        font-size: 0.8rem;
+        color: #aaa;
+      }
+    </style>
+    <script>
+      // 创建一个公共函数,用来实现当验证失败后,重置焦点
+      function setFocus(el) {
+        // 不满足条件,必须重置焦点, 等待用户输入满足条件的内容
+        el.focus();
+        // 直接返回false很重要,否则会继续执行后面代码
+        return false;
+      }
+
+      // 验证用户名是否为空
+      function isEmpty(el) {
+        let username = el.value.trim();
+        if (username.length === 0) {
+          // 将没有输入和输入内容长度不足合并判断,以简化代码
+          console.log('用户名不能为空');
+          setFocus(el);
+        } else if (username.length < 6) {
+          console.log('用户名不能少于6个字符');
+          setFocus(el);
+        } else {
+          // 满足条件则输出用户名
+          console.log('用户名: ', username);
+        }
+      }
+
+      // 验证邮箱
+      function isEmail(el) {
+        // 验证输入内容是否一个合法邮箱
+        // 暂用字符串方法处理,实际项目中应该用正则更合适
+        let email = el.value.trim();
+        // string.split(str),用指定字符将字符串(@.)切割成数组
+        if (email.length == 0) {
+          console.log('邮箱不能为空');
+          setFocus(el);
+        } else if (email.split('@').length === 1 || email.split('.').length === 1) {
+          console.log('邮箱中必须包含@和.');
+          setFocus(el);
+        } else {
+          // 验证通过
+          console.log('邮箱: ', email);
+          console.log('邮箱中的用户名: ', email.split('@')[0]);
+        }
+      }
+
+      // 验证密码相等
+      // 为了简化代码,第一个密码输入框,只验证是否输入了内容,并不验证内容是否满足要求
+      function isEqual(el) {
+        // 先获取第一个密码框中的内容
+        // 每个控件上都有一form属性,指向控件所属的表单元素,用于获取其它控件的内容比较方便
+        let pwd1 = el.form.pwd1.value.trim();
+        let pwd2 = el.value.trim();
+        if (pwd1 === pwd2) {
+          console.log('二次输出一致,验证通过');
+        } else {
+          console.log('二次密码不同,请重新输入');
+          // 清空密码重新输入
+          el.value = null;
+          el.form.pwd1.value = null;
+          // 此时将焦点, 既可放在第二个确认密码框上, 放在第一个密码框上
+          setFocus(el.form.pwd1);
+        }
+      }
+
+      //为密码框增加显示和隐藏密码功能
+      function pwdShow2(ev) {
+        ev.target.form.pwd2.type = ev.target.checked ? 'text' : 'password';
+      }
+    </script>
+  </head>
+  <body>
+    <h3>用户信息录入</h3>
+    <form action="test.php" class="register" name="register">
+      <label for="username">用户名:</label>
+      <div>
+        <input type="text" name="username" value="" id="username" placeholder="请输入用户名,不少于6位" onblur="isEmpty(this)" autofocus required />
+      </div>
+
+      <label for="email">邮箱:</label>
+      <div>
+        <input type="email" name="email" value="" id="email" placeholder="请输入合法邮箱" onblur="isEmail(this)" required />
+      </div>
+
+      <label for="pwd1">密码:</label>
+      <div>
+        <input type="password" name="pwd1" value="" id="pwd1" placeholder="请输入数字和字母组成的，不少于8位密码" required />
+        <input type="checkbox" name="chkshow1" id="chkshow1" />
+        <label for="chkshow1">显示</label>
+      </div>
+
+      <label for="pwd2">确认密码:</label>
+      <div>
+        <input type="password" name="pwd2" value="" id="pwd2" placeholder="请再一次输入密码" onblur="isEqual(this)" required />
+        <input type="checkbox" name="chkshow2" id="chkshow2" />
+        <label for="chkshow2">显示</label>
+      </div>
+
+      <label for="secret">性别:</label>
+      <div>
+        <div>
+          <input type="radio" name="gender" value="0" id="female" />
+          <label for="female">女</label>
+          <input type="radio" name="gender" value="1" id="male" />
+          <label for="male">男</label>
+          <input type="radio" name="gender" value="2" id="secret" checked />
+          <label for="secret">保密</label>
+        </div>
+      </div>
+
+      <label for="#">兴趣爱好:</label>
+      <div>
+        <div>
+          <input type="checkbox" name="hobby[]" value="0" id="game" />
+          <label for="game">游戏</label>
+          <input type="checkbox" name="hobby[]" value="1" id="travel" />
+          <label for="travel">旅行</label>
+          <input type="checkbox" name="hobby[]" value="2" id="shoot" />
+          <label for="shoot">摄影</label>
+          <input type="checkbox" name="hobby[]" value="3" id="program" checked />
+          <label for="program">编程</label>
+        </div>
+      </div>
+
+      <label for="edu">学历:</label>
+      <div>
+        <!-- <select name="edu" id="edu" size="5" multiple> -->
+        <select name="edu" id="edu">
+          <option value="0">大专</option>
+          <option value="1" selected>本科</option>
+          <option value="2" label="硕士">研究生</option>
+          <option value="3">博士</option>
+          <option value="4">导师</option>
+        </select>
+      </div>
+
+      <label for="comment">备注:</label>
+      <div style="position: relative">
+        <textarea name="comment" id="comment" cols="30" rows="5" maxlength="120" placeholder="不能超过120字" onselect="this.style.color='red'" oninput="show(this)"></textarea>
+        <span class="tips">
+          还能输入
+          <em>40</em>
+          个字
+        </span>
+      </div>
+
+      <button>提交</button>
+    </form>
+  </body>
+  <script>
+    // 获取表单,表单应该有name或id属性, 有二种方式:namedItem()和属性名
+    // const form = document.forms.namedItem("register");
+    const form = document.forms.register;
+    // console.log(form);
+
+    //为控件增加事件形式一
+    const pwd1 = form.pwd1;
+    pwd1.onblur = ev => {
+      let pwd = ev.target.value.trim();
+      if (pwd.length === 0) {
+        console.log('密码不能为空');
+        setFocus(ev.target);
+      } else if (pwd.length < 8) {
+        console.log('密码长度不能小于8');
+        setFocus(ev.target);
+      } else {
+        console.log('密码:', pwd);
+      }
+    };
+
+    //为控件增加事件形式二
+    const chk1 = form.chkshow1;
+    chk1.addEventListener('change', ev => {
+      pwd1.type = chk1.checked ? 'text' : 'password';
+    });
+    form.chkshow2.addEventListener('change', pwdShow2);
+
+    // 单选按钮的测试脚本
+    // 验证用户的选择
+    const genders = document.querySelectorAll('input[type=radio]');
+    var labels = document.querySelectorAll('input[type=radio] + label');
+    // 查看默认值
+    genders.forEach(item => (item.checked ? console.log('defalut: ', item.value) : null));
+    // 给单选按钮与对应标签绑定点击事件
+    genders.forEach((item, index) => {
+      item.addEventListener('change', ev => {
+        console.log(ev.target.value, labels[index].innerText);
+      });
+    });
+    // 下面是原课程添加事件，其实label标签添加change事件是不合理的，已经修改上面代码了
+    // labels.forEach(item => item.addEventListener('change', ev => console.log(ev.target.innerText)));
+
+    // 复选框的测试脚本
+    // 获取所有复选框
+    const hobbies = document.querySelectorAll('.register input[type="checkbox"]');
+    labels = document.querySelectorAll('.register input[type="checkbox"]+label');
+    // console.log(hobbies);
+    // 1. 获取复选模式的"默认值": 直接用css选择器
+    let checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked');
+    console.log(checkedBoxes);
+    // 2. 获取到选中的复选框的内容并提交
+    // 判断复选框元素的checked属性是否存在来确定是否被默认选中
+    checkedBoxes = Array.from(hobbies).filter(item => item.checked);
+    console.log(checkedBoxes);
+    // 3. 实时获取选择中的复选框内容,非常实用
+    hobbies.forEach((item, index) => {
+      item.addEventListener('input', ev =>
+        // 需要做一个判断,因为取消选中,也算是值发生变化的,这里也可以使用input事件
+        {
+          ev.target.checked ? console.log(ev.target.value, labels[index].innerText) : null;
+        }
+      );
+    });
+
+    // 文本域测试脚本
+    const comment = document.querySelector('textarea');
+    const tip = document.querySelector('.tips em');
+    // 尽管textarea不支持value属性,但可以使用value属性来读到textarea标签之间的内容文本
+    console.log(comment.value);
+    // 不仅如此,还能用value属性来设置标签之间的内容
+    // comment.value = "Hello World";
+    console.log(comment.value);
+    // 如果设置了value,则innerHTML无效
+    // comment.innerHTML = "我是innerHTML内容";
+    console.log(comment.value);
+    // 所以, 永远不要往textarea文本域标签中写入内容,提示信息使用placeholder属性
+
+    // input()事件方法
+    function show(el) {
+      let text = el.value.trim();
+      if (text.length > 120) {
+        return false;
+      } else {
+        tip.innerText = 120 - text.length;
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,91 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-08 08:14:08
+ * @LastEditTime: 2020-10-08 08:26:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>内联框架实现管理后台</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      a {
+        text-decoration: none;
+        color: #555;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        line-height: 60px;
+      }
+      body {
+        width: 98vw;
+        height: 100vh;
+        color: #555;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        grid-template-rows: 60px 1fr;
+      }
+      header {
+        display: flex;
+        grid-column: span 2;
+        border-bottom: 1px solid;
+        margin-bottom: 10px;
+        padding: 0 20px;
+      }
+      header div {
+        margin-left: auto;
+        line-height: 50px;
+      }
+      aside {
+        /* background-color: yellow; */
+        display: grid;
+        place-content: start;
+      }
+      main iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        /* background-color: wheat; */
+      }
+      .button {
+        width: 120px;
+        height: 36px;
+        background-color: seagreen;
+        color: white;
+        text-align: center;
+        line-height: 36px;
+        border-bottom: 2px solid rgb(243, 235, 235);
+      }
+      .button:hover {
+        background-color: rgb(27, 180, 27);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>内联框架实现管理后台</h1>
+      <div>
+        <a href="#">admin</a>
+        <a href="#">退出</a>
+      </div>
+    </header>
+    <aside>
+      <a href="form1.html" class="button" target="content">简单表单演示</a>
+      <a href="form2.html" class="button" target="content">文件处理</a>
+      <a href="form3.html" class="button" target="content">表单中按钮</a>
+    </aside>
+    <main>
+      <iframe src="" name="content" srcdoc="<em style='color:#666;'>点击左侧按钮开始</em>"></iframe>
+    </main>
+  </body>
+</html>
