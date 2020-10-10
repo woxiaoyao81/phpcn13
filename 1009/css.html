@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS基本概念和层叠规则</title>
+  </head>
+  <!-- 内部样式 -->
+  <style>
+    #page-title { color: seagreen; }
+    .title { color: slateblue; }
+    h1 { color: steelblue; }
+  </style>
+  <!-- 外部样式 -->
+  <link rel="stylesheet" href="style1.css" />
+  <!-- <style>@import url("style1.css");</style> -->
+  <body>
+    <header class="header">
+      <h1 id="page-title" class="title" style="color: teal">Hello World!</h1>
+    </header>
+    <footer class="footer">
+      <a class="page-a" href="#">&copy;www.php.cn</a>
+    </footer>
+  </body>
+</html>

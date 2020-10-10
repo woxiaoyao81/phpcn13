@@ -1,0 +1,20 @@
+/* 公共样式表 */
+/* 选择器 */
+h1 {
+  /* 声明: 属性color: 值green*/
+  /* 声明块: 使用大括号 将多个声明包裹起来 */
+  color: green;
+  font-weight: normal;
+}
+
+/* #id选择器 */
+#page-title {
+  color: chocolate;
+  color: violet;
+}
+
+/* class类选择器 */
+.title {
+  color: red;
+  /* color: red !important; */
+}
