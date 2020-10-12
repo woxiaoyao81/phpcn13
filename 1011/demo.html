@@ -1,0 +1,77 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-12 14:02:52
+ * @LastEditTime: 2020-10-12 17:09:11
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>属性值简写</title>
+    <style>
+      .box {
+        height: 500px;
+        background-color: red;
+        background-clip: content-box;
+
+        /* font-size: 20px;
+            font-style: italic;
+            font-weight: bolder;
+            font-family: Tahoma; */
+        /* font属性值简写 顺序不是无关 要素可以忽略部分 */
+        font: italic bolder 40px Tahoma;
+        /* font: bolder 30px Tahoma; */
+        /* font: 30px Tahoma; */
+        font: 30px; /*无效*/
+
+        /* border-width: 2px;
+            border-style: solid;
+            border-color: seagreen; */
+        /* border简写 顺序无关,要素可以任选一个或多个，不过没有style则默认为none即不显示，但它仍然占空间*/
+        border: 10px solid seagreen;
+        /* border: solid 10px seagreen; */
+        /* border: solid 10px; */
+        /* border:10px; */
+        line-height: 200px;
+
+        /* padding-top: 10px;
+        padding-right: 15px;
+        padding-bottom: 20px;
+        padding-right: 25px; */
+        /* padding简写 顺序:上 右 下 左 */
+        padding: 10px 15px 20px 25px;
+        padding: 10px 15px 20px; /* 上是10px 左右是15px 下是20px */
+        padding: 10px 15px; /* 上下是10px 左右是15px */
+        padding: 10px; /* 上下左右都是10px */
+        /* margin简写  顺序同padding */
+        margin: 10px 15px 20px 25px;
+
+        background-image: url(https://img.php.cn/upload/course/000/000/003/5a530c9c6c775990.jpg);
+        background-repeat: no-repeat;
+        /* 简写 顺序:x轴 y轴 它的顺序可通过left、top、bottom和right指写，默认是left top */
+        background-position: 20px 30px;
+        /* background-position:right 20px bottom 10px  */
+      }
+
+      /* 演示em和rem */
+      :root { font-size: 0.625em; }
+      * { font-size: 1.6rem; }
+      .box:last-of-type {
+        font-size: 2rem;
+        padding: 1em;
+
+        height: 200px;
+        background-clip: content-box;
+        background-color: seagreen;
+        background-image: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">PHP中文网</div>
+    <div class="box">em和rem演示</div>
+  </body>
+</html>
