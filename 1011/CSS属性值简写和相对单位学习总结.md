@@ -145,6 +145,7 @@ background-image: none;
 >- em和rem使用自适应多端，但要认清**它们大小等于谁一定**。px常用于border和position。
 >- margin、padding只能设置宽度不能设置样式和颜色，它是**透明的**；而border可设置宽度、样式和颜色。
 >- 学会用**outline定位元素边界**，排查布局的问题，而border不适合定位元素边界，因为它占空间，影响布局，而outline只是轮廓，不影响布局。
+>- 关于background-position中xy轴(0,0)分析见以后定位文章，提醒的是它是变化的，默认为盒模型border内left top即左上为(0,0)。
 
 源码在我的博客<https://www.php.cn/blog/freegroup.html>
          Gitee<https://gitee.com/freegroup81/phpcn13>
