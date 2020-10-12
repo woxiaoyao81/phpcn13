@@ -1,15 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: woxiaoyao
- * @Date: 2020-10-12 08:21:52
- * @LastEditTime: 2020-10-12 17:07:44
--->
-border和outline
-简写顺序     (边距)上右下左，(位置)xy，复合属性(无序)
-盒模型       背景裁切clip，背景定位
-em和rem
-
 ### 一、学到的新认识
 本意味CSS属性值简写和相对单位已经很熟悉了，结果老师讲课后，我又接触了几个陌生的概念
 #### 1. outline
@@ -157,3 +145,6 @@ background-image: none;
 >- em和rem使用自适应多端，但要认清**它们大小等于谁一定**。px常用于border和position。
 >- margin、padding只能设置宽度不能设置样式和颜色，它是**透明的**；而border可设置宽度、样式和颜色。
 >- 学会用**outline定位元素边界**，排查布局的问题，而border不适合定位元素边界，因为它占空间，影响布局，而outline只是轮廓，不影响布局。
+
+源码在我的博客<https://www.php.cn/blog/freegroup.html>
+         Gitee<https://gitee.com/freegroup81/phpcn13>
