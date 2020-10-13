@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>结构伪类选择器x-of-type</title>
+    <link rel="stylesheet" href="common.css" />
+    <style>
+/* 无论是x-child还是x-of-type，没有指明父元素就从根元素递归，一般推荐加上父元素 */
+/* :first-of-type{background-color: lightyellow;} */
+
+/* x-of-type不仅能处理子元素都是一样的(也称无分组)，也可以处理子元素分组的,可以说x-of-type是x-child增强版，x-child可以忘掉了 */
+.test1 div:first-of-type {
+  background-color: mediumorchid;
+}
+.test2 span:first-of-type {
+  background-color: mediumslateblue;
+}
+
+/* nth-of-type和nth-child用法一样 */
+.test1 div:nth-of-type(-n + 3) {
+  background-color: olive;
+} /* 第一行 */
+.test1 div:nth-of-type(2n + 1) {
+  background-color: peachpuff;
+} /* 奇数位置 */
+
+/* only-child和only-of-type是唯一不能替换的 */
+.test2 :only-of-type {
+  background-color: red;
+}
+.test2 a:only-child {
+  background-color: peru;
+} /* 目前无效，它要求只有一个子元素 */
+
+table{
+  width: 300px;
+  height: 100%;
+  text-align: center;
+}
+table tr:nth-of-type(odd) {
+  background-color: red;
+}
+table tr:nth-of-type(even){
+  background-color: seagreen;
+}
+    </style>
+  </head>
+  <body>
+<div class="container test1">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+  <div class="item">9</div>
+  <div class="item">10</div>
+  <div class="item">11</div>
+  <div class="item">12</div>
+  <div class="item">13</div>
+  <div class="item">14</div>
+  <div class="item">15</div>
+</div>
+<div class="container test2">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+  <div class="item">7</div>
+  <a class="item">8</a>
+  <div class="item">9</div>
+</div>
+<div class="container">
+  <table border="1">
+    <tbody>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  </body>
+</html>

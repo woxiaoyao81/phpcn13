@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>结构伪类选择器x-child</title>
+    <link rel="stylesheet" href="common.css" />
+    <style>
+/* 没有父元素限定时，则它从根元素开始递归所有子元素。建议使用结构伪类要加上父元素 */
+/* :first-child{ background-color: cyan; } */
+
+/* 遍历所有类名为container的子元素中第一个或最后一个元素 */
+.container :first-child{ background-color: cyan; }
+.container :last-child{ background-color: cyan; }
+
+/* 选择偶数或奇数的子元素 */
+.container :nth-child(2n){background-color: green; }
+.container :nth-child(even){background-color: green; }/* 偶数关键字，同上效果 */
+.container :nth-child(2n+1){background-color:indianred; }
+.container :nth-child(odd){background-color: indianred; }/* 奇数关键字，同上效果 */
+
+/* 选择以第一行开始或最后一行结束的连续一行或多行。其中n从0开始，()计算值小于等于0或大于子元素个数时结束匹配 */
+.test1 :nth-child(-n+3){ background-color: darkgoldenrod; }
+/* .test1 :nth-last-child(-n+3){ background-color: darkgoldenrod; } */
+.test1 :nth-child(n+4){background-color: darkmagenta; }
+/* .test1 :nth-last-child(n+4){background-color: darkmagenta; } */
+
+/* 选择不是第一行开始或最后一行结束的一行或连续多行，多次使用nth-child实现交集效果 */
+.test1 :nth-child(n+4):nth-child(-n+6){background-color: dodgerblue;}
+/* 选择奇数行或偶数行等不连续行，目前百度也没找到方法，只能多选择器了，意义不大 */
+/* .test1 :nth-child(6n+1),.test1 :nth-child(6n+2),.test1 :nth-child(6n+3){background-color: red;}
+.test1 :nth-child(6n+4),.test1 :nth-child(6n+5),.test1 :nth-child(6n+6){background-color:aqua;}     */
+/* 选择除第二行外所有行 */
+.test1 :not(:nth-child(n+4)),.test1 :not(:nth-child(-n+6)){background-color: cadetblue;}
+
+/* 选择第二列 */
+.test2 :nth-child(3n+2){background-color: red;}
+/* 选择连续多列 */
+.test2 :nth-child(3n+1),.test2 :nth-child(3n+2){background-color: brown; }
+/* 选择除第2列外所有列 */
+.test2 :not(:nth-child(3n+2)){background-color:lawngreen;}
+
+    </style>
+  </head>
+  <body>
+    <div class="container test1">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+      <div class="item">10</div>
+      <div class="item">11</div>
+      <div class="item">12</div>
+      <div class="item">13</div>
+      <div class="item">14</div>
+      <div class="item">15</div>
+    </div>
+    <div class="container test2">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <span class="item">4</span>
+      <span class="item">5</span>
+      <span class="item">6</span>
+      <div class="item">7</div>
+      <a class="item">8</a>
+      <div class="item">9</div>
+    </div>
+  </body>
+</html>

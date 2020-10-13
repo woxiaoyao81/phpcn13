@@ -1,0 +1,35 @@
+body{
+  display: flex;
+  justify-content: space-around;
+}
+.container {
+  width: 300px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.item {
+  font-size: 2rem;
+  background-color: lightskyblue;
+  display: grid;
+  place-content: center;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('fonticon/iconfont.eot');
+  src: url('fonticon/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('fonticon/iconfont.woff2') format('woff2'),
+      url('fonticon/iconfont.woff') format('woff'),
+      url('fonticon/iconfont.ttf') format('truetype'),
+      url('fonticon/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 1rem;
+  font-style: normal;
+  color:rgba(255,0,0,0.5);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

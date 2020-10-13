@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>阿里字体图标使用</title>    
+    <!-- Unicode引用所需样式 -->
+    <style>
+      @font-face {
+        font-family: 'iconfont';
+        src: url('fonticon/iconfont.eot');
+        src: url('fonticon/iconfont.eot?#iefix') format('embedded-opentype'), url('fonticon/iconfont.woff2') format('woff2'), url('fonticon/iconfont.woff') format('woff'),
+          url('fonticon/iconfont.ttf') format('truetype'), url('fonticon/iconfont.svg#iconfont') format('svg');
+      }
+
+      .iconfont {
+        font-family: 'iconfont' !important;
+        font-size: 2rem;
+        font-style: normal;
+        color: seagreen;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <!-- font-class引用所需样式 -->
+    <link rel="stylesheet" href="fonticon/iconfont.css">
+    <!-- Symbol引用所需样式 -->
+    <style>
+        .icon {
+          width: 2rem;
+          height: 2rem;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
+        }
+        </style>
+  </head>
+  <body>
+    <h2>Unicode 引用 ,兼容性好</h2>
+    <span class="iconfont">&#xe66d;</span>
+    <hr />
+    <h2>font-class 引用</h2>
+    <span class="iconfont icon-shoucang"></span>
+    <hr>
+    <h2>Symbol 引用，多彩图标</h2>
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-shoucang"></use>
+      </svg>
+  </body>
+  <!-- Symbol引用所需脚本 -->
+  <script src="fonticon/iconfont.js"></script>
+</html>
