@@ -1,0 +1,53 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-21 14:33:26
+ * @LastEditTime: 2020-10-21 18:43:50
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>相对单位em和应用</title>
+<style>
+/* 基本样式 */
+.btn {
+outline: none;
+border: none;
+padding: 0.5em 1em;
+margin: 0 0.8em;
+color: white;
+background-color: darkgreen;
+border-radius: 0.5em;
+}
+.btn:hover {
+opacity: 0.8;
+transition: 0.3s;
+cursor: pointer;
+box-shadow: 0 0 0.2em red;
+}
+/* 不同尺寸效果 */
+.big { font-size: 20px; }
+.medium { font-size: 16px; }
+.small { font-size: 12px; }
+/* 重点展示效果 */
+div { margin: 20px auto; }
+span：link { font-size: 16px; }
+span:hover { font-size: 22px; transition: 0.3s; }
+</style>
+  </head>
+<body>
+<div>
+    <h1>按钮不同尺寸</h1>
+    <button class="btn big">相对单位</button>
+    <button class="btn medium">相对单位</button>
+    <button class="btn small">相对单位</button>
+</div>
+<div>
+    <h1>重点突出显示</h1>
+    <span class="btn">重点展示</span>
+</div>
+</body>
+</html>

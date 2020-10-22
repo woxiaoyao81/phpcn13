@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>盒模型各属性的探讨</title>
+    <style>
+      body {
+        font-size: 8px;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 10px;
+      }
+      aside,
+      main {
+        padding: 10px;
+      }
+      .aside-item {
+        text-align: center;
+        background-color: lightgray;
+      }
+      .aside-item > h3 {
+        margin: 0;
+        border-bottom: 2px solid;
+      }
+      .box-item {
+        position: relative;
+        margin: 10px 20px;
+        background-color: lightgray;
+      }
+      .header .box-item:nth-child(2) .box:nth-child(n) {
+        display: inline-block;
+      }
+      .btn {
+        width: 80%;
+        outline: none;
+        border: none;
+        box-sizing: border-box;
+        background-color: seagreen;
+        padding: 0.5em 1em;
+        margin: 0.5em auto;
+        border-radius: 0.5em;
+      }
+      .btn:hover {
+        opacity: 0.8;
+        transition: 0.3s;
+        cursor: pointer;
+        box-shadow: 0 0 3px gray;
+      }
+      /* 盒模型组成:外边距margin、边框border、内边距padding和内容content四个部分组成 */
+      /* 一、宽度width、高度height和box-sizing
+盒模型的宽度和高度计算依据是box-sizing，默认是content-box，即等于内容宽度和高度。
+而在布局时border和padding撑开盒模型空间导致布局不稳定，建议设置为border-box，即宽度和高度包括border和padding。
+盒模型宽度和高度是不包括margin。*/
+      .box {
+        width: 300px;
+        height: 150px;
+        padding: 5px;
+        border: 5px solid violet;
+        background-color: seagreen;
+      }
+      .boxsizing-border {
+        box-sizing: border-box;
+      }
+
+      /* 二、边框border和内边距padding
+边框border可设置：宽度、样式和颜色。而内边距padding是透明的，只能设置宽度*/
+      .border {
+        border: 10px solid violet;
+      }
+      .padding {
+        padding: 30px;
+      }
+
+      /* 三、外边距margin 
+单独探讨margin是因为比较特殊，尤其是右或下边距延伸特性和取值特殊性
+1. margin的左或上边距始终生效，相对于父元素的左上角。右或下边距在右侧或下方有其它元素时有效，若右侧或下方没有其它元素则延伸，对元素布局不影响
+2. margin可以设置绝对值、百发比和auto。绝对值和百分比是按第一条规则布局的，但是百分比要注意横向和竖向百分比的计算规则，可见下面详解
+3. 取值auto时，竖向为0，横向是一个元素时则平均分容器宽度减去元素宽度得到的值，若是多个元素时则为0*/
+      .margin-px {
+        margin: 10px 20px;
+      }
+      .margin-per {
+        margin: 5% 5%;
+      }
+      .margin-parent {
+        width: 900px;
+        height: 300px;
+      }
+      .margin-auto {
+        margin: auto auto;
+      }
+
+      /* 四、背景裁剪backgroud-clip
+默认值是border-box，背景色或背景图延伸到边框；为padding-box延伸到内边距；为content-box延伸到内容 */
+      .clip {
+        border-width: 20px;
+        padding: 20px;
+        border-style: dashed; /* 设置边框样式为虚线，可以看到padding-box和border-box的区别 */
+      }
+      .clip-border {
+        background-clip: border-box;
+      }
+      .clip-padding {
+        background-clip: padding-box;
+      }
+      .clip-content {
+        background-clip: content-box;
+      }
+
+      /* 五、百分比的依据         
+width、margin、padding中百分比都是依据父元素的width。可以利用这个特性，设置width和padding来适应背景图的长宽比。
+height的百分比是依据父元素的height。它的计算非常特殊，详细见下面
+background-position的百分比是依据元素减去图片的剩余值，即元素300px，图元素100px，则此时百分比20%就是0.2*(300-100)=40px。
+定位position中left、right依据父元素宽度，top和bottom依据父元素的高度。*/
+      /* 六、百分比的计算(块或行内块)
+宽度百分比：父元素指明宽度时，百分比就是父元素宽度百分比；若父元素未指明时，切记不是父元素被撑开的宽度百分比，而是向上寻找，直到有指明宽度为止，body宽度默认为屏幕宽度
+高度百分比：父元素指明高度时，百分比就是父元素高度百分比；若父元素未指明时，则它视为0，不会向上寻找，也不考虑撑开的高度 */
+      .per-backimg {
+        /* 清除原样式 */
+        padding: 0;
+        border: none;
+        height: auto;
+        /* 按背景图比例设置区域 */
+        width: 36%;
+        padding-bottom: 20%;
+        background-image: url(https://img.php.cn/upload/course/000/000/001/5f59db624c2e2735.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .per-width {
+        width: 40%;
+        margin-left: 2%;
+        border-width: 5%;
+      }
+      .per-height {
+        height: 10%;
+      }
+      .per-backpos {
+        /* 清除原样式 */
+        padding: 0;
+        border: none;
+        width: 600px;
+        height: 350px;
+        background-size: auto;
+        background-position: 20% 20%;
+      }
+      .per-position {
+        position: absolute;
+        left: 10%;
+        top: 10%;
+      }
+      .header .box-item:nth-child(2) .per-position:nth-child(1) {
+        left: 20%;
+        top: 200px;
+      }
+      .header .box-item:nth-child(2) .per-position:nth-child(2) {
+        left: 30%;
+        top: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="aside-item">
+        <h3>盒模型box-sizing</h3>
+        <div class="btn" onclick="bsAdd(0)">默认值content-box</div>
+        <div class="btn" onclick="bsAdd(1)">建议值border-box</div>
+      </div>
+      <div class="aside-item">
+        <h3>border和padding</h3>
+        <div class="btn" onclick="bpTest(0)">padding</div>
+        <div class="btn" onclick="bpTest(1)">border</div>
+      </div>
+      <div class="aside-item">
+        <h3>外边距margin</h3>
+        <div class="btn" onclick="mgTest(0)">绝对值</div>
+        <div class="btn" onclick="mgTest(1)">百分比(父无宽高)</div>
+        <div class="btn" onclick="mgTest(2)">百分比(父有宽高)</div>
+        <div class="btn" onclick="mgTest(3)">auto</div>
+      </div>
+      <div class="aside-item">
+        <h3>背景裁剪backgroud-clip</h3>
+        <div class="btn" onclick="clipTest(0)">默认值border-box</div>
+        <div class="btn" onclick="clipTest(1)">padding-box</div>
+        <div class="btn" onclick="clipTest(2)">content-box</div>
+      </div>
+      <div class="aside-item">
+        <h3>百分比详解</h3>
+        <div class="btn" onclick="perTest(0)">与宽度相关属性</div>
+        <div class="btn" onclick="perTest(1)">按背景图比例区域</div>
+        <div class="btn" onclick="perTest(2)">高度百分比</div>
+        <div class="btn" onclick="perTest(3)">背景位置百分比</div>
+        <div class="btn" onclick="perTest(4)">定位百分比</div>
+      </div>
+    </aside>
+    <main class="header">
+      <div class="box-item">
+        <div class="box"></div>
+      </div>
+      <div class="box-item">
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const box = document.getElementsByClassName('box');
+    const boxitem = document.getElementsByClassName('box-item');
+    function boxReset() {
+      for (let i = 0; i < box.length; i++) {
+        box.item(i).setAttribute('class', 'box');
+      }
+      for (let i = 0; i < boxitem.length; i++) {
+        boxitem.item(i).setAttribute('class', 'box-item');
+      }
+    }
+    function boxAdd(str) {
+      for (let i = 0; i < box.length; i++) {
+        box.item(i).classList.add(str);
+      }
+    }
+    function boxItemAdd(str) {
+      for (let i = 0; i < boxitem.length; i++) {
+        boxitem.item(i).classList.add(str);
+      }
+    }
+    boxReset();
+    function bsAdd(value) {
+      boxReset();
+      value == 0 ? box[0].classList.add('boxsizing-border') : box[0].classList.remove('boxsizing-border');
+    }
+    function bpTest(value) {
+      boxReset();
+      value == 1 ? box[0].classList.add('border') : box[0].classList.add('padding');
+    }
+    function mgTest(value) {
+      boxReset();
+      switch (value) {
+        case 0:
+          boxAdd('margin-px');
+          break;
+        case 1:
+          boxAdd('margin-per');
+          break;
+        case 2:
+          boxItemAdd('margin-parent');
+          boxAdd('margin-per');
+          break;
+        case 3:
+          boxAdd('margin-auto');
+          break;
+        default:
+          break;
+      }
+    }
+    function clipTest(value) {
+      boxReset();
+      switch (value) {
+        case 0:
+          boxAdd('clip');
+          boxAdd('clip-border');
+          break;
+        case 1:
+          boxAdd('clip');
+          boxAdd('clip-padding');
+          break;
+        case 2:
+          boxAdd('clip');
+          boxAdd('clip-content');
+          break;
+        default:
+          break;
+      }
+    }
+    function perTest(value) {
+      boxReset();
+      switch (value) {
+        case 0:
+          boxAdd('per-width');
+          break;
+        case 1:
+          boxAdd('per-backimg');
+          break;
+        case 2:
+          boxAdd('per-height');
+          break;
+        case 3:
+          boxAdd('per-backimg');
+          boxAdd('per-backpos');
+          break;
+        case 4:
+          boxAdd('per-backimg');
+          boxAdd('per-position');
+          break;
+        default:
+          break;
+      }
+    }
+  </script>
+</html>
