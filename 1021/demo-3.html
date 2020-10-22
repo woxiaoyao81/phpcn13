@@ -1,0 +1,84 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-22 14:42:04
+ * @LastEditTime: 2020-10-22 15:28:13
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>响应式设计中相对单位应用场景演示</title>
+  </head>
+<style>
+* { box-sizing: border-box; text-align: center; }
+body { display: flex; flex-direction: column; justify-content: space-between; }
+
+/* 整体布局:建议使用vw和vh */
+.page-head { height: 10vh; background-color: darkcyan; }
+.container { height: 75vh; background-color: lightblue; display: flex; }
+.page-foot { height: 10vh; background-color: lightsalmon; }
+
+/* 局部布局:建议使用百分比,盒模型相关属性使用em */
+.aside {
+/* 局部使用vw效果不好 */
+/* width: 30vw; */
+width: 30%;
+height: 100%;
+background-color: lightslategray;
+background-clip: content-box;
+padding: 0.5em;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.main {     
+/* 局部使用vw效果不好 */ 
+/* width: 68vw; */
+width: 70%;
+height: 100%;
+background-color: peru;
+background-clip: content-box;
+padding: 0.5em;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.content {
+height: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.section-box {
+display: flex;
+height: 50%;
+}
+.section {
+width: 50%;
+height: 100%;
+background-color: violet;
+background-clip: content-box;
+padding: 0.5em;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+</style>
+<body>
+<header class="page-head"><h3>header</h3></header>
+<div class="container">
+<aside class="aside"><h3>aside</h3></aside>
+<main class="main">
+<div class="content"><h3>main</h3></div>
+<div class="section-box">
+    <section class="section"><h3>section</h3></section>
+    <section class="section"><h3>section</h3></section>
+</div>
+</main>
+</div>
+<footer class="page-foot"><h3>footer</h3></footer>
+</body>
+</html>

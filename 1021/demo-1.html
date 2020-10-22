@@ -1,0 +1,63 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-22 13:25:55
+ * @LastEditTime: 2020-10-22 13:51:52
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字号相对单位应用场景</title>
+    <style>
+/*
+1. rem: 用在font-size,设置字号,尽可能不要用在:root 
+2. em: 用在依赖字号的属性的上,padding,margin,width, height,....
+3. px: border
+*/
+.panel {
+  border: 1px solid lightgray;
+  padding: 0.5em 1em;
+  background-color: lightgray;
+  border-radius: 0.5em;
+}
+.panel > h3 {
+  font-size: 1.3rem;
+  margin: 0.2em auto;
+}
+.panel > p {
+  font-size: 1.1rem;
+  line-height: 2em; /* 行高 */
+  text-indent: 2em; /* 缩进2个字符 */
+}
+/* 小屏，宽度大于400px */
+@media screen and (min-width: 400px) {
+  :root {
+    font-size: 0.75em;
+  }
+}
+/* 平板，宽度大于800px */
+@media screen and (min-width: 800px) {
+  :root {
+    font-size: 0.875em;
+  }
+}
+/* PC，宽度大于1200px */
+@media screen and (min-width: 1200px) {
+  :root {
+    font-size: 1em;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h3>字号相对单位使用建议</h3>
+      <p class="title">
+        字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议,字号相对单位使用建议
+      </p>
+    </div>
+  </body>
+</html>
