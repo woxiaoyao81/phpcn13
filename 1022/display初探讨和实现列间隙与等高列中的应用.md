@@ -214,44 +214,79 @@ header {
 >- **scroll:** 对溢出内容不改变宽度或高度情况下，通过设置overflow-x:scroll、overflow-y:scroll和overflow:scroll，实现滚动查看溢出内容。
 >- **auto:** 当内容溢出时,显示滚动条,否则就不显示
 
+这里要注意下**表格间隙**问题，课中老师是使用**border-spacing**来实现的，因为表格没有margin了，然后通过在外套一层容器，通过容器的margin取负值拉伸来调整达到100%，不过又产生一个问题是底部横向出现滚动条,明显这不是我们想要的。border-spacing设置间隙时不能控制左右或上下，只能是横向或竖向，而相近的border则可以任意控制上、下、左或右，那么表格布局中border是否还有效呢？经测试有效，于是**改进方案就是通过border来设置间隙**可以完善解决问题。
+
+>- 为了平衡，我设置了左侧的右边框和右侧的左边框为间隙的一半。
+>- 背景裁切backgrond-clip要修改为padding-box，不能是默认的border-box，否则背景色或背景图延伸到边框,就看不到边框产生的间隙了。
+
+
 ```html
 <style>
-    * { margin: 0; padding: 0; border: none; outline: none; box-sizing: border-box; }
-    .main,
-    .sidebar,
-    .widget {
-    background-color: #0072b0;
-    color: white;
-    padding: 0.5em 1em;
-    vertical-align: top;
-    }
-    /* table布局实现等高列 */
-    .container {
-    display: table;
-    /* 表格宽高默认由内容决定，并不会像块元素那样充满父级容器的全部空间 */
-    width: 100%;
-    /* 表格中不支持margin; 列间隙/单元格间隙*/
-    border-spacing: 1em;
-    }
-    .main,
-    .sidebar {
-    /* 转为单元格之后就默认等高了,于是等高列就实现了 */
-    display: table-cell;
-    }
-    /* 给这个table类似的容器外面套一个壳,利用负的外边距消除列间隙对最外侧左右的影响 */
-    .wrapper{ margin-left: -1em; margin-right: -1em; }
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+header {
+  background-color: #0072b0;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+.main,
+.sidebar,
+.widget {
+  background-color: #0072b0;
+  background-clip: padding-box;
+  color: white;
+  padding: 0.5em 1em;
+  vertical-align: top;
+}
+/* table布局实现等高列 */
+.container {
+  display: table;
+  /* 表格宽高默认由内容决定，并不会像块元素那样充满父级容器的全部空间 */
+  width: 100%;
+  /* 表格中不支持margin; 列间隙/单元格间隙*/
+  /* 经测试使用此间隙，再通过外套margin取负值拉伸，结果在横向出现滚动条 */
+  /* border-spacing: 1em; */
+}
+.main,
+.sidebar {
+  /* 转为单元格之后就默认等高了,于是等高列就实现了 */
+  display: table-cell;
+}
+/* 列间隙通过边框border来实现，可以灵活调整上下左右，而不像border-spacing那么死只能横向或竖向 */
+/* #十六进制表示颜色，前6位就是我们常用的RGB，最后两位是透明度,有00-ff个透明选择 */
+.main {
+  width: 70%;        
+  border-right: 0.5em solid#ffffff00;
+}
+.sidebar {
+  width: 30%;
+  border-left-width: 0.5em solid #ffffff00;
+}
 </style>
-<div class="wrapper">
-    <div class="container">
-    <main class="main">
-        <h2>欢迎加入战队</h2>
-        <p>据<a href="https://w3techs.com/">w3techs</a>统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸 </p>
-    </main>
-    <aside class="sidebar">
-        <div class="widget"></div>
-        <div class="widget"></div>
-    </aside>
-    </div>
+</style>
+<header>
+  <h1> 等高列解决方案一:table布局</h1>
+</header>
+<div class="container">
+  <main class="main">
+    <h2>欢迎加入战队</h2>
+    <p>
+      据
+      <a href="https://w3techs.com/">w3techs</a>
+      统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸
+    </p>
+  </main>
+  <aside class="sidebar">
+    <div class="widget"></div>
+    <div class="widget"></div>
+  </aside>
 </div>
 ```
 
