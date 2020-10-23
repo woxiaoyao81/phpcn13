@@ -1,0 +1,68 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-23 13:33:41
+ * @LastEditTime: 2020-10-23 13:35:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>等高列解决方案一:table布局</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+      }
+      .main,
+      .sidebar,
+      .widget {
+        background-color: #0072b0;
+        color: white;
+        padding: 0.5em 1em;
+        vertical-align: top;
+      }
+      /* table布局实现等高列 */
+      .container {
+        display: table;
+        /* 表格宽高默认由内容决定，并不会像块元素那样充满父级容器的全部空间 */
+        width: 100%;
+        /* 表格中不支持margin; 列间隙/单元格间隙*/
+        border-spacing: 1em;
+      }
+      .main,
+      .sidebar {
+        /* 转为单元格之后就默认等高了,于是等高列就实现了 */
+        display: table-cell;
+      }
+      /* 给这个table类似的容器外面套一个壳,利用负的外边距消除列间隙对最外侧左右的影响 */
+      .wrapper {
+        margin-left: -1em;
+        margin-right: -1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <main class="main">
+          <h2>欢迎加入战队</h2>
+          <p>
+            据
+            <a href="https://w3techs.com/">w3techs</a>
+            统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸
+          </p>
+        </main>
+        <aside class="sidebar">
+          <div class="widget"></div>
+          <div class="widget"></div>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

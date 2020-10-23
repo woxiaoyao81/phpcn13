@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS函数演示</title>
+    <style>
+      /* 左右外边距固定，内容居中 */
+      .banner {
+        box-sizing: border-box;
+        margin: auto 40px;
+        width: calc(100% - 80px);
+        border: 1px solid;
+        box-shadow: 1px 2px;
+        background-color: yellow;
+        text-align: center;
+      }
+      /* 按一定比例自适应容器 */
+      .container {
+        width: 80%;
+        background-color: lightgray;
+        font-size: 0; /* 解决inline-block水平间隙,此时子元素要重新设置字号 */
+      }
+      .item {
+        display: inline-block;
+        color: white;
+        font-size: 1rem;
+        background-color: #0072b0;
+        width: calc(100% / 4 - 6px);
+        margin: auto 3px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>左右外边距固定，内容居中</h3>
+    <div class="banner">This is a banner!</div>
+    <h3>按一定比例自适应容器</h3>
+    <div class="container">
+      <div class="item"><p>11</p></div>
+      <div class="item"><p>12</p></div>
+      <div class="item"><p>23</p></div>
+      <div class="item"><p>34</p></div>
+    </div>
+  </body>
+</html>

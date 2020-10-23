@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>列间隙方案:百分比和百分比+em</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+      }
+      header {
+        background-color: #0072b0;
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        margin-bottom: 1em;
+      }
+      .container {
+        font-size: 0; /* 解决行内块水平间隙问题 */
+      }
+      .main,
+      .sidebar,
+      .widget {
+        display: inline-block;
+        font-size: 1rem; /* 解决行内块水平间隙问题 */
+        vertical-align: top; /* 解决行内块不是顶端对齐，默认是底部对齐 */
+        background-color: lightcyan;
+        padding: 1.5em;
+      }
+      /* 一、百分比实现列间隙 */
+      /* .main{width: 70%;}
+.sidebar{width:29%;margin-left: 1%;} */
+      /* 二、百分比+em实现列间隙 */
+      .main {
+        width: calc(70% - 0.5em);
+        margin-right: 0.5em;
+      }
+      .sidebar {
+        width: calc(30% - 0.5em);
+        margin-left: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+        列间隙
+        <small>display行内块和box-sizing</small>
+      </h1>
+    </header>
+    <div class="container">
+      <main class="main">
+        <h2>欢迎加入战队</h2>
+        <p>
+          据
+          <a href="https://w3techs.com/">w3techs</a>
+          统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸
+        </p>
+      </main>
+      <aside class="sidebar">
+        <div class="widget"></div>
+        <div class="widget"></div>
+      </aside>
+    </div>
+  </body>
+</html>

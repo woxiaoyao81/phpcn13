@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>按背景图比例自适应和文字排版</title>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+/* 字号自适应，PC端vw,小程序是rpx或vw */
+:root {
+  font-size: 2vw;
+}
+h3 {
+  margin: 20px auto;
+  color: white;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  --item-height: 42vw;
+  --item-color: #0072d0;
+}
+.container {
+  height: var(--item-height);
+  background-color: var(--item-color);
+  border-radius: 0.5em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 整体布局相对单位要使用vw和vh */
+.left {
+  width: calc(28vw - 0.5em);
+  margin-right: 0.5em;
+}
+.right {
+  width: calc(70vw - 0.5em);
+  margin-left: 0.5em;
+}
+.item-box {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+/* 1.按背景图比例自适应容器，使用百分比 */
+.banner {
+  width: 80%;
+  padding-bottom: 40%;
+  background-image: url(mark_back_choose.png);
+  background-position: center;
+  background-size: cover;
+}
+
+/* 2.改进版：按背景图比例自适应+文字排版 */
+.item {
+  /* box-sizing一般都设置成border-box，而这种方法需要必为默认 */
+  box-sizing: initial;
+  width: 40%;
+  /* 目前是一行，多行时height根据需要调整 */
+  height: 1em;
+  /* 文字居中排版*/
+  padding-top: calc(24% - 0.7em);
+  padding-bottom: calc(24% - 0.3em);
+  background-image: url(book_xiaoxueyuwen_bg.png);
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+}
+/* 文字下方排版，要注意0.7em和0.3em不要动，只要修改照百分比就可以调整了 */
+.item-box :nth-child(2) {
+  padding-top: calc(38% - 0.7em);
+  padding-bottom: calc(10% - 0.3em);
+}
+.item > span {
+  margin-left: 10%;
+  text-shadow: 3px 3px 5px gray;
+}
+    </style>
+  </head>
+
+  <body>
+<div class="wrapper">
+  <div class="container left">
+    <h3>按背景图比例自适应</h3>
+    <div class="banner"></div>
+    <div class="banner"></div>
+  </div>
+  <div class="container right">
+    <h3>改进版：按背景图比例自适应+文字排版</h3>
+    <div class="item-box">
+      <div class="item"><span>六年级上册(居中)</span></div>
+      <div class="item"><span>六年级下册(下方)</span></div>
+    </div>
+  </div>
+</div>
+  </body>
+</html>
