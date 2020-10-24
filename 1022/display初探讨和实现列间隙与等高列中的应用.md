@@ -292,8 +292,56 @@ header {
 
 ![等高列](height.png)
 
-### 学习后总结
+## 六、等高列的解决方案二:flex布局
+
+现在最流行的flex布局实现等高列就更简单了，几行CSS样式就完美解决，默认行中所有列都是等高的，而且没有滚动条的烦恼。
+
+```html
+.main,
+.sidebar,
+.widget {  
+  background-color:brown;      
+  color: white;
+  padding: 0.5em 1em;
+}
+
+/* flex布局 */
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.main {
+  flex: 0 0 70%;
+  background-color: #0072b0;
+}
+.sidebar {
+  flex: 0 0 29%;
+  background-color: #0072b0;
+}
+<header>
+  <h1>等高列解决方案二:flex布局</h1>
+</header>
+<div class="container">
+  <main class="main">
+    <h2>欢迎加入战队</h2>
+    <p>
+      据
+      <a href="https://w3techs.com/">w3techs</a>
+      统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸
+    </p>
+  </main>
+  <aside class="sidebar">
+    <div class="widget"></div>
+    <div class="widget"></div>
+  </aside>
+</div>
+```
+![flex等高列](height-flex.png)
+
+## 学习后总结
 
 >- display要深入探讨下，尤其是在布局中应用。如本文所说的table布局。
 >- 自适应是适应多端的根本本要求，它们离不开相对单位、百分比和calc()和布局。
 >- 无论行内块元素inline-block(或inline-flex)还是table布局，都存在**间隙问题** 。前者是默认存在，需要清除。后者不推荐使用border-spacing，具体说明见上面。这里推荐border来解决。
+>- flex弹性布局在自适应布局上有先天优势，如等高、居中等问题都能很简便解决。
+>- 等高列解决方案老师还讲了min-height和max-height，由于它只能适应固定尺寸，不符合现在自适应，这里就不推荐了。
