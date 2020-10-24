@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>外边距margin中百分比和auto</title>
+<style>
+    .container {
+    width: 800px;
+    height: 200px;
+    background-color: lightgray;
+    }
+    .box {
+    width: 300px;
+    background-color: #007d20;        
+    }
+    .auto{ margin:auto; }
+    .per{ margin:10%; }
+</style>
+  </head>
+  <body>
+<div class="container">
+    <div class="box auto">外边距margin的auto</div>
+    <div class="box per">外边距margin的百分比</div>
+</div>
+  </body>
+</html>

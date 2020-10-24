@@ -1,0 +1,44 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-24 09:57:16
+ * @LastEditTime: 2020-10-24 10:48:14
+-->
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-24 09:57:16
+ * @LastEditTime: 2020-10-24 10:37:20
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高度中百分比和auto</title>
+<style>
+    body {
+    /* 显示指明高度：就是在父元素或容器通过height来指明。内容或背景图撑开的高度不是指明高度 */
+    /* height: 100px; */
+    background-color: lightcyan;
+    }
+    .box {
+    width: 800px;
+    margin: 10px 40px;
+    background-color: #0072d0;
+    }
+    /* 1. height:auto */
+    .auto { height: auto;
+    }
+    /* height:100% */
+    .per { height: 100%; }
+</style>
+  </head>
+<body>
+<h1>未显示指明父元素高度时，由内容撑开高度</h1>
+<div class="box auto">height:auto</div>
+<div class="box per">height:100%</div>
+</body>
+</html>
