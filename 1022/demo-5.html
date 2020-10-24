@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>等高列解决方案二:flex布局</title>
+    <style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+  header {
+    background-color: #0072b0;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+  }
+.main,
+.sidebar,
+.widget {  
+  background-color:brown;      
+  color: white;
+  padding: 0.5em 1em;
+}
+
+/* flex布局 */
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.main {
+  flex: 0 0 70%;
+  background-color: #0072b0;
+}
+.sidebar {
+  flex: 0 0 29%;
+  background-color: #0072b0;
+}
+    </style>
+  </head>
+  <body>
+<header>
+  <h1>等高列解决方案二:flex布局</h1>
+</header>
+<div class="container">
+  <main class="main">
+    <h2>欢迎加入战队</h2>
+    <p>
+      据
+      <a href="https://w3techs.com/">w3techs</a>
+      统计,目前全球Web开发领域,php仍以78.8%占有率,傲视所有对手, 那些天天唱衰PHP的家伙们被啪啪打脸
+    </p>
+  </main>
+  <aside class="sidebar">
+    <div class="widget"></div>
+    <div class="widget"></div>
+  </aside>
+</div>
+  </body>
+</html>
