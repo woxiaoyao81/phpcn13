@@ -1,0 +1,100 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-27 13:49:41
+ * @LastEditTime: 2020-10-27 16:07:02
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex基本属性</title>
+    <style>
+      .container {
+        height: 50vh;
+        border: 2px solid;
+        display: flex;
+      }
+      .container > .item {
+        width: 8em;
+        color: white;
+        background-color: #007d20;
+        text-align: center;
+        border: 1px solid brown;
+      }
+      /* 容器属性一:主轴方向和换行方式flex-flow
+默认是水平方向row，不换行nowrap
+*/
+      .container {
+        flex-flow: row wrap;
+
+        /* flex-flow:column; */
+        /* flex-flow:column wrap; */
+
+        /* flex-flow:row-reverse wrap; */
+        /* flex-flow: column-reverse wrap; */
+      }
+
+      /* 容器属性二:项目在主轴上的对齐方式justify-content */
+      .container {
+        /* 1. 将所有项目视为一个整体 */
+        /* 紧贴起始线 */
+        /* justify-content: flex-start; */
+        /* 紧贴终止线 */
+        /* justify-content: flex-end; */
+        /* 紧贴中间线 */
+        /* justify-content: center; */
+
+        /* 2. 将每一个项目视为一个独立的个体 */
+        /* 两端对齐: 剩余空间在"除了首尾项目之外"的每个项目之间进行平均分配 */
+        /* justify-content: space-between; */
+        /* 分散对齐: 剩余空间在每个项目"二侧"进行平均分配 */
+        /* justify-content: space-around; */
+        /* 平均对齐: 剩余空间在每个项目"之间"进行平均分配 */
+        /* justify-content: space-evenly; */
+      }
+
+      /* 容器属性三:项目在交叉轴上的对齐方式align-items */
+      .container {
+        /* align-items: baseline; */
+        /* align-items: stretch; */
+        /* align-items: flex-start; */
+        /* align-items: flex-end; */
+        align-items: center;
+      }
+
+      /* 容器属性四:项目在多行容器中的对齐方式align-content */
+      .container {
+        /* align-content: flex-start; */
+        /* align-content: center; */
+        /* align-content: flex-end; */
+        /* align-content: stretch; */
+
+        /* align-content: space-between; */
+        align-content: space-around;
+        /* align-content:space-evenly; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        item1
+        <p>123123</p>
+      </div>
+      <div class="item">item2</div>
+      <div class="item">item3</div>
+      <div class="item">item4</div>
+      <div class="item">item5</div>
+      <div class="item">item6</div>
+      <div class="item">item7</div>
+      <div class="item">item8</div>
+      <div class="item">item9</div>
+      <div class="item">item10</div>
+      <div class="item">item11</div>
+      <div class="item">item12</div>
+    </div>
+  </body>
+</html>

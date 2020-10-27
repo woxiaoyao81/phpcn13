@@ -1,0 +1,73 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-27 08:42:48
+ * @LastEditTime: 2020-10-27 13:50:31
+-->
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BFC探讨和主要用途</title>
+    <style>
+      .bfc {
+        /* 创建BFC */
+        overflow: hidden;
+      }
+      .container {
+        border: 1em dotted;
+        border-top-color: red;
+        border-bottom-color: green;
+        background-color: lightgray;
+        background-clip: content-box;
+        padding: 1em;
+        margin: 2em auto;
+      }
+      .box {
+        float: left;
+      }
+      .container > p {
+        overflow: hidden;
+      }
+.box1 > p {
+  margin: 1em;
+  background-color: seagreen;
+}
+    </style>
+  </head>
+  <body>
+    <!-- 第一个用途:创建BFC后，计算容器高度是包括浮动元素高度的，解决容器内因子元素浮动导致高度塌陷问 -->
+    <div class="container bfc">
+      <div class="box">
+        <img src="https://img.php.cn/upload/course/000/000/001/5f606a9a7fe99960.jpg" alt="" />
+      </div>
+      <p>
+        <strong>备注：</strong>
+        <span>用老师话来说BFC，它是目前比较流行的高逼格技术</span>
+      </p>
+    </div>
+
+    <!-- 第二个用途：两个相邻的BFC内垂直方向的最外边相邻盒子或BFC中垂直方向最外边盒子与相邻的盒子，BFC可以防止外边距折叠 -->
+<div class="container">
+  <div class="box1 bfc"><p>1. BFC就是页面上的一个隔离的**独立容器**，子元素不会影响到外面的元素，反之亦然。</p>
+  </div>
+  <div class="box1 bfc"><p>2. BFC内部的块元素按垂直方向排列，行内元素则按行从左向右排列。</p></div>
+</div>
+
+    <!-- 第三个用途:清除浮动带来的布局问题,常用于图文混排 -->
+<div class="container bfc">
+  <div class="box">
+    <img src="https://img.php.cn/upload/course/000/000/001/5f606a9a7fe99960.jpg" alt="" />
+  </div>
+  <div class="bfc">
+    <p>
+      本章课程是使用Thinkphp6.0框架去搭建个人博客，使用tp6的多应用模式搭建博客的前台后台，博客前台页面包括：博客首页，首页轮播，首页个人博客的无限极分类，用户登录与注册，博客详情页，博客评论，评论回复，评论的删除与隐藏等功能。数据表的设计包括博客文章分类表，博客评论表，后台RBAC权限控制表等。
+      本章课程是使用Thinkphp6.0框架去搭建个人博客，使用tp6的多应用模式搭建博客的前台后台，博客前台页面包括：博客首页，首页轮播，首页个人博客的无限极分类，用户登录与注册，博客详情页，博客评论，评论回复，评论的删除与隐藏等功能。数据表的设计包括博客文章分类表，博客评论表，后台RBAC权限控制表等。
+      本章课程是使用Thinkphp6.0框架去搭建个人博客，使用tp6的多应用模式搭建博客的前台后台，博客前台页面包括：博客首页，首页轮播，首页个人博客的无限极分类，用户登录与注册，博客详情页，博客评论，评论回复，评论的删除与隐藏等功能。数据表的设计包括博客文章分类表，博客评论表，后台RBAC权限控制表等。
+    </p>
+  </div>
+</div>
+  </body>
+</html>
