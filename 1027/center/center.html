@@ -1,0 +1,84 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-28 12:31:31
+ * @LastEditTime: 2020-10-29 11:48:49
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>页面元素居中方法探讨</title>
+<style>
+  /* 居中探讨
+  一、 基本概念
+  1、容器；块级元素或行内块元素
+  2、对象；行内元素、行内块元素和块级元素
+
+  二、行内元素居中
+  1、水平居中：父级text-align:center就成了
+  2、垂直居中: 父级line-height=父级height就成了
+
+  三、行内块元素居中
+  1、水平居中:同行内元素，在父级text-align=center就可以
+  2、垂直居中:第一步父级line-height=父级height，第二步:行内块元素中vertical-align=middle即可
+  有个特例就是图片img元素，它是行内元素，但它排版时却按行内块元素，所以它要居中要按行内块元素居中方法
+  line-height是个继承属性，居中时要注意切换
+*/
+
+  * {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .container {
+    width: 100vw;
+    height: 100vh;
+    color: #333;
+  }
+  .box {
+    margin-bottom: 1em;
+  }
+  /* 行内元素水平居中和垂直居中 */
+  .box p {
+    background-color: cadetblue;
+    height: 5em;
+    text-align: center;
+    line-height: 5em;
+  }
+  .box .in-block {
+    width: 50vw;
+  }
+  /* 图片垂直居中 */
+  img {
+    vertical-align: middle;
+  }
+</style>
+  </head>
+  <body>
+<div class="container">
+  <div class="box">
+    <p class=""><span>页面元素居中方法探讨</span></p>
+  </div>
+  <div class="box">
+    <p class="in-block"><span>页面元素居中方法探讨</span></p>
+  </div>
+  <div class="box">
+    <p class="">
+      <img src="banner_img.jpg" alt="" height="70%" />
+    </p>
+  </div>
+  <div class="box">
+    <p class="in-block">
+      <img src="banner_img.jpg" alt="" height="70%" />
+    </p>
+  </div>
+</div>
+  </body>
+</html>
+
+

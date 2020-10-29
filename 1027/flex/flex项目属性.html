@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex项目属性</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .container {
+        background-color: lightgray;
+        display: flex;
+      }
+      .container .box {
+        text-align: center;
+        color: white;
+        background-color: #007d20;
+        outline: 1px solid;
+
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .box {
+        /* flex: 放大因子 收缩因子 基准宽度 */
+        /* flex: flex-grow flex-shrink flex-basis */
+        /* 默认项目不放大,可收缩,宽度以width为准 */
+        /* 1. 三值语法 */
+        /* flex: 0 1 auto; */
+        /* flex: initial; */
+
+        /* 可放大,可收缩, 宽度自动 */
+        /* flex: 1 1 auto; */
+        /* flex: auto; */
+
+        /* 2. 二值语法 */
+        /* 第一个值永远是放大因子, 区别在于第二个值
+        第二个值是一个没有单位的,表示"收缩因子" flex-shrink 
+        第二个值有单位,表过"基准宽度" */
+        /* flex: 1 3; */
+        /* flex: 0 30%; */
+
+        /* 3. 单值语法 */
+        /* 最常用的,必须掌握 */
+        /* 如果只有一个值且无单位,表示放大因子 */
+
+        /* flex: 1; */
+        /* flex: 3; */
+        /* 如果只有一个值且是有一个有效的宽度,则表示"基准宽度" */
+        /* 此时,省略掉的是flex-grow, flex-shrink ,它们的默认值都是: 1 */
+        /* flex: 100px; */
+        /* 等价于 */
+        flex: 1 1 100px;
+      }
+
+      .container .box:first-child {
+        order: 0;
+      }
+      .container .box:nth-child(2) {
+        order: -1;
+      }
+      .container .box:last-child {
+        order: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </body>
+</html>

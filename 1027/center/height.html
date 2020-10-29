@@ -1,0 +1,58 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-29 10:44:53
+ * @LastEditTime: 2020-10-29 11:28:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>height和line-height二者的探讨</title>
+<style>
+    .test {
+    margin-bottom: 30px;
+    text-align: center;
+    border: 1px solid black;
+    background: red;
+    }
+    .test1 {
+    line-height: 0;
+    }
+    .test2 {
+    line-height: 30px;
+    }
+    .test3 {
+    height: 30px;
+    line-height: 30px;
+    }
+    .test4 {
+    height: 50px;
+    line-height: 30px;
+    }
+    .test5 {
+    height: 10px;
+    line-height: 30px;
+    }
+    .test6{
+        font-size: 50px;
+        line-height: 30px;
+    }
+    .test7{
+        font-size: 50px;
+        height: 30px;
+    }
+</style>
+  </head>
+  <body>
+<div class="test test1">line-height为0</div>
+<div class="test test2">只设置line-height，没设置height,则height取line-height</div>
+<div class="test test3">line-height和height相等时</div>
+<div class="test test4">line-height小于height时</div>
+<div class="test test5">line-height大于height时</div>
+<div class="test test6">font-size大于line-height时</div>
+<div class="test test7">font-size大于height时</div>
+  </body>
+</html>

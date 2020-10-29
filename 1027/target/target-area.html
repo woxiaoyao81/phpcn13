@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>target伪类实现显示/隐藏区域</title>
+<style>
+    #comments {
+    padding-top: 2em;
+    }
+    #comments:not(:target) {
+    display: none;
+    }
+    #comments:target {
+    display: block;
+    }
+</style>
+  </head>
+  <body>
+<header>
+    <div class="wrapper">
+    <h1>Site Title</h1>
+    </div>
+</header>
+
+<div class="wrapper body-wrapper">
+    <h2>文章区</h2>      
+    <p>
+      target伪类实现显示/隐藏区域
+    </p>
+    <p>
+    Artisan bushwick pop-up, biodiesel viral semiotics cliche pinterest fingerstache godard lo-fi franzen forage. Hammock narwhal ethical, kogi put a bird on it pork belly bushwick photo booth +1
+    master cleanse pinterest direct trade vegan tofu. Small batch cold-pressed paleo wolf, skateboard asymmetrical cred vegan pickled pinterest freegan. Man bun portland man braid, thundercats
+    </p>
+
+    <a href="#comments">Show Comments</a>
+    <section id="comments">
+        <hr>
+    <h3>评论区</h3>
+    <p>target伪类实现显示/隐藏区域</p>
+    <br />
+    <p>target伪类实现显示/隐藏区域</p>
+    <br />
+    <p>target伪类实现显示/隐藏区域</p>
+    <br />
+    <p>target伪类实现显示/隐藏区域</p>
+    <br />
+    <a href="#">Hide Comments</a>
+    </section>
+</div>
+  </body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex实现PC响应式页面</title>
+<style>
+/* 清除样式 */
+* {
+margin: 0;
+padding: 0;
+border: none;
+outline: none;
+box-sizing: border-box;
+}
+a {
+text-decoration: none;
+color: #666;
+}
+li {
+list-style: none;
+}
+
+/* 定义基本样式 */
+.container {
+width: 100vw;
+height: 100vh;
+color: #666;
+}
+#header {
+position: fixed;
+width: 100%;
+height: 80px;
+line-height: 80px;
+color: white;
+background-color: rgba(0, 202, 175, 0.75);
+transition: height 0.3s ease-in;
+
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+
+.nav {
+min-width: 60vw;
+height: 100%;
+display: flex;
+justify-content: space-evenly;
+text-align: center;
+
+font-size: 1.1em;
+}
+
+.nav li a {
+color: white;
+}
+
+.topRight {
+height: 100%;
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+.topMenu {
+visibility: hidden;
+width: 36px;
+height: 36px;
+border-radius: 5px;
+background-color: white;
+margin-left: 0.5em;
+
+display: flex;
+flex-flow: column;
+justify-content: space-evenly;
+align-items: center;
+}
+
+.topMenu span {
+width: 80%;
+height: 3px;
+background-color: rgb(0, 202, 175);
+}
+
+.closeMenu {
+display: none;
+}
+
+.closeMenu span:first-child {
+margin-top: 3px;
+transform: rotate(45deg);
+}
+.closeMenu span:last-child {
+margin-top: -18px;
+transform: rotate(-45deg);
+}
+
+/* 主体区 */
+/* 图片使用vmax效果非常好 */
+.banner > img {
+width: 100%;
+height: 30vmax;
+}
+.content{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.content h2{
+    font-size: 2em;
+}
+.content h2::before{
+    content:'-----     ';
+}
+.content h2::after{
+    content:'   -------';
+}
+.content .goods{
+    margin-top: 2em;
+    width: 100%;
+    display: flex; 
+    flex-flow: row wrap;
+    justify-content: space-evenly;         
+}
+.goods a{
+    flex:0 1 20vw;
+    text-align: center;
+    padding: 1em 2em;
+    background-color: #eee;
+    box-shadow: 1px 1px 3px black;
+    margin-bottom: 1em;
+}
+
+/* 页脚 */
+footer {
+display: flex;
+flex-flow: column nowrap;
+text-align: center;
+background-color:#333;
+
+}
+
+/* 媒人查询实现响应式 */
+@media screen and (min-width: 800px) {
+.nav li {
+    flex: 1 1 auto;
+    height: 100%;
+    border-bottom: 1px solid transparent;
+}
+.nav li a {
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+}
+.nav li:hover a {
+    background-color: whitesmoke;
+    color: #007d20;
+}
+.nav li:hover {
+    border-bottom-color: red;
+}
+}
+
+@media screen and (max-width: 800px) {
+#header {
+    justify-content: space-between;
+    height: 58px;
+    line-height: 58px;
+    padding: 0 1em;
+}
+.nav {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 58px;
+    bottom: 0;
+    min-width: 30vw;
+    background-color: rgba(0, 202, 175, 0.75);
+    transition: width 0.3s ease-in;
+
+    flex-flow: column nowrap;
+    justify-content: initial;
+}
+.nav li {
+    flex: initial;
+}
+.nav li a {
+    padding: initial;
+}
+.topMenu {
+    visibility: visible;
+}
+.nav li:hover a {
+    color: #007d20;
+}
+.nav li:hover {
+    background-color: white;
+}
+}
+
+/* target核心代码 */
+#header:target .nav {
+display: flex;
+}
+
+#header:target .openMenu {
+display: none;
+}
+
+#header:target .closeMenu {
+display: inline-flex;
+}
+</style>
+  </head>
+  <body>
+<div class="container">
+    <!-- 顶部 -->
+    <header id="header">
+    <h2>PC响应式页面</h2>
+    <ul class="nav">
+        <li><a href="">首页</a></li>
+        <li><a href="">关于我们</a></li>
+        <li><a href="">最新要闻</a></li>
+        <li><a href="">加入我们</a></li>
+    </ul>
+    <div class="topRight">
+        <a class="topMenu openMenu" href="#header">
+        <span></span>
+        <span></span>
+        <span></span>
+        </a>
+        <a class="topMenu closeMenu" href="#">
+        <span></span>
+        <span></span>
+        </a>
+    </div>
+    </header>
+
+    <!-- 主体区 -->
+    <div class="main">
+    <div class="banner">
+        <img src="../static/banner_img.jpg" alt="轮播图" />
+    </div>
+    <div class="content">
+        <h2>热销商品</h2>
+        <div class="goods">
+        <a href=""><img src="../static/goods1.jpg" alt=""></a>
+        <a href=""><img src="../static/goods2.jpg" alt=""></a>
+        <a href=""><img src="../static/goods3.jpg" alt=""></a>
+        </div>
+    </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer>
+    <p>
+        php中文网&copy;版权所有(2015-2022) | 备案号:
+        <a href="">皖ICP-150********</a>
+    </p>
+    <p>中国.合肥政务新区置地广场 | 电话: 0551-888999**</p>
+    </footer>
+</div>
+  </body>
+</html>

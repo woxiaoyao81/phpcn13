@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>target伪类基本演示</title>
+<style>
+  /* 第一个链接元素被点击时，定义ID容器中子元素样式 */
+  #container:target h2 {
+    color:seagreen
+  }
+  #container:target .show {
+    display: none;
+  }
+  #container:target .hide {
+    display: inline-block;
+  }
+  /* 第二个链接元素被点击时，定义ID容器中子元素样式 */
+  #container:not(:target) h2 {
+    color:initial;
+  }
+  #container:not(:target) .show {
+    display: inline-block;
+  }
+  #container:not(:target) .hide {
+    display: none;
+  }
+</style>
+  </head>
+  <body>
+<div class="container" id="container">
+  <h2>target伪类的使用</h2>
+  <a class="show" href="#container">显示</a>
+  <a class="hide" href="#">隐藏</a>
+</div>
+  </body>
+</html>
