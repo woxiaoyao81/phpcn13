@@ -36,7 +36,9 @@
 > 4. **网格区域**就是多个网格单元合并成的区域，也可看成大的单元格，这点和Excel是不是很像。
 
 > 属性: **grid-template-columns:** 10em 10em 10em 1fr;   网格有4列
+
 > 属性: **grid-template-rows:** 5em 5em;                 网格有2行
+
 > 属性: **gap:** 1em 2em;     网格间隙，前是行间隙，后是列间隙
 
 ```html
