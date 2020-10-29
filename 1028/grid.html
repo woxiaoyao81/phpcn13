@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid基本概念和隐式排列</title>
+    <style>
+      .container {
+        display: grid;
+
+        grid-template-columns: 10em 10em 10em;
+        grid-template-rows: 5em 5em;
+        gap: 1em;
+
+/* 项目排列方向。默认值是行优先 */
+/* grid-auto-flow: row; */
+grid-auto-flow: column;
+
+/* 隐式网格单元 */
+grid-auto-rows: auto;
+grid-auto-rows: min-content;
+grid-auto-rows: 5em;
+/* minmax是限定值的范围 */
+grid-auto-rows: minmax(5em, auto);
+      }
+      .container > .item {
+        width: 5em;
+        height: 2em;
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">item1</div>
+      <div class="item">item2</div>
+      <div class="item">item3</div>
+      <div class="item">item4</div>
+    </div>
+  </body>
+</html>
