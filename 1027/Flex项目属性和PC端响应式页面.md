@@ -333,6 +333,8 @@ display: inline-flex;
 
 ![flex-pc](flex/flex-pc.gif)
 
+### Codepen演示 <https://codepen.io/woxiaoyao81/pen/eYzVLOG>
+
 ## 三、学习的总结
 
 >- flex盒子其实将所有 **"子元素"** 转换成BFC式行内块进行排版布局。它属于一维布局。非常适合一行或一列的排版。后面要学的grid则相当于flex和table二者结合，在二维空间进行布局。
