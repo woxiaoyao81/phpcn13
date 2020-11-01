@@ -1,0 +1,89 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-30 08:13:15
+ * @LastEditTime: 2020-10-30 14:20:08
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>网格容器Grid画和调整网格单元</title>
+    <style>
+      .item {
+        width: 5em;
+        height: 2em;
+        background-color: #007d20;
+        border: 1px solid;
+      }
+      .container .item:nth-child(5) {
+        height: 3em;
+      }
+      /* 网格容器画网格单元，相关属性grid-template-columns和grid-template-rows */
+      .container {
+        /* width: 90vw; */
+        /* height: 80vh; */
+
+        display: grid;
+        /* 一、最基本画网格，指明列宽和行高 */
+        /* 1.列宽或行高属性值可是绝对值、相对值、百分比或auto，
+              使用绝对值或相对值时，网络项目width或height无效。
+              列宽用百分比是参照网格容器，auto是分配所有剩余空间。
+              行高用auto或百分比有效的前提就是"显式指明"网格容器高度，否则行高由该行的所有网格项目高度最大值决定。
+              网格项目若指明高度，则忽略内容撑开高度
+              */
+        grid-template-columns: 100px 10em 10% auto;
+        grid-template-rows: 20px 10% auto 5em;
+        /* 2.列宽或行高经常使用有fr(占剩余空间比例)和minmax(min,value)
+      minmax中value大于min时取值是value，当min>value时取值是min,min不能是fr. */
+        /* grid-template-columns: 1fr 2fr minmax(2em, 1fr) minmax(20px, 20%); */
+        /* 3.列宽或行宽可使用关键字：max-content、min-content、fit-content(),感觉三都效果都是max-content，即尺寸由内容长度决定。 */
+        /* grid-template-columns:max-content min-content fit-content(50px); */
+        /* 4.重复关键字repeat，第一个参数是重复次数，第二个参数是列宽或行高 */
+        /* grid-template-rows:repeat(3,5em); */
+        /* 5.重复次数关键字auto-fill，auto-fill表示尽量多的列，容纳不了换行 */
+        /* grid-template-columns:repeat(auto-fill,10em); */
+      }
+
+      /* 网格项目调整网格单元,相关属性包括:grid-column、grid-row和grid-area，至于grid-column-start/end，grid-row-start/end没什么使用
+            grid-column:列起始线 / 列结束线
+            grid-row:行起始线 / 行结束线
+            grid-area:行起始线 / 列起始线 / 行结束线 / 列结束线
+            */
+
+.container .item:nth-child(7) {
+  background-color: yellow;
+  /* 1、直接通过行网格线和列网格线来指定 */
+  /* grid-column: 3 / 5; */
+  /* 2、使用关键字span表示跨列或行数,若是当前项目行或列起始线，则可以忽略第一个 */
+  /* grid-row: 1 / span 2; */
+  /* grid-row: span 2; */
+  /* 3、grid-area可以看成grid-row和grid-column，若是又跨行和列建议使用它 */
+  /* grid-area: 1 / 3 / span 2 / span 2; */
+  /* 4、若是从当前行或列开始，可省略，若span只有一个则表示跨行 */
+  /* grid-area:span 2 / span 2; */
+  grid-area: span 2;
+}
+    </style>
+  </head>
+  <body></body>
+  <div class="container">
+    <div class="item">item1</div>
+    <div class="item">item2</div>
+    <div class="item">item3</div>
+    <div class="item">item4</div>
+    <div class="item">item5</div>
+    <div class="item">item6</div>
+    <div class="item">item7</div>
+    <div class="item">item8</div>
+    <div class="item">item9</div>
+    <div class="item">item10</div>
+    <div class="item">item11</div>
+    <div class="item">item12</div>
+    <div class="item">item13</div>
+    <div class="item">item14</div>
+    <div class="item">item15</div>
+  </div>
+</html>

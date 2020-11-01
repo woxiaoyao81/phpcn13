@@ -1,0 +1,76 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-30 11:31:39
+ * @LastEditTime: 2020-10-30 15:14:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>网格容器Grid网格单元和网格项目对齐方式</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .item {
+        width: 5em;
+        height: 2em;
+        background-color: #007d20;
+        border: 1px solid;
+      }
+      .container {
+        width: 90vw;
+        height: 350px;
+        background-color: antiquewhite;
+        display: grid;
+        grid-template-columns: repeat(3, 10em);
+        grid-template-rows: repeat(3, 5em);
+      }
+
+      /* 一、网格单元在网格容器中对齐方式，使用容器属性place-content
+      格式:垂直方向 水平方向，若二个相等可写一个代表
+      1、所有网格单元为一个整体,可取start、center、end和stretch。
+      2、每个网格单元为个体，可取space-between,space-around,space-evenly
+      */
+      .container {
+        /* place-content: center; */
+        /* place-content:end; */
+        /* place-content:stretch; */
+
+        /* place-content: space-between; */
+        place-content: space-around;
+        /* place-content: space-evenly; */
+      }
+      /* 二、网格项目在网格单元中对齐方式
+      1、所有网格项目在各自网格单元对齐方式使用容器属性place-items
+      2、个别网格项目在网格单元对齐方式使用项目属性place-self
+      格式:垂直方向 水平方向，若二个相等可写一个代表
+      二者取值都是start、center、endt和stretch.      
+      */
+
+      .container {
+        place-items: center;
+      }
+.container .item:nth-child(5){
+    background-color: yellow;
+    place-self:end center;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">item1</div>
+      <div class="item">item2</div>
+      <div class="item">item3</div>
+      <div class="item">item4</div>
+      <div class="item">item5</div>
+      <div class="item">item6</div>
+      <div class="item">item7</div>
+      <div class="item">item8</div>
+      <div class="item">item9</div>
+    </div>
+  </body>
+</html>

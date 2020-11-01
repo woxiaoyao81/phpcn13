@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+.container {
+  display: grid;
+  min-width: 90vw;
+  gap: 0.5em;
+}
+.container > .row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.5em;
+  min-height: 3em;
+}
+.container > .row > .item {
+  background-color: lightcyan;
+  padding: 1em;
+  border: 1px solid;
+  text-align: center;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
+
+.col-11 {
+  grid-column: span 11;
+}
+
+.col-10 {
+  grid-column: span 10;
+}
+
+.col-9 {
+  grid-column: span 9;
+}
+
+.col-8 {
+  grid-column: span 8;
+}
+
+.col-7 {
+  grid-column: span 7;
+}
+
+.col-6 {
+  grid-column: span 6;
+}
+
+.col-5 {
+  grid-column: span 5;
+}
+
+.col-4 {
+  grid-column: span 4;
+}
+
+.col-3 {
+  grid-column: span 3;
+}
+
+.col-2 {
+  grid-column: span 2;
+}
+
+.col-1 {
+  grid-column: span 1;
+}
