@@ -1,0 +1,158 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-10-31 21:11:54
+ * @LastEditTime: 2020-11-01 20:28:53
+-->
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定位实现弹出式注册登录对话框</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  display: grid;
+}
+.container header {
+  background-color: #007d20;
+  height: 60px;
+  line-height: 60px;
+  font-size: 1.1rem;
+  color: white;
+  padding: 0 2em;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.container header a {
+  color: white;
+  place-self: end;
+}
+
+.modal {
+  visibility: hidden;
+  font-size: 1.1rem;
+}
+/* 背景 */
+.modal .modal-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal .modal-body {
+  min-width: 20em;
+  width: 30em;
+  height: 15em;
+  padding: 0 1em 1em;
+  margin: auto;
+  color: white;
+  background-color: lightseagreen;
+  box-shadow: 1px 1px 3px gray;
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 1fr 3em;
+  grid-template-rows: 3em 1fr;
+  gap: 0.5em;
+  text-align: center;
+  line-height: 3em;
+}
+.modal-body a {
+  color: white;
+  position: absolute;
+  right: 0.5em;
+  top: -0.5em;
+}
+.modal-body h3 {
+  grid-column: span 2;
+}
+.modal-body form {
+  grid-column: span 2;
+
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0.5em;
+  place-items: center;
+}
+
+.modal-body form input {
+  width: 90%;
+  height: 3em;
+  padding: 0 1em;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+}
+.modal-body form input:hover {
+  box-shadow: 0px 0px 3px 2px white;
+  transition: all 0.1s;
+}
+.modal-body form button {
+  grid-column: span 2;
+
+  width: 60%;
+  height: 3em;
+  border-radius: 0.5em;
+  color: white;
+  background-color: seagreen;
+}
+.modal-body form button:hover {
+  opacity: 0.6;
+  transition: opacity 1s;
+}
+
+/* 弹出和关闭CSS */
+#modal:target {
+  visibility: visible;
+}
+#modal:not(:target){
+  visibility: hidden;
+}
+</style>
+  </head>
+  <body>
+<div class="container">
+  <header>
+    <h3>前端开发中文网</h3>
+    <a href="#modal">登录</a>
+  </header>
+  <div class="modal" id="modal">
+    <div class="modal-background"></div>
+    <div class="modal-body">
+      <h3>用户登录</h3>
+      <a href="#">关闭</a>
+      <form action="">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" value="" placeholder="请输入用户名" />
+        <label for="userpwd">密&nbsp;码:</label>
+        <input type="password" id="userpwd" name="userpwd" value="" placeholder="请输入密码" />
+        <button>登录</button>
+      </form>
+    </div>
+  </div>
+</div>
+  </body>
+</html>
