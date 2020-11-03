@@ -1,0 +1,136 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-03 08:23:39
+ * @LastEditTime: 2020-11-03 14:06:48
+-->
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量、常量和数据类型</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>开始学习JavaScript</h2>
+      <p>学习内容:变量、常量和数据类型</p>
+    </div>
+    <script>
+      console.log('--------- 原始类型--------');
+      // 函数体中{}是块级作用域
+      let username = '中国人';
+      function test() {
+        let username = '山东人';
+        console.log(username);
+        return '原始类型中函数';
+      }
+      test();
+      console.log(username);
+
+      // 条件、循环控制中{}是块级作用域
+      let j = 10;
+      for (let j = 0; j < 5; j++) {
+        console.log('子块:', j);
+      }
+      console.log('块外:', j);
+
+      console.log(test, typeof test);
+
+      //   引用类型:对象
+      console.log('--------- 对象--------');
+      let user = {
+        // 属性:对象中的变量
+        name: 'woxiaoyao',
+        // 对象中属性名可以是合法标识符，但一般老
+        'my email': '14588xxx@qq.com',
+        // 方法: 对象中的函数,本质仍是属性,只不过它的值是一个函数表达式
+        getName: function () {
+          let name = 'xxx';
+          //   不应该用对象名,应该用对象的引用: this
+          console.log('My name is : ', this.name);
+          return '对象中方法';
+        },
+      };
+      console.log(user, typeof user);
+      //   访问对象成员(属性+方法),使用"."语法
+      console.log(user.name);
+      // 函数名后的圆括号是一种"调用运算符"
+      console.log(user.getName());
+      //   对于非法的属性名和合法属性名,均可使用['键名']
+      console.log(user['name']);
+      console.log(user['my email']);
+
+      //   引用类型;数组
+      console.log('--------- 数组--------');
+      let course = [1, 'js', 88];
+      console.log(course, typeof course);
+      console.log(course instanceof Array);
+      console.log(course instanceof Object);
+      //   instanceof 专用于自定义对象的类型判断
+      console.log(Array.isArray(course));
+      console.log(course[1]);
+      console.log(course['1']);
+      console.dir('数组本质: ');
+      console.dir(course);
+      // 给数组增加方法
+      course.getLenght = function () {
+        console.log(this.length);
+        return '数组中函数';
+      };
+      console.log(course.getLenght());
+
+      //   函数
+      console.log('--------- 函数--------');
+      console.log(hello('朱老师'));
+      function hello(name) {
+        // 函数体
+        console.log('Welcome ', name);
+        return '函数中函数';
+      }
+      // 调用,按名调用
+      console.log(hello('朱老师'));
+      console.log(typeof hello);
+      console.log(hello instanceof Object);
+      console.log(hello instanceof Function);
+      console.log(hello.name);
+      console.dir('函数本质: ');
+      console.dir(hello);
+      //   既然是对象就可以添加属性或方法
+      hello.getName = function () {
+        console.log('functionName: ', this.name);
+      };
+      console.log(hello.getName());
+      //   调用内置的call方法来调用其它对象的同名方法
+      console.log(hello.getName.call(user));
+
+      console.clear();
+      // 数据类型
+      console.log('---------typeof--------');
+      console.log(typeof 'abc'); //string
+      console.log(typeof 123); //number
+      console.log(typeof true); //boolean
+      console.log(typeof test); //function
+      console.log(typeof []); //object
+      console.log(typeof null); //object
+      console.log(typeof {}); //object
+      console.log('---------instanceof--------');
+      console.log('abc' instanceof String); //String
+      console.log(123 instanceof Number); //Number
+      console.log(true instanceof Boolean); //Boolean
+      console.log(test instanceof Function); //Function
+      console.log([] instanceof Array); //Array
+      console.log(null instanceof Object); //Object
+      console.log({} instanceof Object); //Object
+      console.log('---------推荐Object.prototype.toString.call()--------');
+      console.log(Object.prototype.toString.call('abc'));
+      console.log(Object.prototype.toString.call(123));
+      console.log(Object.prototype.toString.call(true));
+      console.log(Object.prototype.toString.call(test));
+      console.log(Object.prototype.toString.call([]));
+      console.log(Object.prototype.toString.call(null));
+      console.log(Object.prototype.toString.call({}));
+    </script>
+  </body>
+</html>

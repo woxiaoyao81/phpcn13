@@ -1,0 +1,35 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-03 12:33:05
+ * @LastEditTime: 2020-11-03 13:14:58
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模板字面量和标签函数</title>
+  </head>
+  <body>
+    <script>
+      // 模板字而量
+      let name = 'woxiaoyao';
+      let age = 12;
+      let str = `My Name is ${name}
+My age is ${age}`;
+      console.log(str);
+
+      //   标签函数
+      function myPut(strings, firstArg, secondArg) {
+        secondArg = secondArg + 5;
+        let putStr = `<table><tr><th>${strings[0]}</th><th>${strings[1]}</th></tr>
+    <tr><td>${firstArg}</td><td>${secondArg}</td></tr></table>`;
+        return putStr;
+      }
+      let result = myPut`My Name is ${name} My age is ${age}`;
+      console.log(result);
+    </script>
+  </body>
+</html>
