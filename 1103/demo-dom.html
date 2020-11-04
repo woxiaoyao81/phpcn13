@@ -1,0 +1,93 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-04 14:35:31
+ * @LastEditTime: 2020-11-04 16:45:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dom常用操作</title>
+    <style>
+      .red {
+        color: red;
+      }
+      .bgc {
+        background-color: yellow;
+      }
+      .blue {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <p class="item active">item1</p>
+      <p class="item" id="second">item2</p>
+      <p class="item" name="item">item3</p>
+      <p class="item" name="item">item4</p>
+    </div>
+    <div id="user" data-id="23" data-user-name="woxiaoyao">我的信息</div>
+    <script>
+      // 一、获取dom元素
+      const tag = document.getElementsByTagName('p');
+      console.log('tag=>', tag);
+      console.log('tag=>', tag[1].innerHTML);
+      console.log('tag=>', tag.item(1).innerHTML);
+      const classdom = document.getElementsByClassName('item active');
+      console.log('class=>', classdom);
+      console.log('class=>', classdom[0].innerHTML);
+      const name = document.getElementsByName('item');
+      console.log('name=>', name);
+      // id获取的不是类数组，不要用索引或item访问，它相当于元素对象HTMLDivElement(可看下面打印的信息)
+      const id = document.getElementById('container');
+      console.log('id=>', Object.prototype.toString.call(id));
+      const selector = document.querySelector('.item');
+      console.log('selector=>', Object.prototype.toString.call(selector));
+      const selectors = document.querySelectorAll('.item');
+      console.log('selectors=>', selectors);
+
+      // 二、遍历元素节点
+      // 父节点
+      console.log('父节点parentNode=>', selector.parentNode);
+      console.log('父节点parentElement=>', selector.parentElement);
+      // 兄弟节点
+      const second = document.querySelector('#second');
+      console.log('上一个兄弟=>', second.previousElementSibling.innerHTML);
+      console.log('上一个兄弟=>', Object.prototype.toString.call(second.previousElementSibling));
+      console.log('上一个兄弟=>', Object.prototype.toString.call(second.previousSibling));
+      console.log('下一个兄弟=>', second.nextElementSibling.innerHTML);
+      // 子节点
+      // 子节点数量
+      console.log('子节点数量=>', id.children.length, id.childElementCount);
+      // 所有子节点
+      console.log('所有子节点=>', id.children);
+      // 第一个或最后一个子节点
+      console.log('第一个子节点=>', id.firstElementChild);
+      console.log('最后一个子节点=>', id.lastElementChild);
+      // 数组遍历，推荐for...of
+      for (let val of id.children) {
+        console.log('for...of遍历元素=>', val.innerHTML);
+      }
+      // forEach作为了解就可以了
+      // Array.from(id.children).forEach(item => (item.style.color = 'red'));
+
+      // 三、classList对象操作
+      for (let val of id.children) {
+        val.classList.add('red');
+        // val.classList.remove('red');
+        val.classList.replace('red', 'blue');
+        val.classList.toggle('red');
+      }
+
+// 四。dataset访问用户自定义属性
+const user=document.querySelector('#user');
+console.log('dataset=>',user.dataset.id);
+// 将使用连接线命名的多个单词的属性名,转换"驼峰命名法"来获取
+console.log('dataset=>',user.dataset.userName);
+    </script>
+  </body>
+</html>

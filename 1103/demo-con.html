@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>条件和循环</title>
+  </head>
+  <body>
+    <script>
+      console.log('----------------');
+      // 一、条件
+      let score = 70;
+      // 单分支
+      if (score >= 60) {
+        console.log('合格');
+      }
+      // 双分支
+      score = 50;
+      if (score >= 60) {
+        console.log('合格');
+      } else {
+        // 默认分支
+        console.log('补考');
+      }
+      // 简化
+      //   若只有一行执行语句时，可直接写上
+      score >= 60 ? console.log('合格') : console.log('补考');
+      //   若是双分支中是多行语句时，要用圆括号()包裹，每个句子用逗号，隔开，不可有变量定义let，也不可有分号。
+      //  这种写法也是压缩js的中最常用的写法。
+      let name = 'woxiaoyao';
+      score >= 60 ? ((name = 'xiaoyao'), console.log(name + '合格')) : ((name = 'peter zhu'), console.log(name + '补考'));
+
+      console.log('----------------');
+      //二、循环
+      //   1、while和do...while
+      let arr = [10, 20, 30, 40, 50];
+      // 循环变量初始值
+      let i = 0;
+      // 循环条件
+      while (i < arr.length) {
+        console.log('while=>', arr[i]);
+        // 循环更新
+        i++;
+      }
+      i = 0;
+      do {
+        console.log('do...while=>', arr[i]);
+        i++;
+      } while (i < arr.length);
+      //   for循环
+      for (let i = 0; i < arr.length; i++) {
+        console.log('for=>', arr[i]);
+      }
+      //   forEach:只能是对数组遍历，对象则报错。
+      let user = { name: 'woxiaoyao', age: 28 };
+      arr.forEach(function (item, key) {
+        console.log('forEach=>', item);
+      });
+      //   user.forEach(function (item) {
+      //     console.log('forEach=>', item);
+      //   });
+      // for...in
+      for (let item in user) {
+        console.log('for...in=>', user[item]);
+      }
+//   for...of
+// for...of默认访问数组的值
+for (let item of arr) {
+console.log('for...of=>', item);
+}
+// for...of访问数组的健、值或健-值对则可使用ES6给数组新增的keys()、values()和entries方法。
+for (let key of arr.keys()) {
+console.log('for...of=>key=>', key);
+}
+// for...of默认不支持对象，但可用Object.keys(obj)、Object.values(obj)和Object.entries(obj)将对象的对应部分转为可遍历
+for (let value of Object.values(user)) {
+console.log('for...of=>object=>', value);
+}
+    </script>
+  </body>
+</html>
