@@ -270,7 +270,7 @@ DOM即document object model,文档对象模型。**dom元素都是对象** ，�
 >- 根据ID: **document.getElementById()**，如document.getElementById("list");
 >- 根据类class: **document.getElementsByClassName()**，如document.getElementsByClassName("item active");
 >- 根据name: **document.getElementsByName()**，如document.getElementsByName("first");
->- **根据选择器:** **document.querySelector和document.querySelectorAll()**，这时推荐方式，简单灵活。juqery的$()也是这个思路。
+>- **根据选择器:** **document.querySelector和document.querySelectorAll()**，这是推荐方式，简单灵活。juqery的$()也是这个思路。
 
 ```html
 <div class="container" id="container">
@@ -357,7 +357,7 @@ Array.from(id.children).forEach((item)=>item.style.color="red");
 
 ### 3、classList对象操作
 
-classList其实就是元素Element对象的内置属性class，只不过在js中class是关键字，所有取别名className代表。正如CSS中一样，我们控制元素样式最多的就是类，所以classList是JS中操作对象样式变化的重要手段。
+classList其实就是元素Element对象的内置属性class的对象，只不过在js中class是关键字，所有取别名className代表，而对象则是classList。正如CSS中一样，我们控制元素样式最多的就是类，所以classList是JS中操作对象样式变化的重要手段。
 
 > **classList常见操作:** 
 >- **添加add():** 为元素增加类,如item.classList.add('red');
