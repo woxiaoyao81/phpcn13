@@ -35,7 +35,7 @@ if (score >= 60) {
 > 这里要单独说下三元运算符，它也是现在**JS 压缩中一种常用技巧** 。但是要注意以下两点：
 >
 > - 若分支中是**一条语句**时，直接写在返回值即可,冒号前的语句分号要去除，否则报错。
-> - 若分支中是**多条语句**时，要使用**圆括号()包裹所有语句** ，语句之间使用**逗号，隔开** ，切记**不要有 let 定义变量** ，变量要在运算符外定义。当然分号不要去除。
+> - 若分支中是**多条语句**时，要使用**圆括号()包裹所有语句** ，语句之间使用**逗号，隔开** ，切记**不要有 let 定义变量** ，变量要在运算符外定义。当然分号也要去除。
 >
 > 在常规使用三元运算符中，它一般将结果赋值给一个变量，就是如:
 > let result= scorce >=60 ? '合格' : '补考';
@@ -352,12 +352,12 @@ Array.from(id.children).forEach((item)=>item.style.color="red");
 > **遍历元素总结：**
 >- 元素需要遍历节点分为 **父节点、兄弟节点和子节点** ，都是 **Element元素对象** ，**属性中体现了类型**，如children、firstElementChild表示子节点，parentElement或parentNode表示父节点，previousElementSibling和nextElementSiblings是兄弟节点。非常好记忆。
 >- 以上获取的节点中，children是类数组，其它获取节点都是单个元素对象，要注意访问方式。
->- 对数组的**遍历推荐for...of** 。尤其本文在循环中已经对for...of进行了详细介绍，无论是遍历数组还是遍历对象，都不再话下，是ES6新增的，也是推荐的。至于老师说的forEach了解就可以，还有就是类数组转数组Array.from
+>- 对数组的**遍历推荐for...of** 。尤其本文在循环中已经对for...of进行了详细介绍，无论是遍历数组还是遍历对象，都不在话下，是ES6新增的，也是推荐的。至于老师说的forEach了解就可以，还有就是类数组转数组Array.from
 >- 元素对象Element可**直接对内置属性进行访问** ，如**item.style.color**就是访问元素的样式中color。
 
 ### 3、classList对象操作
 
-classList其实就是元素Element对象的内置属性class的对象，只不过在js中class是关键字，所有取别名className代表，而对象则是classList。正如CSS中一样，我们控制元素样式最多的就是类，所以classList是JS中操作对象样式变化的重要手段。
+classList其实就是元素Element对象的内置属性class的对象，只不过在js中class是关键字，所以取别名className代表，而对象则是classList。正如CSS中一样，我们控制元素样式最多的就是类，所以classList是JS中操作对象样式变化的重要手段。
 
 > **classList常见操作:** 
 >- **添加add():** 为元素增加类,如item.classList.add('red');
