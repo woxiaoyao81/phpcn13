@@ -1,0 +1,82 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-05 11:52:28
+ * @LastEditTime: 2020-11-05 13:13:25
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件传递</title>
+    <style>
+      .parent {
+        width: 20em;
+        height: 20em;
+        background-color: green;
+      }
+      .self {
+        width: 15em;
+        height: 15em;
+        background-color: seagreen;
+      }
+      .child {
+        width: 10em;
+        height: 10em;
+        background-color: lightseagreen;
+      }
+    </style>
+  </head>
+  <body>
+<div class="parent">
+  <div class="self">
+    <a href="http://www.php.cn" target="_blank" class="child">事件探讨</a>
+  </div>
+</div>
+    <script>
+      // 二、事件传递
+      const child = document.querySelector('.child');
+      const parent = document.querySelector('.parent');
+      const self = document.querySelector('.self');
+      // 冒泡传递
+      // child.addEventListener( 'click', ev => { console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, false );
+      // self.addEventListener( 'click', ev => { console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, false );
+      // parent.addEventListener( 'click', ev => { console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, false );
+      // 捕获传递
+      // child.addEventListener( 'click', ev => { console.log('捕获传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, true );
+      // self.addEventListener( 'click', ev => { console.log('捕获传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, true );
+      // parent.addEventListener( 'click', ev => { console.log('捕获传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget); }, true );
+
+      // 如何阻止冒泡
+      child.addEventListener(
+        'click',
+        ev => {
+        // 阻止事件传递，有效
+        ev.stopPropagation();
+        // 阻止默认行为，有效
+        ev.preventDefault();
+        console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+        // 阻止事件传递和默认行为，都无效
+        // return false;
+        },
+        false
+      );
+      self.addEventListener(
+        'click',
+        ev => {
+          console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+        },
+        false
+      );
+      parent.addEventListener(
+        'click',
+        ev => {
+          console.log('冒泡传递 => 触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

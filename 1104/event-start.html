@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件添加</title>
+<style>
+    .parent { width: 20em; height: 20em; background-color: green; }
+    .self { width: 15em; height: 15em; background-color: seagreen; }
+    .child { width: 10em; height: 10em; background-color: lightseagreen; }
+</style>
+  </head>
+  <body>
+<div class="parent">
+    <div class="self">
+    <div class="child" onclick="divClick()">事件探讨</div>
+    <p class="" onclick="pClick(parentNode)">参数传递</p>
+    </div>
+</div>
+    <script>
+      // 一、事件添加方法
+      // 1.通过Html元素的属性来实现事件添加，这个属性就称为事件属性，特点是:on+事件名称，如onclick
+      // 要注意事件属性中函数名后的圆括号不能少，即使没有参数也要带上，它表示函数。否则不响应。
+      // 事件属性中函数可以传递参数，如本身this,父节点this.parentNode，可参考上篇中中遍历元素，也可常量
+      function divClick() {
+        console.log('通过元素的事件属性添加事件');
+      }
+      //   事件对象作为参数
+      function pClick(ev) {
+        console.log(ev);
+        console.log(Object.prototype.toString.call(ev));
+      }
+      // 2.通过html的元素对象HTMLXxxElement的事件属性添加事件
+      const child = document.querySelector('.child');
+      console.log('元素对象：%c%s%c 的事件属性', 'color:red', Object.prototype.toString.call(child), 'color:initail');
+      // console.dir(child);
+      // 事件的参数就是事件对象，它的target指向元素对象。
+      child.onclick = ev => {
+        console.dir(ev);
+        console.log('事件触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+      };
+      // child.onmouseover=(ev)=>{console.dir(ev);};
+      // 3.通过事件监听器addEventListener来添加事件
+      child.addEventListener(
+        'click',
+        ev => {
+          console.log('事件监听器添加点击事件1,事件触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+        },
+        false
+      );
+      child.addEventListener(
+        'click',
+        ev => {
+          console.log('事件监听器添加点击事件2,事件触发者:%s，绑定者:%s', ev.target, ev.currentTarget);
+        },
+        false
+      );
+      // 4.通过事件派发器dispatchEvent自动操触发事件
+      // 创建事件派发器
+      const ev = new Event('click');
+      // 自动触发元素对象的事件
+      // setInterval(()=>child.dispatchEvent(ev),1000);
+
+    </script>    
+  </body>
+</html>

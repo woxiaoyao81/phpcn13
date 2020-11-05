@@ -1,0 +1,61 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-05 13:24:43
+ * @LastEditTime: 2020-11-05 14:39:52
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件委托/代理</title>
+    <link rel="stylesheet" href="static/css/common.css" />
+  </head>
+  <body>
+<div class="container">
+    <div class="banner">
+    <img src="static/images/1.png" alt="" />
+    <img src="static/images/2.jpg" alt="" />
+    <img src="static/images/3.jpg" alt="" />
+    </div>
+</div>
+<script>
+    const banner = document.querySelector('.banner');
+    //   console.dir(banner.children);
+//   当前图片索引，外部变量，若是内部变量则自动执行时达不到我想的结果
+    let j = 0;
+//   事件监听器，通过父元素的事件委托，统一处理图片轮播
+    banner.addEventListener(
+    'click',
+    ev => {
+    //   console.log(ev.target);
+    //   console.log(ev.currentTarget.children[0]);
+        const imgObj = ev.target;
+        const imgObjs = ev.currentTarget.children;
+        
+    //   找到当前图片索引
+        for (let i = 0; i < imgObjs.length; i++) {
+        if (imgObjs[i] == imgObj) {
+            j = i;
+            break;
+        }
+        }
+        //   处理最后一张图片
+        console.log('当前图片索引:',j);
+        j = j == imgObjs.length - 1 ? 0 : j + 1;
+        console.log('下一张图片索引',j);
+        //    显示下一张
+        for (let i = 0; i < imgObjs.length; i++) {
+        i == j ? (imgObjs[i].style.visibility = 'visible') : (imgObjs[i].style.visibility = 'hidden');
+        }
+    },
+    false
+    );
+//   事件派发器
+const ev=new Event('click');
+setInterval(()=>banner.dispatchEvent(ev),1000);
+    </script>
+  </body>
+</html>
