@@ -271,6 +271,8 @@ DOM即document object model,文档对象模型。**dom元素都是对象** ，�
 >- 根据类class: **document.getElementsByClassName()**，如document.getElementsByClassName("item active");
 >- 根据name: **document.getElementsByName()**，如document.getElementsByName("first");
 >- **根据选择器:** **document.querySelector和document.querySelectorAll()**，这是推荐方式，简单灵活。juqery的$()也是这个思路。
+>
+> 对于常见的HTML元素，js都直接提供了获取方法，如html为document.documentElement,head为document.head,body为document.body。
 
 ```html
 <div class="container" id="container">
@@ -296,7 +298,13 @@ DOM即document object model,文档对象模型。**dom元素都是对象** ，�
     const selector = document.querySelector(".item");
     console.log('selector=>', Object.prototype.toString.call(selector));
     const selectors = document.querySelectorAll(".item");
-    console.log('selectors=>', selectors);      
+    console.log('selectors=>', selectors);   
+    const html=document.documentElement;
+    console.log(Object.prototype.toString.call(html));
+    const head=document.head;
+    console.log(Object.prototype.toString.call(head));
+    const body=document.body;
+    console.log(Object.prototype.toString.call(body));   
 </script>
 ```
 
