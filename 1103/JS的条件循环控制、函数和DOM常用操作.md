@@ -128,7 +128,7 @@ for (let i = 0; i < arr.length; i++) {
 
 ### 3、 forEach、for...in 和 for...of
 
-forEach 和 for...in 是 ES6 之前就支持的，而 for...of 是 ES6 新增的循环遍历方法。这三者中 for...in 其实存在不少问题，完全可以使用更好的 for...of 来替代。我的原则是优先使用 for...of，其实是 forEach。
+forEach 和 for...in 是 ES6 之前就支持的，而 for...of 是 ES6 新增的循环遍历方法。这三者中 for...in 其实存在不少问题，完全可以使用更好的 for...of 来替代。我的原则是**优先使用 for...of** ，其次是 forEach，就是使用在不支持新语法for...of时使用forEach。
 
 > **forEach:** 对**数组**的每一个元素执行一次提供的**函数**(不能使用 return、break 等中断循环)，**不改变原数组**， **无返回值**。老师说遍历对象，我测试遍历对象报错。目前它**只适合数组** 。
 >
