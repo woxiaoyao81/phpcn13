@@ -1,0 +1,79 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-06 10:13:06
+ * @LastEditTime: 2020-11-06 17:56:17
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONP实现跨域请求</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        background-color: #eee;
+      }
+      .container form {
+        width: 30em;
+        background-color: #007d20;
+        margin: 5em auto 0;
+        padding: 1em;
+
+        display: grid;
+        grid-template-columns: 5em 1fr;
+        grid-template-rows: 2em 2em 2em;
+        gap: 0.5em;
+        place-content: space-evenly;
+      }
+
+      form > button {
+        grid-column: span 2;
+      }
+      form > label {
+        place-self: center;
+      }
+    </style>
+  </head>
+  <body>
+<div class="container">
+  <form action="" onsubmit="return false;">
+    <label for="name">名字:</label>
+    <input type="text" name="name" value="" id="name" required />
+    <label for="email">密码:</label>
+    <input type="email" name="email" value="" id="email" />
+    <button>跨域请求</button>
+  </form>      
+</div>
+<script>
+  const form = document.querySelector('form');
+  const btn = document.querySelector('button');
+  btn.addEventListener('click', createScript, false);
+
+  function createScript() {
+    const script = document.createElement('script');
+    let name = form.children[1].value;
+    if (name.length < 1) return false;
+    script.src = `http://blog.io/index.php?name=${name}&jsonp=show`;
+    console.log(script);
+    document.head.appendChild(script);
+  }
+
+  function show(data) {
+    console.log(data);
+    form.children[3].value = data.email;
+  }
+</script>
+  </body>
+</html>

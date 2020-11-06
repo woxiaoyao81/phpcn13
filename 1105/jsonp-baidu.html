@@ -1,0 +1,82 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-06 10:03:20
+ * @LastEditTime: 2020-11-06 17:16:09
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jsonp</title>
+    <meta charset="utf-8" />
+<style type="text/css">
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+  li {
+    list-style: none;
+  }
+  #wrap {
+    width: 600px;
+    height: 40px;
+    margin: 100px auto;
+  }
+  #text {
+    width: 500px;
+    height: 34px;
+    margin: 0 auto;
+    line-height: 34px;
+  }
+  #list {
+    width: 500px;
+    border: 1px solid #ccc;
+  }
+  #list > li {
+    width: 500px;
+    height: 30px;
+    line-height: 30px;
+  }
+  #list > li > a {
+    text-decoration: none;
+  }
+</style>
+  </head>
+  <body>
+<div id="wrap">
+  <input type="text" id="text" placeholder="请输入搜索关键字" />
+  <ul id="list"></ul>
+</div>
+<script type="text/javascript">
+  //wd  查询关键字
+  //cd 返回函数 回调函数
+  let oInput = document.querySelector('#text'),
+    oList = document.querySelector('#list');
+  oInput.onblur = function () {
+    let val = this.value; //获取当前input框里的内容
+    console.log('input=>', val);
+    if (val) {
+      let oS = document.createElement('script'); //创造script标签
+      oS.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${val}&cb=getDate`;
+      document.body.appendChild(oS);
+      oS.onload = function () {
+        //在script标签加载完后删除标签
+        document.body.removeChild(oS);
+      };
+    }
+  };
+  function getDate(data) {
+    //data是后台发送过来的函数调用里的参数
+    console.log(data);
+    let arr = data.s, //获取联想词
+      str = '',
+      len = arr.length;
+    for (let i = 0; i < len; i++) {
+      str += `<li><a href="">${arr[i]}</a></li>`;
+    }
+    oList.innerHTML = str;
+  }
+</script>
+  </body>
+</html>
