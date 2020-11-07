@@ -4,7 +4,7 @@
 
 在<https://www.php.cn/blog/detail/24740.html>已经介绍了DOM元素的获取和遍历，不清楚可以去熟悉下，这里介绍DOM元素常用操作，包括创建元素、添加元素、插入元素、替换元素、删除元素以及大量添加元素时优化方案**文档片断DocumentFragment。这里增加了一些拓展测试，值得一看
 
-> 1. **创建元素createElement** 语法:document.createElement('tag'), **根是document** ，**参数是标签名称，用单引号或双引号包裹** ,创建元素对象并**不在页面中** ,而在 **内存中** ,没有添加到页面,需要挂载到页面才显示。这里要注意标签名称一般是HTML规范的名称，经测试也可以是自定义的。
+> 1、 **创建元素createElement** 语法:document.createElement('tag'), **根是document** ，**参数是标签名称，用单引号或双引号包裹** ,创建元素对象并**不在页面中** ,而在 **内存中** ,没有添加到页面,需要挂载到页面才显示。这里要注意标签名称一般是HTML规范的名称，经测试也可以是自定义的。
 
 ```javascript
 // 1.创建元素对象，此时在内存中，需要挂载才可显示
@@ -15,7 +15,7 @@ const score = document.createElement('score');
 score.innerHTML = '大家好';
 ```
 
-> 2. **添加元素appendChild** 也称 **挂载** ,语法:父元素对象.appendChild(新元素对象), **根是父元素对象** ,添加元素前提要有一个父元素，否则无法定位位置, **参数是元素对象，不要引号** 元素对象可以是createElement创建的元素对象，也可以是获取的或遍历的得到的元素对象。在测试时发现了它的一个 **有趣现象** ，就是**测试同一个父元素反复添加和添加到不同父元素的结果**。
+> 2、 **添加元素appendChild** 也称 **挂载** ,语法:父元素对象.appendChild(新元素对象), **根是父元素对象** ,添加元素前提要有一个父元素，否则无法定位位置, **参数是元素对象，不要引号** 元素对象可以是createElement创建的元素对象，也可以是获取的或遍历的得到的元素对象。在测试时发现了它的一个 **有趣现象** ，就是**测试同一个父元素反复添加和添加到不同父元素的结果**。
 >    - **父元素对象** 可以是**在内存中的元素对象(createElement或createDocumentFragment)**，也可以页面中元素对象。常见的页面元素对象有document.head,document.body和document.documetElement(Html对象)
 >    - **参数中元素对象** 同父元素对象，但要注意不能是页面中唯一的对象，如body对象、head对象等。经测试document.appendChild时会报唯一对象冲突错误。
 >    - **总是在尾部添加** append英文翻译是追加，就是**在最后添加元素**的意思。
@@ -50,9 +50,9 @@ ul { width: 10em; height: 5em; }
 </script>
 ```
 
-![appendChild](appendChild.gif)
+![appendChild](appendchild.gif)
 
-> 3. **插入元素insertBefore** 相比于appendChild只能在最后添加元素对象的限制外，insertBefore可以在指定元素对象前插入元素对象。语法：父元素对象.insertBefore(新元素对象,参考元素对象)。
+> 3、 **插入元素insertBefore** 相比于appendChild只能在最后添加元素对象的限制外，insertBefore可以在指定元素对象前插入元素对象。语法：父元素对象.insertBefore(新元素对象,参考元素对象)。
 >   - **父元素对象和参考元素对象** 二者是**父子关系** 即二者所在空间是一致的，即同为内存中元素对象或页面中元素对象。
 >   - **新元素对象** 同appendChild中一样
 >   - **不在insertAfter** JS默认没提供insertAfter，可以根据insertBefore写一个。
@@ -66,9 +66,9 @@ ul.insertBefore(li2,ul.firstChild);
 
 ![insert](insertBefore.png)
 
-> 4. **替换元素replaceChild** 语法:父元素对象.replaceChild(新元素对象,参考元素对象)。比较简单，参考插入，不再演示
+> 4、 **替换元素replaceChild** 语法:父元素对象.replaceChild(新元素对象,参考元素对象)。比较简单，参考插入，不再演示
 
-> 5. **删除元素removeChild** 语法: 父元素对象.removeChild(存在元素对象),其实删除并不是真正的删除，它在内存中仍然存在，可再次挂载。
+> 5、 **删除元素removeChild** 语法: 父元素对象.removeChild(存在元素对象),其实删除并不是真正的删除，它在内存中仍然存在，可再次挂载。
 
 ```javascript
 // 删除并不是真正的删除，它在内存中仍然存在，可再次挂载
