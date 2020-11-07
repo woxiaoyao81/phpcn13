@@ -1,0 +1,108 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-07 13:28:59
+ * @LastEditTime: 2020-11-07 15:16:05
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS实战案例:用户爱好选择</title>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+
+.container {
+  margin-top: 1em;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content;
+  gap: 0.5em;
+}
+.container .box {
+  padding: 1em;
+
+  /* box-shadow: 1px 1px 2px 1px #333; */
+}
+.box .item {
+  margin-top: 1em;
+  border-top: 1px solid #333;
+  padding-top: 1em;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 8em);
+  /* place-content:space-between; */
+  gap: 0.5em;
+}
+.item li {
+  padding: 0.5em;
+  border: 1px solid #666;
+  box-shadow: 0 0 2px gray;
+  text-align: center;
+}
+.item li:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #007d20;
+}
+#selected li {
+  color: white;
+  background-color: #007d20;
+}
+#selected li:hover {
+  color: initial;
+  background-color: initial;
+}
+    </style>
+  </head>
+  <body>
+<div class="container">
+  <div class="box">
+    <h2>你的爱好:</h2>
+    <ul id="selected" class="item"></ul>
+  </div>
+  <div class="box">
+    <h2>从下面选择爱好:</h2>
+    <ul id="unselected" class="item">
+      <li>摄影</li>
+      <li>编程</li>
+      <li>游戏</li>
+      <li>旅游</li>
+      <li>驾驶</li>
+      <li>文学</li>
+    </ul>
+  </div>
+</div>
+<script>
+// 移动关键是利用appendchild一个特性：不同父元素添加同一个元素时，以前的位置会删除，最终出现在最后的位置
+const ulSelect = document.querySelector('#selected');
+const ul = document.querySelector('#unselected');
+
+ul.addEventListener('click', ulAdd, false);
+function ulAdd(ev) {
+  //   判断是否有子元素，防止一次多选择
+  if (ev.target.childElementCount == 0) ulSelect.appendChild(ev.target);
+}
+
+ulSelect.addEventListener('click', ulDel, false);
+function ulDel(ev) {
+  if (ev.target.childElementCount == 0) ul.appendChild(ev.target);
+}
+</script>
+  </body>
+</html>

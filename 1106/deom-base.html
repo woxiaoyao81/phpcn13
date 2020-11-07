@@ -1,0 +1,93 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-07 07:49:47
+ * @LastEditTime: 2020-11-07 10:38:56
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>案例前准备的知识</title>
+  </head>
+  <style>
+    ul {
+      width: 10em;
+      height: 5em;
+    }
+    #ul1 {
+      background-color: aquamarine;
+    }
+    #ul2 {
+      background-color: seagreen;
+    }
+  </style>
+  <body>
+    <script>
+      // 1.createElement创建元素对象，此时在内存中，需要挂载才可显示
+      // 语法：const obj=document.createElement('tag');
+      const ul = document.createElement('ul');
+      ul.id = 'ul1';
+      // 创建元素时，标签名称也可以是自定义的
+      const score = document.createElement('score');
+      score.innerHTML = '大家好';
+
+      //   2.appendChild页面加载元素，父元素一般是页面中元素对象
+      // 语法：父元素对象.appendChild(新元素对象)
+      document.body.appendChild(ul);
+      document.body.appendChild(score);
+      const li = document.createElement('li');
+      li.innerHTML = '123';
+      // appendChild父元素可以是内存中元素对象
+      ul.appendChild(li);
+      const ul2 = document.createElement('ul');
+      ul2.id = 'ul2';
+      document.body.appendChild(ul2);
+      // 当同一个元素添加到不同父元素时，出现有趣移动效果，这个应用场景就是用户在备用选项中选择
+      ul.onclick = function (ev) {
+        ul2.appendChild(li);
+      };
+      ul2.onclick = function (ev) {
+        ul.appendChild(li);
+      };
+
+      // 3、insertBefore 在指定位置插入元素
+      // 语法:父元素对象.insertBefore(新元素对象,参考位置的元素对象), 不存在, insertAfter()
+      const li2 = document.createElement('li');
+      li2.innerHTML = 'hello';
+      li2.style.color = 'red';
+      ul.insertBefore(li2, ul.firstChild);
+
+      //  4. replaceChild替换元素
+      // 语法:父元素对象.replaceChild(新元素对象,参考位置的元素对象)
+      ul.replaceChild(li2, ul.lastElementChild);
+
+      //  5. removeChild删除元素，并不是真正删除，在内存中
+      // 语法: 父元素对象.removeChild(存在元素对象),其实删除并不是真正的删除，它在内存中仍然存在，可再次挂载
+      score.onclick = function (ev) {
+        document.body.removeChild(score);
+        document.body.appendChild(score);
+      };
+
+      // 6、大量元素时优化方案
+      // ul = document.createElement('ul');
+      // // 第一种优化方案:内存组装，一次加载
+      // for (let i = 0; i < 1000; i++) {
+      //   let li = document.createElement('li');
+      //   li.innerHTML = 'item' + i;
+      //   ul.appendChild(li);
+      // }
+      //   第二种优化方案:文档片断组装，一次加载
+      //   const frag = document.createDocumentFragment();
+      //   for (let i = 0; i < 1000; i++) {
+      //     let li = document.createElement('li');
+      //     li.innerHTML = 'item' + i;
+      //     frag.appendChild(li);
+      //   }
+      //   ul.appendChild(frag);
+      // document.body.appendChild(ul);  
+    </script>
+  </body>
+</html>

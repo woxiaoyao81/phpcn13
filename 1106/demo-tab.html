@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS实战案例:tab选项卡</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+      }
+      li {
+        list-style: none;
+        color: #666;
+      }
+      .active {
+        color: white;
+        background-color: #007d20;
+      }
+
+      .container {
+        width: 20em;
+        height: 15em;
+        overflow: hidden;
+        margin: 1em auto 0;
+        display: grid;
+        grid-template-columns: repeat(3, 20em);
+        grid-template-rows: repeat(2, max-content);
+      }
+      .container ul {
+        grid-column: span 3;
+        width: 20em;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        place-items: normal center;
+      }
+      .container ul li {
+        border: 1px solid #eee;
+        padding: 0.5em 1em;
+      }
+      .container ul li:hover{
+        cursor: pointer;
+        border: 2px solid #007d20;
+      }
+      .container div {
+        border: 1px solid #eee;
+        padding: 0.5em 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul>
+        <li class="active" data-index="0">前端开发</li>
+        <li data-index="1">后端开发</li>
+        <li data-index="2">开发实战</li>
+      </ul>
+
+      <div class="active" data-index="0">
+        <p>Html</p>
+        <p>CSS</p>
+        <p>JavaScript</p>
+      </div>
+      <div data-index="1">
+        <p>PHP</p>
+        <p>ThinkPHP</p>
+        <p>Laravel</p>
+      </div>
+      <div data-index="2">
+        <p>uniapp</p>
+        <p>网上商城</p>
+        <p>开发框架</p>
+      </div>
+    </div>
+<script>
+  const divs = document.querySelectorAll('.container div:nth-child(n)');
+  const ul = document.querySelector('ul');
+  //   console.log(divs);
+
+  ul.addEventListener('click', tab, false);
+
+  function tab(ev) {
+    //   tab菜单切换：先清除所有，再设置当前选择的
+    for (let el of ul.children) {
+      el.classList.remove('active');
+    }
+    ev.target.classList.toggle('active');
+    //   tab区切换：先清除激活样式和order，然后设置和tab相同数据属性的区
+    for (let el of divs) {
+      if (el.dataset.index == ev.target.dataset.index) {
+        el.classList.add('active');
+        el.style.order = 0;
+      } else {
+        el.classList.remove('active');
+        el.style.order = 1;
+      }
+    }
+  }
+</script>
+  </body>
+</html>

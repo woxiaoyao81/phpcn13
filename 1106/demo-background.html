@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS实战案例:页面换背景</title>
+    <style>
+      .container {
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+      }
+      .container img {
+        width: 10em;
+        border: 0.5em solid white;
+      }
+      body {
+        background-image: url('static/images/1.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+<div class="container">
+  <img src="static/images/1.jpg" alt="" />
+  <img src="static/images/2.jpg" alt="" />
+  <img src="static/images/3.jpg" alt="" />
+</div>
+<script>
+  const container = document.querySelector('.container');
+  // 事件委托，触发者是图片，将图片地址传递给body的background-image即可
+  container.onclick = ev => (document.body.style.backgroundImage = 'url(' + ev.target.src + ')');
+</script>
+  </body>
+</html>

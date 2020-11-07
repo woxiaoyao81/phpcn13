@@ -1,0 +1,60 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-07 10:38:30
+ * @LastEditTime: 2020-11-07 11:20:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件对象的学习</title>
+    <style>
+      .parent {
+        width: 20em;
+        height: 20em;
+        background-color: red;
+      }
+      .self {
+        width: 15em;
+        height: 15em;
+        background-color: green;
+      }
+      .child {
+        width: 10em;
+        height: 10em;
+        color: white;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="self">
+        <div class="child">大家好，学习事件</div>
+      </div>
+    </div>
+    <script>
+      const parent1 = document.querySelector('.parent');
+      const self1 = document.querySelector('.self');
+      const child = document.querySelector('.child');
+      // 1.target和currentTarget
+      //   child.onclick = function (ev) {
+      //     console.log('类名:%s => 触发者:%s , 绑定者:%s', this.className, ev.target, ev.currentTarget);
+      //   };
+      parent1.onclick = function (ev) {
+        console.dir(ev);
+        console.log('类名:%s => 触发者:%s , 绑定者:%s', this.className, ev.target, ev.currentTarget);
+      };
+      //   self1.onclick = function (ev) {
+      //     console.log('类名:%s => 触发者:%s , 绑定者:%s', this.className, ev.target, ev.currentTarget);
+      //   };
+window.onkeyup=function(ev){
+    console.log(ev.key);
+    console.dir(ev);
+}
+    </script>
+  </body>
+</html>

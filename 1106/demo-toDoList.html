@@ -1,0 +1,50 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-07 11:22:59
+ * @LastEditTime: 2020-11-07 15:19:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS实战案例:toDoList式的留言本</title>
+  </head>
+  <body>
+<div class="container">
+  <label for="content">输入留言:</label>
+  <input type="text" id="content" name="content" value="" placeholder="输入留言后回车确认" />
+  <ul id="lists"></ul>
+</div>
+<script>
+const content = document.querySelector('#content');
+const lists = document.querySelector('#lists');
+
+content.onkeyup = function (ev) {
+  //   console.log(ev.key);
+  // 判断回车时，添加内容到列表中
+  if (ev.key == 'Enter') {
+    // trim除去空格，空内容不添加
+    if (content.value.trim().length > 0) {
+      let li = document.createElement('li');
+      li.innerHTML = content.value + "<button onclick='del(this)'>删除</button>";
+      // 若列表有内容则添加到最前，没有则追加
+      lists.childElementCount == 0 ? lists.appendChild(li) : lists.insertBefore(li, lists.firstElementChild);
+      // 添加内容后，清空输入框
+      content.value = null;
+    } else {
+      // 无效添加后，输入框获取焦点
+      content.focus();
+    }
+  }
+};
+
+function del(el) {
+  // confirm确认返回true，取消返回false
+  if (confirm('确认删除')) lists.removeChild(el.parentElement);
+}
+</script>
+  </body>
+</html>
