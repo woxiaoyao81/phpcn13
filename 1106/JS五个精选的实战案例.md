@@ -1,10 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: woxiaoyao
- * @Date: 2020-11-07 07:25:41
- * @LastEditTime: 2020-11-07 15:20:02
--->
 ## 一、实战前准备知识
 
 ### 1、DOM元素常用操作
