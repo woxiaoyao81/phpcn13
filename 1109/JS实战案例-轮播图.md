@@ -290,6 +290,8 @@ setInterval(() => {
 ```
 ![lenbo](lenbo.gif)
 
+### Codepen演示 <https://codepen.io/woxiaoyao81/full/NWrOZpb>
+
 ## 三、实战总结
 
 >- 页面布局时要先用 **点位** 来调整布局，然后再用动态代码生成，如轮播图中下方多个按钮。
