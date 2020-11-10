@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS实战：轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      a {
+        text-decoration: none;
+        color: #666;
+      }
+      :root {
+        font-size: 1vw;
+      }
+
+      @keyframes fadeInLeft {
+        0% {
+          opacity: 0;
+          transform: translateX(-120px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .container {
+        width: 60vw;
+        height: 20vw;
+        margin: 1em auto;
+        overflow: hidden;
+
+        position: relative;
+      }
+      h3 {
+        width: 60vw;
+        margin: 1em auto;
+        text-align: center;
+      }
+      /* 轮播图片 */
+      .container .imgs img {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none;
+      }
+      .container .imgs img.active {
+        display: block;
+        animation: fadeInLeft 1s;
+      }
+
+      /* 轮播按钮 */
+      .container .btns {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.5em;
+
+        width: 8em;
+        padding: 0.2em;
+        border-radius: 1em;
+        margin: auto;
+        text-align: center;
+        background-color: #3333339f;
+      }
+      .container .btns a {
+        /* padding: 0.5em; */
+        display: inline-block;
+        padding: 0.5em;
+        border-radius: 50%;
+        background-color: #ffffff5f;
+        margin: 0 0.2em;
+      }
+      .container .btns a.active {
+        background-color: #ffffff;
+      }
+
+      /* 轮播切换 */
+      .container .qiehuan {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 8vw;
+
+        display: flex;
+        padding: 0 1em;
+        justify-content: space-between;
+      }
+      .container .qiehuan a {
+        display: inline-block;
+        color: white;
+        font-size: 2em;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        text-align: center;
+        background-color: #ffffff5f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="imgs">
+        <img src="banner/banner1.jpg" alt="" class="active" data-index="1" />
+        <img src="banner/banner2.jpg" alt="" data-index="2" />
+        <img src="banner/banner3.jpg" alt="" data-index="3" />
+        <img src="banner/banner4.jpg" alt="" data-index="4" />
+      </div>
+      <div class="btns"></div>
+      <div class="qiehuan">
+        <a href="#" data-action="prev">&lt;</a>
+        <a href="#" data-action="next">&gt;</a>
+      </div>
+    </div>
+<h3>自动换图时间为3秒，用户操作会停止自动换图，当用户不操作，等待10秒又自动换图。</h3>
+<script>
+  const imgs = document.querySelectorAll('.container .imgs img');
+  const btns = document.querySelector('.container .btns');
+  const qiehuan = document.querySelector('.container .qiehuan');
+
+  // 根据图片自动创建按钮
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < imgs.length; i++) {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.dataset.index = i + 1;
+    if (i == 0) a.classList.add('active');
+    frag.appendChild(a);
+  }
+  btns.appendChild(frag);
+
+  //   当用户通过按钮或左右切换按钮时，要禁用事件派发器
+  let timer = false;
+  let time1 = null;
+
+  // 按钮切换图片
+  btns.addEventListener('click', btnSet, false);
+  function btnSet(ev) {
+    // 按钮切换图片时要清除定时器，
+    clearInterval(time1);
+    // 激活等待功能
+    timer = false;
+    // 切换图片
+    let index = ev.target.dataset.index - 1;
+    setActive(imgs, btns, index);
+  }
+
+  // 左右切换图片
+  qiehuan.addEventListener('click', btnHuan, false);
+  function btnHuan() {
+    //   事件派发器不能绑定click，否则需要更多代码来区分是点击还是自动事件
+    if (event.type == 'click') {
+      clearInterval(time1);
+      timer = false;
+    }
+    // 左右切换图片
+    let action = event.target.dataset.action;
+    let index = getActiveImg(imgs).pop().dataset.index - 1;
+    if (action == 'prev') index = index == 0 ? imgs.length - 1 : index - 1;
+    if (action == 'next') index = index == imgs.length - 1 ? 0 : index + 1;
+    setActive(imgs, btns, index);
+  }
+
+  // 定义公共函数
+  // 1.获取激活图片
+  function getActiveImg(imgs) {
+    return Array.from(imgs).filter(img => img.classList.contains('active'));
+  }
+  // 2、获取激活按钮
+  function getActiveBtn(btns) {
+    return Array.from(btns).filter(btn => btn.classList.contains('active'));
+  }
+  // 3、设置激活图片和按钮
+  function setActive(imgs, btns, index) {
+    //   对index要进行检验，防止非法值
+    for (let i = 0; i < imgs.length; i++) {
+      if (index === i) {
+        //   清除当前图片激活，设置新的激活
+        getActiveImg(imgs).pop().classList.remove('active');
+        imgs[index].classList.add('active');
+        //   清除当前按钮激活，设置新的激活
+        getActiveBtn(btns.children).pop().classList.remove('active');
+        btns.children[index].classList.add('active');
+        break;
+      }
+    }
+  }
+  // setActive(imgs,btns,2);
+
+  //   派发器要注意几点
+  //   1.不要绑定事件委托代理，因为无法预知它操作位置,这里具体到右侧切换按钮来模拟实现自动切换，可实现代码复用
+  //   2.不要绑定click事件，因为它会冒泡到上级事件，在事件再根据事件来处理非常麻烦。这里使用图片几乎不用的事件，减少干扰
+  qiehuan.lastElementChild.addEventListener('blur', btnHuan, false);
+  const ev = new Event('blur');
+  //   外层定时器是因用户手动换图导致自动切换停止，此时它就等待用户不点击时再等10秒再启用定时器
+  setInterval(() => {
+    if (!timer)
+      // 内层定时器就是自动换图，能完绑定右侧换图模拟自动换图
+      time1 = setInterval(() => {
+        timer = true;
+        qiehuan.lastElementChild.dispatchEvent(ev);
+      }, 3000);
+  }, 10000);
+</script>
+  </body>
+</html>
