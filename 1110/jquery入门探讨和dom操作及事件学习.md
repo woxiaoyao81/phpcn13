@@ -279,12 +279,21 @@ $('ul').append('<li>item2</li>');
 const li2 = $('<li>item3</li>
 ```
 
-> **insertBefore 语法:新元素.insertBefore(位置)** 在位置之前插入,对应原生 JS 的 insertBefore
-> **insertAfter 语法:新元素.insertAfter(位置)** 在位置之后插入
+> **insertBefore 语法:新元素.insertBefore(位置)** 新元素在位置之前插入,对应原生 JS 的 insertBefore
+> **insertAfter 语法:新元素.insertAfter(位置)** 新元素在位置之后插入
 
 ```javascript
-$('h2').replaceWith('<h1 style="color:red;">这是开头</h1>');
-$('<h3 style="color:green;">这是结尾测试</h3>').replaceAll($('h3'));
+$('<h2>这是开头</h2>').insertBefore($('ul'));
+$('<h3>这是结尾</h3>').insertAfter($('ul'));
+```
+
+> **注意和上面插入区别:** 类似于appendTo和append区别
+> **before 语法:位置.before(新元素)** 在当前位置插入新元素
+> **after 语法:位置.after(新元素)** 在位置之后插入新元素
+
+```javascript
+$('h2').before('<h2>这是开头的开头</h2>');
+$('h3').after('<h3>这是结尾的结尾</h23>');
 ```
 
 ### 2、替换元素
