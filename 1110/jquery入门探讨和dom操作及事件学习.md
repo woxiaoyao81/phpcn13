@@ -269,8 +269,8 @@ $('h2').html(function () {
 
 ### 1、增加和插入元素
 
-> **append 语法:parent.append(新元素)或 parent.append(html)** 父元素追加新元素或 html 文本,对应原生 JS 的 appendChild
-> **appendTo 语法:新元素.appendTo(parent)** 新元素追加到父元素
+>  **append 语法:parent.append(新元素)或 parent.append(html)** 父元素追加新元素或 html 文本,对应原生 JS 的 appendChild操作    
+>  **appendTo 语法:新元素.appendTo(parent)** 新元素追加到父元素     
 
 ```javascript
 const li1 = $('<li>item1</li>');
@@ -279,17 +279,17 @@ $('ul').append('<li>item2</li>');
 const li2 = $('<li>item3</li>
 ```
 
-> **insertBefore 语法:新元素.insertBefore(位置)** 新元素在位置之前插入,对应原生 JS 的 insertBefore
-> **insertAfter 语法:新元素.insertAfter(位置)** 新元素在位置之后插入
+>  **insertBefore 语法:新元素.insertBefore(位置)** 新元素在位置之前插入,对应原生 JS 的 insertBeforer操作   
+>  **insertAfter 语法:新元素.insertAfter(位置)** 新元素在位置之后插入   
 
 ```javascript
 $('<h2>这是开头</h2>').insertBefore($('ul'));
 $('<h3>这是结尾</h3>').insertAfter($('ul'));
 ```
 
-> **注意和上面插入区别:** 类似于appendTo和append区别,后者可是jQuery对象，也可以是html文本
-> **before 语法:位置.before(新元素)** 在当前位置插入新元素
-> **after 语法:位置.after(新元素)** 在位置之后插入新元素
+> **注意和上面插入区别:** 类似于appendTo和append区别,后者可是jQuery对象，也可以是html文本   
+>  **before 语法:位置.before(新元素)** 在当前位置插入新元素   
+>  **after 语法:位置.after(新元素)** 在位置之后插入新元素   
 
 ```javascript
 $('h2').before('<h2>这是开头的开头</h2>');
