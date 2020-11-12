@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery的事件</title>
+    <script src="/static/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <input type="text" name="username" id="username" value="" />
+    <script>
+      // 1、$('selector').事件()定义的DOM0级事件
+$('input').blur(function (event) {
+console.log($(this).val());
+});
+
+      // 2、$('selector').on(事件类型,[数据,]回调函数)定义的DOM2级事件
+$('input').on('click', event => { console.log('on => ', event); });
+//   若是要传递数据则使用json格式的对象，传递给event.data
+$('input').on('click', { name: 'woxiapyao', pwd: '123456' }, event => { console.log('on => ', event.data); });
+    </script>
+  </body>
+</html>

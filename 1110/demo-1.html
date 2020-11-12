@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery入门</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+      $(()=> $('h2').css('color', 'red') );
+    </script>
+  </head>
+  <body>
+    <ul class="first">
+      <li>item1</li>
+      <li>item2</li>
+      <li>item3</li>
+    </ul>
+    <ul class="second">
+      <li>item4</li>
+      <li>item5</li>
+      <li>item6</li>
+      <li>item7</li>
+    </ul>
+    <script>
+      // 1、$和$()区别
+      // jquery定义了jQuery对象，也定义了jQuery函数，它的返回值是jQuery对象。
+      console.log(Object.prototype.toString.call($));
+      console.log(Object.prototype.toString.call($()));
+      console.log(Object.prototype.toString.call(jQuery));
+      console.log(Object.prototype.toString.call(jQuery()));
+      console.log($ instanceof jQuery);
+      console.log($() instanceof jQuery);
+      console.log($ instanceof Function);
+      //   函数名主要用于调用静态方法(如$.each数据操作,$.ajax操作)
+      let arr = [1, 2, 3, 4, 5, 6];
+      //   $.each(arr, (index, item) => console.log(item));
+      //   jQuery.each(arr, (index, item) => console.log(item));
+      //   函数主要用于dom操作和动画操作
+      $('.first').css('color', 'red');
+
+      //  2、$()
+      // （1）$(选择器,上下文)  dom元素操作
+      // 原生js实现
+      const ul2 = document.querySelector('.second');
+      Array.from(ul2.children).forEach(element => {
+        element.style.color = 'blue';
+      });
+      // jquery实现
+      $('.second li').css('color', '#007d20');
+
+      // （2）$(js对象): 包装器,将原生的js对象转为jQ对象,这样就可以使用jQuery中的功能,支持dom的js对象，也支持普通的js对象，不过要注意参数顺序
+      // 原生js实现
+    //   document.body.style.backgroundColor = 'lightgray';
+      arr.forEach((item, index) => console.log(item));
+      // jquery实现
+    //   $(document.body).css('background-color', 'lightgreen');
+      $(arr).each((index, item) => console.log(item * 2));
+
+      // (3). $(html文本): 生成元素
+      // 原生JS实现
+      const h3 = document.createElement('h3');
+      h3.innerHTML = 'Hello World!';
+      document.body.appendChild(h3);
+      // jquery实现
+      $('body').append($('<h3>Hello World!</h2>'));
+
+      // (4). $(callback)页面dom创建完成后自动调用，主要用于在body前书写dom获取代码，它会在dom渲染后再执行。
+   
+   
+    //   3、$.each和$().each
+    $.each($("li"), (key, item) => (item.style.color = "green"));
+    $("li").each((key, item) => item.style.color = "red");
+   </script>
+  </body>
+</html>

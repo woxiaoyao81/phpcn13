@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery常用的dom操作</title>
+    <script src="/static/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <ul></ul>
+    <script>
+      // 1、添加或插入元素
+      // append语法:parent.append(新元素)或parent.append(html) 父元素追加新元素或html文本,对应原生JS的appendChild
+      // appendTo语法:新元素.appendTo(parent) 新元素追加到父元素
+      const li1 = $('<li>item1</li>');
+      $('ul').append(li1);
+      $('ul').append('<li>item2</li>');
+      const li2 = $('<li>item3</li>');
+      li2.appendTo($('ul'));
+      // insertBefore语法:新元素.insertBefore(位置) 在位置之前插入，对应原生JS的insertBefore
+      // insertAfter语法:新元素.insertAfter(位置) 在位置之后插入
+      $('<h2>这是开头</h2>').insertBefore($('ul'));
+      $('<h3>这是结尾</h3>').insertAfter($('ul'));
+
+      //   2、替换元素
+      //   replaceWith语法:当前元素.replaceWith(替换元素)
+      //   replaceAll语法:替换元素.replaceAll(当前元素)
+      $('h2').replaceWith('<h1 style="color:red;">这是开头</h1>');
+      $('<h3 style="color:green;">这是结尾测试</h3>').replaceAll($('h3'));
+
+      // 3、删除元素
+      //   $('h3').remove();
+
+      //   4、遍历元素
+console.log('parent => ',$('ul').parent());
+console.log('prev => ',$('ul').prev());
+console.log('next => ',$('ul').next());
+console.log('first child => ',$('ul').children().first().get(0));
+console.log('last child => ',$('ul').children().last().get(0));      
+console.log('child => ',$('ul').children().eq(1).get(0)); 
+console.log($('body').find('li'));     
+    </script>
+  </body>
+</html>

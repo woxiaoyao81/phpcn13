@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery的getter和setter</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #666;
+      }
+
+      form {
+        width: 400px;
+        /* height: 150px; */
+        padding: 20px 10px;
+        border: 1px solid #aaa;
+        box-shadow: 0 0 5px #888;
+        box-sizing: border-box;
+        background-color: #eee;
+        display: grid;
+        grid-template-columns: 80px 200px;
+        gap: 10px;
+        place-content: center center;
+      }
+
+      button {
+        grid-column: 2 / 3;
+        height: 26px;
+      }
+
+      button:hover {
+        color: white;
+        background-color: #888;
+        border: none;
+        cursor: pointer;
+      }
+
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 class="red" data-action="login"><em>用户登录</em></h2>
+    <form action="handle.php" method="get" name="login">
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" autofocus value="leture@php.cn" />
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" value="不少于6位" />
+      <label for="confirm">记住我:</label>
+      <div>
+        <input type="radio" name="save" id="confirm" value="1" checked />
+        <label for="confirm">保存</label>
+        <input type="radio" name="save" id="cancel" value="0" />
+        <label for="cancel">放弃</label>
+      </div>
+      <button>登录</button>
+    </form>
+    <script>
+      // 1、attr()获取/设置元素的属性
+      // （1）attr(name): 获取
+      // （2）attr(name,value): 设置
+      //   js原生方法(一种是通过查询器，另一个是表单name获取)
+      const email = document.querySelector('#email');
+      console.log('原生js，设置之前=>', email.value);
+      // 原生js设置和attr设置效果是不同的：
+      //   原生js不会改变元素的属性初始值，而jq的attr会改变元素的初始值
+      // email.value = 'woxiaoyao@qq.com';
+      // $('#email').attr('value', '14332323@qq.com');
+      // console.log('原生js，设置之后=>', email.value);
+      // const form = document.forms.namedItem('login');
+      // console.log('原生js，设置之后=>', form.email.value);
+      //   jquery方法
+      // console.log('jquery，设置之后=>', $('#email').attr('value'));
+      // console.log('jquery，设置之后=>', $('#email').val());
+
+      //   对自定义数据属性
+      // console.log(document.querySelector('h2').dataset.action);
+      // console.log($('h2').attr('data-action'));
+
+      // （3）第二个参数支持回调 （回调函数: 是你写好不调用,给别人调用的）
+      // $('form').attr('action', function () {
+      //   return $(this).attr('method') == 'get' ? 'api/getInfo.php' : 'api/setInfo.php';
+      // });
+
+      //   （4）支持批量设置属性，建议使用json格式的书写方式，这样可支持复杂的属性名，包括自下定义属性名
+      // $('h2').attr({ class: 'red selected', 'data-action': 'test' });
+
+      // 2、CSS()获取计算样式值或设置行内样式
+      // css(): 设置元素的行内样式 style=""
+      // css(name): 获取
+      // css(name,value): 设置
+      // css(name, callback): 第二个参数支持回调
+      // 原生JS方式
+      const form = document.forms.namedItem('login');
+      form.email.style.border = '1px solid red';
+      console.log(form.email.style.border);
+      // jquery方式
+      console.log($('#email').css('border'));
+      $('#email').css('border', '2px dotted green');
+      // 设置一组时建议使用json格式的书写方式，这样可支持复杂的属性名，包括自下定义属性名
+      $('form').css({
+        'border-top': '2px solid red',
+        'border-bottom': '2px dotted green',
+      });
+      // 第二个参数是回调函数
+      $('form').css('background-color', () => {
+        const colors = ['green', 'lightgreen', 'lightgray', 'skyblue', 'yellow', '#007d20'];
+        // Math中floor是向下取整数，random()是随机数，0-1之间的小数。
+        let index = Math.floor(Math.random() * colors.length);
+        return colors[index];
+      });
+
+      // 3、val()表单获取或设置value
+      // 原生js方式
+      console.log('原生 => ', form.email.value);
+      form.email.value = 'xiaoyao@163.com';
+      //  jquery方式
+      console.log('jquery => ', $('#email').val());      
+      $('#email').val('admin');
+      // 参数是回调函数
+      $('#password').val(() => {
+        let email = $('#email').val();
+        // test是正则表达式匹配
+        if (/admin/.test(email) != null) return '123456';
+      });
+      console.log($('#password').val());
+
+
+      // 4、html()和text()获取或设置内容
+// html() ==> innerHTML，返回完整的内容,包括html标签
+// text() ==> innerText，只返回文本
+console.log($('h2').html());
+console.log($('h2').text());
+$('h2').html('欢迎登录');
+$('h2').text('下次登录');
+$('h2').html(function(){
+  return '<strong>欢迎登录</strong>';
+});
+    </script>
+  </body>
+</html>
