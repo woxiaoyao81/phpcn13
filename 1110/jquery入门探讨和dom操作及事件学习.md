@@ -287,7 +287,7 @@ $('<h2>这是开头</h2>').insertBefore($('ul'));
 $('<h3>这是结尾</h3>').insertAfter($('ul'));
 ```
 
-> **注意和上面插入区别:** 类似于appendTo和append区别
+> **注意和上面插入区别:** 类似于appendTo和append区别,后者可是jQuery对象，也可以是html文本
 > **before 语法:位置.before(新元素)** 在当前位置插入新元素
 > **after 语法:位置.after(新元素)** 在位置之后插入新元素
 
