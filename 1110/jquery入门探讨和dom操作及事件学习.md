@@ -289,7 +289,8 @@ $('<h3 style="color:green;">这是结尾测试</h3>').replaceAll($('h3'));
 
 ### 2、替换元素
 
-> **replaceWith 语法:当前元素.replaceWith(替换元素)** > **replaceAll 语法:替换元素.replaceAll(当前元素)**
+> **replaceWith 语法:当前元素.replaceWith(替换元素)** 
+> **replaceAll 语法:替换元素.replaceAll(当前元素)**
 
 ```javascript
 $('h2').replaceWith('<h1 style="color:red;">这是开头</h1>');
