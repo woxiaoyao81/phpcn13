@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vuejs实现购物车功能</title>
+    <script src="lib/vue.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      table {
+        border-collapse: collapse;
+        width: 90vw;
+        min-width: 680px;
+        text-align: center;
+        margin: auto;
+      }
+      table caption {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+      table th,
+      table td {
+        border: 1px solid;
+        padding: 5px;
+      }
+      table thead tr {
+        background-color: lightblue;
+      }
+      table tbody tr:nth-child(even) {
+        background-color: lightcyan;
+      }
+      table input {
+        text-align: center;
+        line-height: 2em;
+      }
+      table input[type='checkbox'] {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      .btns {
+        width: 90%;
+        margin: 1em auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+      button {
+        width: 8em;
+        height: 2em;
+        outline: none;
+        border: none;
+        background-color: seagreen;
+        color: white;
+        letter-spacing: 1em;
+      }
+    </style>
+  </head>
+  <body>
+<table>
+  <caption>购物车</caption>
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" name="checkAll" id="check-all" v-model="checkAll" @input="chekcAllStatus" />
+        <label for="check-all">全选</label>
+      </th>
+      <th>ID</th>
+      <th>品名</th>
+      <th>单位</th>
+      <th>单价/元</th>
+      <th>数量</th>
+      <th>金额/元</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input type="checkbox" name="itemId" value="SN-1010" v-model="checkArr[0]" />
+      </td>
+      <td>SN-1010</td>
+      <td>MacBook Pro电脑</td>
+      <td>台</td>
+      <td>{{unitPriceArr[0]}}</td>
+      <td>
+        <input type="number" name="counter" v-model:value="inputArr[0]" min="1" step="1" />
+      </td>
+      <td>{{unitTotalPrice(0)}}</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="itemId" value="SN-1020" v-model="checkArr[1]" />
+      </td>
+      <td>SN-1020</td>
+      <td>iPhone手机</td>
+      <td>部</td>
+      <td>{{unitPriceArr[1]}}</td>
+      <td>
+        <input type="number" name="counter" v-model:value="inputArr[1]" min="1" step="1" />
+      </td>
+      <td>{{unitTotalPrice(1)}}</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="itemId" value="SN-1030" v-model="checkArr[2]" />
+      </td>
+      <td>SN-1030</td>
+      <td>智能AI音箱</td>
+      <td>只</td>
+      <td>{{unitPriceArr[2]}}</td>
+      <td>
+        <input type="number" name="counter" v-model:value="inputArr[2]" min="1" step="1" />
+      </td>
+      <td>{{unitTotalPrice(2)}}</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="itemId" value="SN-1040" v-model="checkArr[3]" />
+      </td>
+      <td>SN-1040</td>
+      <td>SSD移动硬盘</td>
+      <td>个</td>
+      <td>{{unitPriceArr[3]}}</td>
+      <td>
+        <input type="number" name="counter" v-model:value="inputArr[3]" min="1" step="1" />
+      </td>
+      <td>{{unitTotalPrice(3)}}</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="itemId" value="SN-1050" v-model="checkArr[4]" />
+      </td>
+      <td>SN-1050</td>
+      <td>黄山毛峰</td>
+      <td>斤</td>
+      <td>{{unitPriceArr[4]}}</td>
+      <td>
+        <input type="number" name="counter" v-model:value="inputArr[4]" min="1" step="1" />
+      </td>
+      <td>{{unitTotalPrice(4)}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="5">总计:</td>
+      <td id="total-num">{{totalNum}}</td>
+      <td id="total-amount">{{totalPrice}}</td>
+    </tr>
+  </tfoot>
+</table>
+<div class="btns">
+  <button>结算</button>
+</div>
+
+    <script>
+      /* 解决思路:
+      1、全选和全取消：自选则全选或全取消
+      2、自选影响全选：一旦有未选的自选则自动取消全选，当所有自选都选中则自动全选=>通过已选和总数比较
+      3、商品总数随商品数量变化 
+      4、商品单项价格随商品数量变化
+      5、商品总价随商品数量变化 
+      6、自选和全选影响商品单项价格、商品总数和商品总价格=>通过开关
+      */
+const vm = new Vue({
+  el: 'table',
+  data: {
+    checkAll: true,
+    checkArr: [true, true, true, true, true],
+    // 开关，防止全选和
+    checkStatus: false,
+    unitPriceArr: [18999, 4999, 399, 888, 999],
+    inputArr: [1, 2, 3, 4, 5],
+  },
+  computed: {
+    totalNum: function () {
+      // return this.inputArr.reduce((a, b) => a * 1 + b * 1, 0);
+      let total = 0;
+      for (let [index, input] of this.inputArr.entries()) {
+        total += input * 1 * (this.checkArr[index] ? 1 : 0);
+      }
+      return total;
+    },
+    unitTotalPrice: function () {
+      return index => {
+        return this.unitPriceArr[index] * 1 * this.inputArr[index];
+      };
+    },
+    totalPrice: function () {
+      let total = 0;
+      for (let [index, input] of this.inputArr.entries()) {
+        total += this.unitPriceArr[index] * 1 * input * (this.checkArr[index] ? 1 : 0);
+      }
+      return total;
+    },
+  },
+  watch: {
+    checkAll(newVal) {
+      // 双向绑定数组无法直接赋值，需要转换为普通的，计算完后，使用vuejs改变即可
+      if (this.checkStatus) {
+        let checkArr = JSON.parse(JSON.stringify(this.checkArr));
+        for (let index of checkArr.keys()) {
+          checkArr[index] = newVal;
+        }
+        this.checkArr = checkArr;
+        this.checkStatus = false;
+      }
+    },
+    checkArr() {
+      let checkArr = JSON.parse(JSON.stringify(this.checkArr));
+      let checkOkArr = checkArr.filter(item => item == true);
+      this.checkAll = checkArr.length == checkOkArr.length ? true : false;
+    },
+  },
+  methods: {
+    chekcAllStatus: function () {
+      // 区分是用户选择全选，还是单项导致自动全选
+      this.checkStatus = true;
+    },
+  },
+});
+      // 1、el相当于选择器,通过它来限定vue作用域，同时vm.$el返回就是原生的JS对象，可使用原生JS语法
+      // vm.$el.style.color="red";
+      // 默认情况下，计算属性的get是不接受参数的，那么如何传递参数，类似于原生JS的事件监听器的回调函数只支持一个参数一样，使用函数当返回值，在返回函数中就可以接受参数了，非常有用的技巧，此时计算属性是方法属性
+      // unitTotalPrice: function (index) { return index => { return this.unitPriceArr[index] * 1 * this.inputArr[index]; } }
+    </script>
+  </body>
+</html>

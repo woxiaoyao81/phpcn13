@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery的attr和prop测试</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+<label for="c1">c1:</label>
+<input id="c1" name="checkbox" type="checkbox" checked="checked" />
+<label for="c2">c2:</label>
+<input id="c2" name="checkbox" type="checkbox" checked="true" />
+<label for="c3">c3:</label>
+<input id="c3" name="checkbox" type="checkbox" checked="" />
+<label for="c4">c4:</label>
+<input id="c4" name="checkbox" type="checkbox" checked />
+<label for="c5">c5:</label>
+<input id="c5" name="checkbox" type="checkbox" data-index="123" />
+<label for="c6">c6:</label>
+<input id="c6" name="checkbox" type="checkbox" checked="false" />
+</body>
+<script>
+//   attr
+console.log('c1 attr => ',$('#c1').attr('checked'),$('#c1').attr('name'));
+console.log('c2 attr => ',$('#c2').attr('checked'));
+console.log('c3 attr => ',$('#c3').attr('checked'));
+console.log('c4 attr => ',$('#c4').attr('checked'));
+console.log('c5 attr => ',$('#c5').attr('checked'),$('#c5').attr('data-index'));
+console.log('c6 attr => ',$('#c6').attr('checked'));
+// prop
+console.log('c1 prop => ',$('#c1').prop('checked'),$('#c1').prop('name'));
+console.log('c2 prop => ',$('#c2').prop('checked'));
+console.log('c3 prop => ',$('#c3').prop('checked'));
+console.log('c4 prop => ',$('#c4').prop('checked'));
+console.log('c5 prop => ',$('#c5').prop('checked'),$('#c5').prop('data-index'));
+console.log('c6 prop => ',$('#c6').prop('checked'));
+</script>
+</html>

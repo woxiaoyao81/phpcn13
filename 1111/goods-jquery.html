@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery实现购物车功能</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      table {
+        border-collapse: collapse;
+        width: 90vw;
+        min-width: 680px;
+        text-align: center;
+        margin: auto;
+      }
+      table caption {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+      table th,
+      table td {
+        border: 1px solid;
+        padding: 5px;
+      }
+      table thead tr {
+        background-color: lightblue;
+      }
+      table tbody tr:nth-child(even) {
+        background-color: lightcyan;
+      }
+      table input {
+        text-align: center;
+        line-height: 2em;
+      }
+      table input[type='checkbox'] {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      .btns {
+        width: 90%;
+        margin: 1em auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+      button {
+        width: 8em;
+        height: 2em;
+        outline: none;
+        border: none;
+        background-color: seagreen;
+        color: white;
+        letter-spacing: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <caption>购物车</caption>
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" name="checkAll" id="check-all" checked />
+            <label for="check-all">全选</label>
+          </th>
+          <th>ID</th>
+          <th>品名</th>
+          <th>单位</th>
+          <th>单价/元</th>
+          <th>数量</th>
+          <th>金额/元</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="checkbox" name="itemId" value="SN-1010" checked />
+          </td>
+          <td>SN-1010</td>
+          <td>MacBook Pro电脑</td>
+          <td>台</td>
+          <td>18999</td>
+          <td>
+            <input type="number" name="counter" value="1" min="1" step="1" />
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="itemId" value="SN-1020" checked />
+          </td>
+          <td>SN-1020</td>
+          <td>iPhone手机</td>
+          <td>部</td>
+          <td>4999</td>
+          <td>
+            <input type="number" name="counter" value="2" min="1" step="1" />
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="itemId" value="SN-1030" checked />
+          </td>
+          <td>SN-1030</td>
+          <td>智能AI音箱</td>
+          <td>只</td>
+          <td>399</td>
+          <td>
+            <input type="number" name="counter" value="3" min="1" step="1" />
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="itemId" value="SN-1040" checked />
+          </td>
+          <td>SN-1040</td>
+          <td>SSD移动硬盘</td>
+          <td>个</td>
+          <td>888</td>
+          <td>
+            <input type="number" name="counter" value="4" min="1" step="1" />
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" name="itemId" value="SN-1050" checked />
+          </td>
+          <td>SN-1050</td>
+          <td>黄山毛峰</td>
+          <td>斤</td>
+          <td>999</td>
+          <td>
+            <input type="number" name="counter" value="5" min="1" step="1" />
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">总计:</td>
+          <td id="total-num"></td>
+          <td id="total-amount"></td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="btns">
+      <button>结算</button>
+    </div>
+
+    <script>
+      /* 解决思路:
+      1、全选和全取消：自选则全选或全取消
+      2、自选影响全选：一旦有未选的自选则自动取消全选，当所有自选都选中则自动全选=>通过已选和总数比较
+      3、商品总数随商品数量变化 
+      4、商品单项价格随商品数量变化
+      5、商品总价随商品数量变化 
+      6、自选和全选影响商品单项价格、商品总数和商品总价格=>通过开关
+      */
+
+let checkArr = [];
+$('input[name="itemId"]').each((index, item) => (checkArr[index] = $(item).prop('checked') ? 1 : 0));
+
+// 一、全选和自选(实现1、2)
+// 获取单值如checked
+$('#check-all').click(function () {
+  $('input[name="itemId"]').prop('checked', $(this).prop('checked'));
+  $('input[name="itemId"]').each((index, item) => (checkArr[index] = $(item).prop('checked') ? 1 : 0));  
+  autoCount();
+});
+$('input[name="itemId"]').click(function () {
+  // 非常好的获取第几个成员
+  let index = $('input[name="itemId"]').index(this);
+  checkArr[index] = $(this).prop('checked') ? 1 : 0;
+  $('#check-all').prop('checked', $('input[name="itemId"]:checked').length == $('input[name="itemId"]').length);
+  autoCount();
+});
+
+// 二、自动计算（实现3，4，5）
+window.addEventListener('load', autoCount, false);
+// 获取单价元素组
+let unitPriceArr = [];
+$('tbody>tr>td:nth-child(5)').each((index, item) => (unitPriceArr[index] = item.innerHTML * 1));
+$('input[name="counter"]').each((index, item) => { $(item).change(function (ev) { autoCount(ev, index); }); });
+function autoCount(ev, index) {
+  let goodNumArr = [];
+  let totalAmount = 0;
+  $('input[name="counter"]').each((index, item) => (goodNumArr[index] = $(item).val() * 1 * checkArr[index]));
+  $('#total-num').html(goodNumArr.reduce((a, b) => a + b, 0));
+  $('tbody>tr>td:nth-child(7)').each((index, item) => {
+    totalAmount += unitPriceArr[index] * goodNumArr[index] * checkArr[index];
+    $(item).html(unitPriceArr[index] * goodNumArr[index]);
+  });
+  $('#total-amount').html(totalAmount);
+}
+    </script>
+  </body>
+</html>

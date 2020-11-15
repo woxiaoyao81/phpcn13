@@ -1,0 +1,148 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-14 21:35:07
+ * @LastEditTime: 2020-11-15 09:12:20
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery的ajax学习探讨</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<style>
+    body {
+    display: grid;
+    gap: 15px;
+    }
+    button {
+    padding: 0.5em;
+    text-align: left;
+    }
+    button span {
+    color: red;
+    }
+    button:hover {
+    background-color: lightcyan;
+    cursor: pointer;
+    }
+</style>
+  </head>
+  <body>
+<button>1. load(): 请求数据</button>
+<button>2. $.get(): 请求数据</button>
+<button>3. $.post(): 请求数据</button>
+<button>4. $.getJSON(): 请求JSON数据</button>
+<button>5. $.ajax(): 请求数据</button>
+<button>6. $.ajax()-jsonp: 跨域请求数据1</button>
+<button>7. $.ajax()-jsonp: 跨域请求数据2</button>
+<script>
+    const btns = document.querySelectorAll('button');
+    //  1. $.load和$.ajax等效实现
+    //   增加判断，防止重复添加
+    $(btns[0]).click(function () {
+    if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div class="nav">').next().load('nav.html');
+    });
+    // $.ajax等效实现
+    $(btns[4]).click(function () {
+    $.ajax({
+        url: 'nav.html',
+        success: res => {
+        if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div class="nav">').next().html(res);
+        },
+    });
+    });
+    //   2.$.get和$.post
+    // $.get(url,callback),参数在url后面用?开始，使用key=value形式，多个使用&连接,其实也可以使用数据formData传递参数
+    // $.post(url,data,callback)，使用formData传递参数，经测试也支持url?传递参数，我想二者唯一区别就是请求类型了。
+    $(btns[1]).click(function (ev) {
+    //   标准的$.get语法
+    // $.get('http://localhost/users.php?id=1',(res)=>{
+    //     if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div>').next().html(res);
+    // });
+    // $.get也支持直接传递数据
+    $.get('http://localhost/users.php', { id: 3 }, function (res) {
+        if ($(ev.target).next().get(0).tagName == 'BUTTON') $(ev.target).after('<div>').next().html(res);
+    });
+    });
+    //   $.post
+    $(btns[2]).click(function () {
+    // $.post('http://localhost/users.php', { id: 2 }, res => {
+    //   if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div>').next().html(res);
+    // });
+    $.post('http://localhost/users.php?id=2', res => {
+        if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div>').next().html(res);
+    });
+    });
+    //  3. $.getJSON
+    $(btns[3]).click(function () {
+    $.getJSON('http://localhost/users.php?id=1', res => {
+        // 从服务器返回josn会自动解析为JS对象,JSON.parse()
+        console.log(res);
+        //使用模板字面量或标签函数格式化成字符串(包括html格式)
+        const resStr = `${res.id}=><span style="color:red">${res.name}</span><em>${res.age}</em>`;
+        if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div>').next().html(resStr);
+    });
+    });
+    //   4.$.ajax() =  $.load() + $.get() + $.post() + $.getJSON() + $.getScript()
+    //   $.ajax({
+    //     //   请求类型,常见是GET和POST
+    //     type: "GET",
+    //     //   请求的url地址
+    //     url: url,
+    //     //   发送数据，formData
+    //     data: data,
+    //     // 希望服务器端响应返回的数据类型是什么，常见有html/json,上面$.load对应html,$.getJSON
+    //     dataType: "json",
+    //     // 请求成功的回调方法
+    //     success: callback,
+    //   });
+    //   $.click两个都执行了，说明click不是事件属性，而是事件监听器
+    $(btns[4]).click(function () {
+    const xhr=$.ajax({
+        type: 'GET',
+        url: 'http://localhost/users.php',
+        data: { id: 1 },
+        dataType: 'html',
+        success: res => {
+        console.log(res);
+        if ($(this).next().get(0).tagName == 'BUTTON') $(this).after('<div>').next().html(res);
+        },
+    });
+    console.log(xhr);
+    });
+    //   5.$.ajax实现的跨域1和2
+    // jsonp=?, ?是回调方法的占位符,请求发送时用jsonpCallback替换
+    //第一种，指定jsonp函数
+    $(btns[5]).click(function () {
+    const xhr=$.ajax({
+        type: 'GET',
+        url: 'http://php.io/test.php?id=2&jsonp=?',
+        dataType: 'jsonp',
+        jsonpCallback: 'handle',
+    });
+    console.log(xhr);
+    });
+    function handle(res) {
+    console.log(res);
+    const resStr = `<span style="color:red">${res.name}</span>=><em>${res.email}</em>`;
+        if ($(btns[5]).next().get(0).tagName != 'DIV') $(btns[5]).after('<div>').next().html(resStr);
+    }
+    //   第二种，直接使用success作为jsonp函数
+    $(btns[6]).click(function (ev) {
+    $.ajax({
+        type: 'GET',
+        url: 'http://php.io/test.php?id=2&jsonp=?',
+        dataType: 'jsonp',
+        success: res => {
+        console.log(res);
+        const resStr = `<span style="color:red">${res.name}</span>=><em>${res.email}</em>`;
+        if ($(ev.target).next().get(0).tagName != 'DIV') $(ev.target).after('<div>').next().html(resStr);
+        },
+    });
+    });
+</script>
+  </body>
+</html>
