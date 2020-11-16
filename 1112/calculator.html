@@ -1,0 +1,168 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-16 11:34:20
+ * @LastEditTime: 2020-11-16 13:34:03
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简单计算器</title>
+    <script src="lib/vue.js"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+.container {
+  width: 30em;
+  height: 15em;
+  padding: 0.5em;
+  color: white;
+  background-color: #007d20;
+  margin: 2em auto;
+}
+
+.container h2 {
+  text-align: center;
+}
+.container .box {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 12em 1fr;
+  grid-template-rows: repeat(4, 2em);
+  gap: 1em 0.5em;
+}
+.container .btns {
+  grid-column: span 2;
+
+  display: flex;
+  justify-content: space-around;
+}
+.container .btns button {
+  width: 5em;
+  border-radius: 0.5em;
+}
+.container .btns button.selected {
+  color: white;
+  background-color: red;
+}
+.container p {
+  grid-column: span 2;
+  color: yellow;
+}
+.container p span {
+  color: white;
+  font-size: 1.2em;
+  margin-left: 2em;
+}
+</style>
+  </head>
+  <body>
+<div class="container">
+  <h2>简单计算器</h2>
+  <div class="box">
+    <label for="add1">第一个数(10万以内的数):</label>
+    <input type="number" name="add1" id="add1" v-model="add1" min="0" max="100000" placeholder="10万以内的数" />
+    <label for="add2">第二个数(10万以内的数):</label>
+    <input type="number" name="add2" id="add2" v-model="add2" min="0" max="100000" placeholder="10万以内的数"/>
+    <div class="btns" @click="btnClick">
+      <button data-index="0" :class="{'selected':index==0}">加</button>
+      <button data-index="1" :class="{'selected':index==1}">减</button>
+      <button data-index="2" :class="{'selected':index==2}">乘</button>
+      <button data-index="3" :class="{'selected':index==3}">除</button>
+    </div>
+    <p>
+      结果:
+      <span>{{res | checkDiv(index,add2)}}</span>
+    </p>
+  </div>
+</div>
+<script>
+const vm = new Vue({
+  el: '.container',
+  data: {
+    add1: 0,
+    add2: 0,
+    res: 0,
+    index: 0,
+  },
+  watch: {
+    add1(newVal, oldVal) {
+      //   console.log('add => ',this);
+      switch (this.index * 1) {
+        case 1:
+          this.res = newVal * 1 - this.add2 * 1;
+          break;
+        case 2:
+          this.res = newVal * 1 * this.add2 * 1;
+          break;
+        case 3:
+          // if (this.add2 == 0) return false;
+          this.res = ((newVal * 1) / this.add2) * 1;
+          break;
+        default:
+          this.res = newVal * 1 + this.add2 * 1;
+      }
+    },
+    add2(newVal, oldVal) {
+      switch (this.index * 1) {
+        case 1:
+          this.res = this.add1 * 1 - newVal * 1;
+          break;
+        case 2:
+          this.res = this.add1 * 1 * newVal * 1;
+          break;
+        case 3:
+          // if (this.add2 == 0) return false;
+          this.res = ((this.add1 * 1) / newVal) * 1;
+          break;
+        default:
+          this.res = this.add1 * 1 + newVal * 1;
+      }
+    },
+  },
+  filters: {
+    checkDiv: function (str, index, add2) {
+      // console.log(this);
+      // console.log(index,add2);
+      // if (this.index*1 == 0 && this.add2*1 == 0) str = '除法时，除数不能为0';
+      return str == 'Infinity' ? '除法时，除数不能为0' : str;
+    },
+  },
+  methods: {
+    // 事件代理委托来处理所有按钮点击事件
+    btnClick: function () {
+      // console.log(event.target.dataset.index);
+      // console.log(event.currentTarget);
+      if (event.target.dataset.index == 3 && this.add2 == 0) {
+        alert('除法时，除数不能为0');
+        return false;
+      }
+      this.index = event.target.dataset.index;
+      switch (this.index * 1) {
+        case 1:
+          this.res = this.add1 * 1 - this.add2 * 1;
+          break;
+        case 2:
+          this.res = this.add1 * 1 * this.add2 * 1;
+          break;
+        case 3:
+          if (this.add2 == 0) return false;
+          this.res = ((this.add1 * 1) / this.add2) * 1;
+          break;
+        default:
+          this.res = this.add1 * 1 + this.add2 * 1;
+      }
+    },
+  },
+});
+</script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vuejs入门</title>
+    <script src="lib/vue.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <p>{{hello}}</p>
+      <p>{{hello.split('').reverse().join('').substr(0,2)+'=> hobby:'+hobby.toString()}}</p>
+      <p v-html="text"></p>
+      <p>计算属性:{{reverHello}}</p>
+      <!-- <p>数据属性:{{reverHello()}}</p> -->
+      <p>过滤器:{{hello | wordsToCase('start','end') }}</p>
+      <input type="number" v-model:value="add1" name="" id="" /> + <input type="number" v-model:value="add2" name="" id="" /> =
+      <span>{{res}}</span>
+    </div>
+    <script>
+      // 1.挂载点el属性
+      const vm = new Vue({
+        el: '.container',
+        data: {
+          hello: 'Hello VueJS.cn',
+          hobby: ['计算机', '摄影', '电影'],
+          info: { name: 'woxiaoyao', age: 18 },
+          text: "Hello <strong style='color:red'>php.cn</strong>",
+          //   reverHello(){
+          //     return this.hello.split('').reverse().join('');
+          //   }
+          add1:1,
+          add2:1,
+          res:2,
+        },
+        mounted: function () {
+          console.log('hello => ', this.hello);
+          console.log('hobby => ', this.hobby);
+          console.log('info => ', this.info);
+        },
+        computed: {
+          reverHello() {
+            return this.hello.split('').reverse().join('');
+          },
+        },
+        filters: {
+          wordsToCase(str,arg1,arg2) {
+            return arg1+' '+str.toUpperCase()+' '+arg2.toLowerCase();
+          },
+        },
+watch:{
+    add1:function(newVal, oldVal){
+        console.log(newVal);
+        this.res=newVal*1+this.add2*1;
+    },
+    add2:function(newVal, oldVal){
+        console.log(newVal);
+        this.res=newVal*1+this.add1*1;
+    }
+}
+      });
+      console.log('vm.$el => ', vm.$el);
+      console.log('挂载点遍历 => ', vm.$el.firstChild);
+      // 尝试原生JS增加元素
+      //   const pl = document.createElement('p');
+      //   pl.innerHTML = 'Hello woxiaoyao';
+      //   vm.$el.insertBefore(pl, vm.$el.firstChild);
+
+      // 2.数据访问代理
+      const user = {
+        $info: {
+          name: 'woxiaoyao',
+          email: '14588823@qq.com',
+        },
+      };
+      console.log('$info.nane => ', user.$info.name);
+      // 直接跨中间访问是失败的
+      console.log('nane => ', user.name);
+      Object.defineProperty(user, 'name', {
+        // 访问器属性
+        get: () => user.$info.name,
+        // 设置器
+        set: value => (user.$info.name = value),
+      });
+      // 设置数据访问代理后就可以访问了
+      console.log('nane => ', user.name);
+
+      // 3、如何访问数组和对象
+      let hobby = JSON.parse(JSON.stringify(vm.hobby));
+      console.log('hobby => ', hobby);
+      let info = JSON.parse(JSON.stringify(vm.info));
+      console.log('info => ', info);
+
+      // 4、计算属性computed
+
+      // 5、过滤器filters
+
+      // 6、侦听器watch
+    </script>
+  </body>
+</html>
