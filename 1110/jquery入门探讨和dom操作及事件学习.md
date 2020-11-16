@@ -354,6 +354,8 @@ console.log($('body').find('li'));
 $('input').blur(function (event) { console.log($(this).val()); });
 ```
 
+> **补充:** 趁着老师还没批改，将我后面发现的补充下。上面结论是老师在上课时说它类似于原生JS的事件属性，所以我武断的认为它等同于原生JS的事件属性了，在后来测试，我发现并不是这样，如click()事件可以叠加，所以在jquery中使用"事件()"定义的是DOM2级事件，至少默认是。
+
 ### 3、\$('selector').on(事件类型,[数据,]回调函数)定义的DOM2级事件
 
 它对应原生JS的事件监听器addEventListener。
