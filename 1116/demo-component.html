@@ -1,0 +1,73 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-18 07:45:08
+ * @LastEditTime: 2020-11-18 19:45:36
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件创建和使用</title>
+    <script src="vue.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>vuejs实例1</h2>
+      <global-component></global-component>
+      <global-component2></global-component2>
+      <my-component></my-component>
+      <my-component2></my-component2>
+      <my-component3></my-component3>
+      <hr />
+    </div>
+    <div class="box">
+      <h2>vuejs实例2</h2>
+      <global-component></global-component>
+      <global-component2></global-component2>
+      <!-- 实例1声明的局部组件在其它实例中使用无效 -->
+      <my-component></my-component>
+    </div>
+    <template id="global">
+      <div>
+        <p>我是全局组件形式2</p>
+      </div>
+    </template>
+<template id="local">
+  <div>
+    <p>我是局部组件形式2</p>
+  </div>
+</template>
+    <script>
+      //   1、全局组件：在所有的vue实例均有效，使用Vue.component(组件的名称, 用对象表示的组件的内容)，template可以是直接写，也可绑定template元素(建议)，template实质是原生JS中文档片断(document-fragment)
+Vue.component('global-component', {
+  //   直接定义template
+  template: '<p>我是全局组件</p>',
+});
+Vue.component('global-component2', {
+  //   template绑定template元素
+  template: '#global',
+});
+const my_component3 = { template: '#local' };
+const vm = new Vue({
+  el: '.container',
+  // 2. 局部组件: 仅在声明它的vue实例中有效，在实例中components下每一个对象为一个局部组件，每个对象属性名为组件名称，template等则为属性值,template可以是直接写，也可绑定template元素(建议)。
+  // 注意不同于全局组件名称，它名称是属性名，所以受限于原生JS的命名规则，不能是数字开头，可以是下划线或字母开头，中间不能有空格、逗号、连接符-等。
+  // 若名称要想使用这些不符合规范的字符，则采用原生JS一样的处理方式，就是转成类似JSON格式命名，即用单引号或双引号包裹就可以。
+  components: {
+    // 直接定义template
+    'my-component': { template: '<p>我是局部组件</p>' },
+    //template绑定template元素
+    'my-component2': { template: '#local' },
+    //template绑定组件变量
+    'my-component3': my_component3,
+  },
+});
+      new Vue({
+        el: '.box',
+      });
+    </script>
+  </body>
+</html>

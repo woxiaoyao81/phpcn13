@@ -1,0 +1,133 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-17 18:09:45
+ * @LastEditTime: 2020-11-19 06:00:21
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vuejs路由实现的tab选项</title>
+<script src="vue.min.js"></script>
+<script src="vue-router.js"></script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+  a {
+    text-decoration: none;
+  }
+  li {
+    list-style: none;
+  }
+
+  .container {
+    width: 50em;
+    margin: 1em auto;
+    padding: 1em;
+    color: white;
+    background-color: gray;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5em;
+  }
+  .container h2 {
+    grid-column: span 3;
+  }
+  .container a{
+      color:white;
+      font-size: 1.3em;
+      padding: 5px;
+      border-bottom: 3px solid transparent;
+  }      
+  .container a:hover{
+      color:red;
+      background-color: white;
+      border-bottom: 3px solid red;
+  }
+  .container a.router-link-active{
+      color:red;
+      background-color: white;
+      border-bottom: 3px solid red;
+  }
+    .container .item {
+    grid-column: span 3;
+    background-color:#007d20;
+    padding: 2em;
+  }
+  .container .item ul {
+    display: flex;
+    justify-content: space-around;
+  }
+</style>
+  </head>
+  <body>
+<div class="container">
+  <h2>选项卡</h2>
+  <!-- 1、创建基于a元素的锚点 -->
+  <router-link to="/mobile">手机</router-link>
+  <router-link to="/computer">电脑</router-link>
+  <router-link to="/course">课程</router-link>
+  <!-- 2、指定渲染的位置 -->
+  <router-view></router-view>
+</div>
+<template id="mobile">
+  <div class="item">
+    <ul>
+      <li>小米手机</li>
+      <li>华为手机</li>
+      <li>国外手机</li>
+    </ul>
+  </div>
+</template>
+<template id="computer">
+  <div class="item">
+    <ul>
+      <li>台式机</li>
+      <li>笔记本</li>
+      <li>智能终端</li>
+    </ul>
+  </div>
+</template>
+<template id="course">
+  <div class="item">
+    <ul>
+      <li>前端开发</li>
+      <li>后端开发</li>
+      <li>项目实战</li>
+    </ul>
+  </div>
+</template>
+<script>
+  // 3、指定渲染内容（路由组件）
+  const mobile = { template: '#mobile' };
+  const computer = { template: '#computer' };
+  const course = { template: '#course' };
+  // 4、注册路由，将a元素和路由组件绑定,要注意是routes不是routers!
+  const router = new VueRouter({
+    routes: [
+      // 默认跳转页面
+      { path: '/', redirect:'/mobile' },
+      // 和路由组件对应的路由
+      { path: '/mobile', component: mobile },
+      { path: '/computer', component: computer },
+      { path: '/course', component: course },
+    ],
+  });
+  // 5、完成挂载
+  const vw = new Vue({        
+    el: '.container',
+    router,
+  });
+</script>
+  </body>
+</html>

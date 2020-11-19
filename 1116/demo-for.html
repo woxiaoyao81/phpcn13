@@ -1,0 +1,47 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-17 19:34:28
+ * @LastEditTime: 2020-11-18 19:14:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for的使用</title>
+    <script src="vue.min.js"></script>
+  </head>
+  <body>
+<div class="container">
+  <ul>
+    <li v-for="(item,index) in itemArr">【in循环】{{index}}-{{item}}</li>
+  </ul>
+  <ul>
+    <li v-for="(item,index) of itemArr">【of循环】{{index}}-{{item}}</li>
+  </ul>
+  <ul>
+    <li v-for="(item,key,index) in itemObj">【in循环】{{index}}-{{key}}-{{item}}</li>
+  </ul>
+  <ul>
+    <li v-for="(item,key,index) of itemObj">【of循环】{{index}}-{{key}}-{{item}}</li>
+  </ul>
+</div>
+<script>
+  const vm = new Vue({
+    el: '.container',
+    data() {
+      return {
+        itemArr: ['item1', 'item2', 'item3'],
+        itemObj: {
+          id: 110,
+          name: 'woxiaoyao',
+          salary: 5545.29,
+        },
+      };
+    },
+  });
+</script>
+  </body>
+</html>

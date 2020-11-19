@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件间传递参数和方法</title>
+    <script src="vue.min.js"></script>
+    <style>
+      ul {
+        border-bottom: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+<div class="container" @click="getSelfPwd">
+<my-component uid="101" user-name="woxiaoyao" @func="getPwd" :hobbys="hobbys">
+  <template v-slot="{elem}">
+    <li v-for="item in elem">{{item}}</li>
+  </template>
+</my-component>
+</div>
+  <template id="local">
+    <div @click="show">
+      <p>ID:{{uid}}</p>
+      <p>用户名:{{userName}}</p>
+      <ul v-for="item in hobbys">
+        <!-- 组件默认布局 -->
+        <!-- <li>{{item}}</li> -->
+        <!-- 用户可定义布局的插槽 -->
+        <slot :elem="item"></slot>
+      </ul>
+    </div>
+  </template>
+    <script>
+      // 传递分为父给子传递参数、子给父传递参数和组件与插槽传递参数
+      // 1、父给子传递参数，在组件中使用props定义接受参数，最简单是接受参数组成的数组，
+      // 最简单形式:props:['arg1','arg2'],参数名要加上单引号或双引号
+      /* 完整形式:参考官方教程https://cn.vuejs.org/v2/guide/components-props.html#ad
+      props:{
+        arg1:{type:String,required:true},
+        arg2:{type:Number,default:100},
+        arg3:{type:[String,Number],required:false,default:100},
+        arg4:{type:[String,Number],required:false,default:function(){return 200}},
+        arg5:{type:[String,Number],required:false,validator:function(value){return ['success', 'warning', 'danger'].indexOf(value) !== -1}},
+      },
+      此时每个参数就是一个对象，包括类型type、是否必须有required，默认值default，验证validator
+      */
+
+      //2、子给父传递参数。是通过$emit将内部方法和外部方法绑定，由内部传递数据给外部方法中
+// 第一步:在子组件的模板中定义事件，如@click='show'
+// 第二步:在子组件中事件方法中，最后使用this.$emit('约定的方法别名'[,子组件内数据]),如this.$emit('func',this.password);可对外提供方法func
+// 第三步:在父组件调用子组件时，使用子组件的对外方法绑定父组件中方法，如@func="getPwd"
+// 第四步:在父组件中methods实现该方法，方法参数为子组件中第二步传递的参数。
+
+      //3、组件和插槽slot的参数传递。主要是用于给组件增加用户布局的机会，即有组件默认的布局，也允许用户自定义布局
+// 第一步:在子组件内使用<slot :elem='item'></slot>，将父组件中变量循环解析后绑定到对外的elem上。
+// 第二步:在父组件的子组件使用template的插槽，并<template v-slot="{elem}">,接受组件内的变量
+// 第三步：在插槽中自定义布局。
+      // 这个是在uniapp使用组件时经常要用到的，也是优秀组件应该具备的，给使用者一定拓展空间。
+      
+
+      const my_component = {
+        template: '#local',
+        data() {
+          return { password: '123456' };
+        },
+        // data: { password: '123456' },
+        props: ['uid', 'userName', 'hobbys'],
+        methods: {
+          show() {
+            console.log(this);
+            console.log(this.password3);
+            this.$emit('func', this.password);
+          },
+        },
+      };
+const vm = new Vue({
+  el: '.container',
+  data: {
+    password: '723456',
+    hobbys: [
+      { id: 1, name: 'computer' },
+      { id: 2, name: 'mobile' },
+      { id: 3, name: 'running' },
+      { id: 4, name: 'basketball' },
+    ],
+  },
+  // data(){return{password: '723456'}},
+  components: {
+    //template绑定组件变量
+    'my-component': my_component,
+  },
+  methods: {
+    getPwd(res) {
+      console.log(res);
+    },
+    getSelfPwd() {
+      console.log(this);
+      console.log(this.password);
+    },
+  },
+});
+    </script>
+  </body>
+</html>

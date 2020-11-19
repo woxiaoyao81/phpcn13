@@ -1,0 +1,52 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-19 08:32:05
+ * @LastEditTime: 2020-11-19 09:49:24
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data属性和computed计算属性</title>
+    <script src="vue.min.js"></script>
+  </head>
+  <body>
+<div class="container">
+  <input type="number" :value="num" />
+  <span @click="numChange">{{numTest}}</span>
+  <span>三倍结果:{{sumNum2()}}</span>
+  <!-- <span>data中类似computed定义get和set:{{sumNum3}}</span> -->
+  <input type="number" v-model:value="sumNum" />
+</div>
+<script>
+  const vm = new Vue({
+    el: '.container',
+    data: {
+      num: 0,
+      numTest:0,
+      // data中不可直接读取其它数据，只能通过函数方法
+      sumNum2:function(){return this.num*3;},
+      // data不可设置get和set对象
+      // sumNum3:{
+      //   get:function(){return this.num * 2;},
+      //   set:function(val){console.log(val),this.num=val;}            
+      // },
+    },
+    computed: {
+      sumNum:{
+        get:function(){return this.num * 2;},
+        set:function(val){console.log(val),this.num=val;}            
+      },
+    },
+    methods:{
+      numChange:function(){
+        this.numTest=this.numTest+2;
+      }
+    }
+  });
+</script>
+  </body>
+</html>
