@@ -1,0 +1,131 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-27 13:11:17
+ * @LastEditTime: 2020-11-30 15:33:39
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS中的原型链</title>
+  </head>
+  <body>
+    <script>
+      // 一、Object你熟悉吗？
+      // JS中Object是函数名，不是对象。
+      // 它具有__proto__和prototype两个属性，前者是函数类型，后者是对象类型。而对象则只有__proto__，它是对象类型
+      // new Object()、Object()和{}生成都是标准对象，它们的构造函数都是Object()。
+      // console.log('------------ Object你熟悉吗？ -------------');
+      // console.dir(Object);
+      // console.dir(Object.__proto__==Function.prototype);
+      // console.dir(Object.prototype==(new Object()).__proto__);
+      // console.log('Object => ', Object.prototype.toString.call(Object));
+      // console.log('Object => ', Object.prototype.toString.call(Object));
+      // console.log('__proto__ => ', Object.prototype.toString.call(Object.__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call(Object.prototype));
+      // console.log('__proto__ => ', Object.prototype.toString.call((new Object()).__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call((new Object()).prototype));
+      // console.dir(new Object());
+      // console.dir(Object());
+      // console.dir({});
+      // console.dir(JSON.stringify(new Object()) == JSON.stringify(Object()));
+
+      // 二、Function你熟悉吗？
+      // 构造函数和普通函数的__proto__和prototype，一个是函数类型，另一个是对象类型
+      // 而Function也是函数名，但它比较特殊，因为它的__proto__和prototype都是函数类型，而且new Function()还是函数不是对象。
+      // console.log('------------ Function你熟悉吗？ -------------');
+      // console.dir(Function);
+      // console.dir(Function.__proto__==Function.prototype);
+      // console.log('Function => ', Object.prototype.toString.call(Function));
+      // console.dir(Number);
+      // console.log('Number => ', Object.prototype.toString.call(Number));
+      // console.log('__proto__ => ', Object.prototype.toString.call(Function.__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call(Function.prototype));
+      // console.log('__proto__ => ', Object.prototype.toString.call((new Function()).__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call((new Function()).prototype));
+      // function Person(name){
+      //   this.name=name;
+      //   this.hello=function(){console.log(`Hello ${this.name}`);};
+      // }
+      // console.dir(Person);
+      // console.log('Person => ', Object.prototype.toString.call(Person));
+      // console.log('__proto__ => ', Object.prototype.toString.call(Person.__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call(Person.prototype));
+      // console.log('__proto__ => ', Object.prototype.toString.call((new Person()).__proto__));
+      // console.log('prototype => ', Object.prototype.toString.call((new Person()).prototype));
+
+      // 三、JS中万物是对象还是函数？
+      // Object.prototype.toString.call输出类型前面都是object，后面都是首字母大写的数据类型。
+      // object和Object是不同的概念，前者不是数据类型，它是JS中万物最终都是对象，体现就是最后的__proto__都是标准对象。而后者是数据类型
+      // Object也是很特殊的函数，它是由Function（）而来，构造函数为它时，就会强制将__proto__指向标准对象，结束原型链。
+      // console.log('------------ JS中万物是对象还是函数？ -------------');
+      // function Person(name){
+      //   this.name=name;
+      //   this.hello=function(){console.log(`Hello ${this.name}`);};
+      // }
+      // console.log(Object.prototype.toString.call(123));
+      // console.log(Object.prototype.toString.call('abc'));
+      // console.log(Object.prototype.toString.call(true));
+      // console.log(Object.prototype.toString.call(undefined));
+      // console.log(Object.prototype.toString.call(null));
+      // console.log(Object.prototype.toString.call([]));
+      // console.log(Object.prototype.toString.call(Person));
+      // console.log(Object.prototype.toString.call({}));
+      // console.log((123).__proto__);
+      // console.log(('abc').__proto__);
+      // 四、__proto__、prototype和constructor看原型链
+      // 对象的__proto__是对象类型，指向构造函数的prototype，而函数的__proto__是函数类型(new Function()是函数)，也是则是指向构造函数Function的prototype
+      // 构造函数或普通函数最终的__proto__都是指向内置的Function.prototype，而Function.prototype.__proto__是指向Object.prototype，最终Object.prototype.__proto__为null，意味它是最高的顶点了。
+      // 构造函数从哪看?就是__proto__.constructor。
+      // 原型链可单独从__proto__看，但想知道更多的细节，则要从__proto__.constructor.prototype看
+      // console.log('------------ __proto__、prototype和constructor -------------');
+      // function Person(name){
+      //   this.name=name;
+      //   this.hello=function(){console.log(`Hello ${this.name}`);};
+      // }
+      // console.dir(Person);
+      // const person=new Person('woxiaoyao');
+      // console.dir(person);
+      // console.dir(person.__proto__==Person.prototype);
+      // console.dir(Person.prototype.__proto__==Object.prototype);
+      // console.dir(Person);
+      // console.dir(Person.__proto__==Function.prototype);
+      // console.dir(Function.prototype.__proto__==Object.prototype);
+      // console.dir(Object.prototype.__proto__);
+
+      // // 五：继承:原型链继承和类式继承
+      // console.log('------------ 继承:原型链继承和类式继承 -------------');
+// function Base(){
+//   this.hello=function(){console.log('Hello World');};
+// }
+
+// function Animal(type){
+//   // Base.call(this);
+//   this.type=type;
+//   this.Say=function(){console.log('Animal Say');};
+// }
+// function Dog(name){
+//   // 构造函数继承
+//   // Animal.call(this,'crab');
+//   this.name=name;  
+// }
+// // 第一种：原型继承
+// Animal.prototype=new Base();
+// Dog.prototype=new Animal('crab');  
+// // 第二种:原型链
+// // Animal.prototype=Base.prototype;  
+// // Dog.prototype=Animal.prototype;  
+// const dog=new Dog('Bill');
+// Base.prototype.hello2=function(){console.log('Hello World Two');};
+// console.dir(Dog);
+// console.dir(dog);
+// console.dir(dog.Say());
+// console.dir(dog.hello2());
+
+console.dir(String);
+    </script>
+  </body>
+</html>

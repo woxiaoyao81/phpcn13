@@ -1,0 +1,77 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-27 13:08:51
+ * @LastEditTime: 2020-11-30 15:29:06
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>call/apply/bind用在什么地方</title>
+  </head>
+  <body>
+    <button name="按钮">Click</button>
+  </body>
+</html>
+
+<script>
+  function hello(name) {
+    console.log(this);
+    // this.name = name;
+    return this.name;
+  }
+  // 经典调用
+  //   console.log(hello("朱老师"));
+  // call(this,args1,args2....)
+  // call,apply, bind这三个方法中的第一个参数,都是用来改变this指向
+  // null就是不改变当前的this指向
+  //   console.log(hello.call(null, "朱老师"));
+
+  // 再声明一个对象
+  let obj = {
+    name: "灭绝小师妹",
+  };
+  //   console.log(hello.call(obj));
+
+  // 如果函数在全局调用 那么this指向全局对象,如window
+  // 如果函数在对象上调用,那么this指向当前对象
+
+  function f1(a, b, c) {
+    return a + b + c;
+  }
+  //   console.log(f1(1, 2, 3));
+  // call(newThis, a,b,c,....)
+  //   console.log(f1.call(null, 3, 4, 5));
+
+  function f2(b, c) {
+    return this.a + b + c;
+    // return 30 + 10 + 20
+  }
+  obj = { a: 30 };
+  //   console.log(f2.call(obj, 10, 20));
+  // call()可以实现方法借助,改变this指向
+  // apply()和call()是一样的, 只是它的参数用数组而已
+  //   console.log(f2.apply(obj, [10, 20]));
+  //   console.log(f2.apply(obj, [30, 40]));
+
+  // call()/apply()功能一样,只是参数类型不同,一个是列表, 一个是数组
+
+  // bind()与它们还有一些不一样的地方
+  // bind()并不是立即调用该函数,而是返回了一个函数的声明
+  //   console.log(f2.bind(obj, 10, 20));
+  //   func = f2.bind(obj, 10, 20);
+  //   console.log(typeof func);
+  //   console.log(func());
+  // bind()用在什么地方?
+  // bind()用在回调函数中改变this的值,因为回调是异步的,需要事件来触发
+  document.querySelector("button").addEventListener(
+    "click",
+    function () {
+      console.log(this);
+      document.body.appendChild(document.createElement("p")).innerHTML = "欢迎: " + this.name;
+    }.bind({ name: "朱老师" })
+  );
+</script>

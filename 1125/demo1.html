@@ -1,0 +1,78 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-27 13:08:51
+ * @LastEditTime: 2020-11-30 14:51:05
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js的核心原理与实现</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // js是面向对象前端脚本编程语言
+  // 很多同学可能会以为所有的js对象的爸爸是Object
+  // 任何一个对象,都是一个构造函数的实例
+  // 构造函数就是一个函数,只不过他的调用方式比较特殊,用new来调用
+
+  // 使用字面量来声明
+  let obj = {};
+  // 还有一种是用构造函数 Object()
+  // Object是所有对象之父
+  obj = new Object();
+
+  // 对象/实例, 来自一个函数的调用结果
+
+  // 写一个函数
+  function hello(name) {
+    return `Hello ${name}`;
+  }
+  console.log(hello("朱老师"));
+  console.dir(hello);
+  // 任何函数都会有一个原型属性,prototype,
+  // 对于一个普通函数来说, 这个原型属性没有什么卵用
+  // 这个prototype专用在构造函数上
+
+  // 构造函数的声明,通常函数名首字母大写(这是约定并非强制)
+// 构造函数是用来创建对象/实例
+function User(name, age) {
+  // 1. 自动生成一个新对象,并用this指向它
+  //   this = new User;
+  // 2. 为这个新生成的对象,添加成员,例如属性或方法
+  this.name = name;
+  this.age = age;
+  this.getInfo = function () {
+    return `${this.name} : ${this.age}`;
+  };
+
+  // 3. 返回这个新对象
+  // return this;
+}
+
+  // 构造函数使用new来调用,在构造函数内部发生了什么?
+  let user = new User("admin", 40);
+  console.log(user.getInfo());
+  console.dir(User);
+
+  // toString()并没有出现用户自定义的属性方法中
+  //   console.dir(User.toString());
+
+  //
+
+  let o = {};
+  console.log(o);
+  // 任何实例/对象,都会从它的原型对象上继承成员(属性/方法)
+  console.log(o.__proto__ === Object.prototype);
+
+  //   Object()是一个构造函数, 函数也是对象,它有一个原型属性,
+  //   只有函数有原型属性
+  //   原型属性中的内容是, 用来给基于该函数创建的实例添加默认成员的
+  console.dir(Object.prototype);
+  // 原型的尽头是null
+</script>

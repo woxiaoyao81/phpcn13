@@ -1,0 +1,46 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-11-27 13:08:51
+ * @LastEditTime: 2020-11-30 15:17:41
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prototype的继承和扩展成员</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+// 构造函数,当成父类
+function Parent() {
+  this.name = 'admin';
+}
+// 我认为它是一个子类
+function Child() {
+  this.age = 99;
+}
+// 函数的原型属性可以被改写, 利用这个特征, 可以轻易实现继承
+//   Child.prototype = null;
+Child.prototype = new Parent();
+console.dir(Child);
+// 使用的时候,直接将子类当成工作类,
+let instance = new Child();
+// 原型上声明的成员,会被基于当前构造函数的所有实例所共享
+Parent.prototype.getName = function () {
+  return this.name;
+};
+// 现在还可以给这个子类继续添加成员
+Child.prototype.getAge = function () {
+  return this.age;
+};
+// 访问子类成员
+console.log(instance.age);
+console.log(instance.name);
+console.log(instance.getName());
+console.log(instance.getAge());
+</script>

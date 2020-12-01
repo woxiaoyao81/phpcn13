@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reduce()数组的归并方法</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        text-align: center;
+        width: 90%;
+        margin: auto;
+      }
+      table caption {
+        font-size: 1.2rem;
+        font-weight: bolder;
+        margin-bottom: 0.5em;
+      }
+      table th,
+      table td {
+        border: 1px solid #000;
+        padding: 0.5em;
+      }
+      table thead {
+        background-color: lightblue;
+      }
+      table tbody tr:hover {
+        background-color: lightcyan;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  let arr = [1, 2, 3, 4, 5];
+  // 1. 求和
+  // arr.reduce(function (prev,curr,index,arr){}, init)
+  // prev: 如果没有第二个参数,那它就是返回结果的初始值
+  // curr,index, arr,与其它的迭代方法参数功能相同
+  // curr: 当前元素,index当前元素的索引,arr当前元素所在的数组本身
+
+
+
+
+
+
+console.log('----没有init参数时----');
+arr.reduce((prev, curr, index, arr) => {
+  console.log(prev, curr, index, arr);
+  return prev + curr;
+});
+console.log('----有init参数时----');
+arr.reduce((prev, curr, index, arr) => {
+  console.log(prev, curr, index, arr);
+  return prev + curr;
+}, 100);
+
+
+
+
+
+
+
+
+  // 2. 求最大值
+  //   console.log(
+  //     arr.reduce((prev, curr, index, arr) => {
+  //       console.log(prev, curr);
+  //       return Math.max(prev, curr);
+  //     })
+  //   );
+  // 3. 统计某个元素的出现的频率/次数
+  arr = [2, 3, 3, 4, 5, 4, 5, 5, 6, 2, 3, 3, 5];
+  function arrayCount(arr, value) {
+    // total: 保存最终返回的值,初始化0
+    // total: 根据某个值的出现次数自增1,0
+    return arr.reduce((total, item) => (total += item == value ? 1 : 0), 0);
+  }
+
+  console.log('3 出现的次数: ', arrayCount(arr, 3));
+  console.log('5 出现的次数: ', arrayCount(arr, 5));
+  console.log('2 出现的次数: ', arrayCount(arr, 2));
+
+  // 4. 数组去重
+  // 将去掉重复值的元素组成一个新数组返回,所以将返回的结果设置一个空数组
+  let res = arr.reduce((prev, curr) => {
+    if (prev.includes(curr) === false) prev.push(curr);
+    return prev;
+  }, []);
+  console.log(res);
+
+  // 5. 快速生成html代码并渲染到页面中
+
+  // 使用场景3: 快速生成大段html代码
+const items = [
+  { id: 1, name: '手机', price: 4500, num: 3 },
+  { id: 2, name: '电脑', price: 6500, num: 5 },
+  { id: 3, name: '汽车', price: 15500, num: 2 },
+  { id: 4, name: '相机', price: 19500, num: 9 },
+  { id: 4, name: '耳机', price: 26800, num: 9 },
+];
+// 商品数量之和, 注意一定要传第二个参数,给最终结果赋初会值: 0, 这很重要
+let counts = items.reduce((total, item) => total + item.num, 0);
+console.log(`总数量:`, counts);
+// 商品总金额, 注意传第二个参数,否则会得到一个数字字符串
+let amounts = items.reduce((total, item) => total + item.num * item.price, 0);
+console.log(`总金额:`, amounts);
+// 给每个商品套个html标签
+res = items.map(
+  item =>
+    `<tr>
+          <td>${item.id}</td>
+          <td>${item.name}</td>
+          <td>${item.price}</td>
+          <td>${item.num}</td>
+          <td>${item.price * item.num}</td>
+        </tr>`
+);
+// 将每个商品归并到一个html字符串中
+let content = res.reduce((prev, item) => prev.concat(item));
+// 使用表格将代码渲染到页面上
+const table = document.createElement('table');
+// 标题
+table.innerHTML += '<caption>商品信息表</caption>';
+// 表头
+table.innerHTML += `
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>商品</th>
+        <th>单价</th>
+        <th>数量</th>
+        <th>金额/元</th>
+      </tr>
+    </thead>`;
+// 将动态生成的内容添加到表格中
+table.innerHTML += `<tbody>${content}</tbody>`;
+table.innerHTML += `<tfoot><tr><td colspan="3">总计:</td><td>${counts}</td><td>${amounts}</td></tr>`;
+// 做为body第一个子元素插入到页面中
+document.body.insertBefore(table, document.body.firstElementChild);
+</script>
