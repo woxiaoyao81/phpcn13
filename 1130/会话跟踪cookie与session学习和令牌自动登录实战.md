@@ -419,4 +419,4 @@ if ($stmt->rowCount() == 1) {
 }
 ```
 
-> **测试中最坑的地方:** 就是session的使用了，要使用$_SESSION超全局变量必须使用session_start()，否则读取失败，因为session_start初始化超全局变量$_SESSION.
+> **测试中最坑的地方:** 就是`session`的使用了，要使用`$_SESSION`超全局变量必须使用`session_start()`，否则读取失败，因为`session_start`初始化超全局变量`$_SESSION`.
