@@ -1,4 +1,5 @@
 <?php
+// 普通函数改为闭包，此时外部变量可通过global、$GLOBALS，也支持use引入外部变量使用。具体分析见本文第一部分。
 $isAssoc=function (array $arr)
 {
     if (is_array($arr)) {
@@ -6,10 +7,12 @@ $isAssoc=function (array $arr)
         return $key === array_keys($key) ? false : true;
     }
     return null;
-};
+};//闭包函数最后的分号不可省，否则报错
 
 class Check{
+    // Closure就是闭包类型
     static function checkArray(Closure $isAssoc,array $arr){
+        // 使用闭包时要记得()引用参数
         return $isAssoc($arr);
     }
 }
