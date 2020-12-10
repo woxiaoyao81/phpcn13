@@ -87,6 +87,7 @@ echo 'get_class_methods() =>'.print_r(get_class_methods(Magic::class),true),'<br
 ```
 
 > **补充1：参数是类名时注意事项** 参数时类名时，若有命名空间则直接写类名是获取不到结果的，此时要加上命名空间即完整类名。可get_class()获取，也可ClassName::class获取，也可自己手动拼接。
+
 > **补充2：返回结果是所有成员？** 经测试只能获取public成员，private、protected和const成员均无法获取。
 
 
@@ -129,7 +130,9 @@ echo 'property_exists() => '.var_export(property_exists(new Magic,'getAge'),true
 ```
 
 > **补充1:function_exists和method_exists区别** 就是前者是检查全局函数包括内置函数，后者是检查类中方法(类中对函数的另种称谓)。
+
 > **补充2:file_exists和is_file的参数和后者的运行原理** 。文件名可以是相对路径名，也可是绝对路径，若直接是文件名，则在当前目录下查找。若是多层时要注意分隔符，由于不同系统的分隔符并不相同，最妥的方法就是能完DIRECTORY_SEPARATO预定义常量获取 ，如`__DIR__.DIRECTORY_SEPARATOR.'magic.php';` 。还有一个就是二者作用，老师在演示时认为前者是判断文件是否存在，后者是判断文件名是否合法，其实在测试中我发现 **is_file包括文件是否存在的检查，即文件名合法若文件不存在则返回false，只有文件名合法并且存在才返回true**。
+
 > **补充3：类的判断存在的全局函数和获取的全局函数区别？** 上面已经介绍过`get_class_vars()`和`get_class_methods()` 这两类最大区别就是get获取类时只能是public成员，而判断类时可以是public，也可以是private、protected，二者都无法对const成员的访问。
 
 ![object-class-fun2](object-class-fun2.png)
@@ -161,7 +164,9 @@ echo call_user_func_array(array(new Magic,'getAge'),[]),'<br>';
 ```
 
 > **补充1：关于参数问题** `call_user_func()`可以只有函数名，没有参数。而`call_user_func_array()`不仅要有函数名，也要有第二个参数，若是参数为空时，则要用`[]`空数组表示，不写则报错。
+
 > **补充2：参数可以是引用参数传递吗？** 官方介绍是call_user_func是不可以，而call_user_func_array是可以的。
+
 > **补充3：支持调用类中所有方法？** 经测试，只能调用 **其它类的public成员方法** ，至于private和protected则不可访问。若是调用其它类不可访问方法则会触发下面将要介绍的方法拦截器，至于方法拦截器可看后面。
 
 
