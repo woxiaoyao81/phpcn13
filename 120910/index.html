@@ -1,0 +1,99 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: woxiaoyao
+ * @Date: 2020-12-11 15:51:43
+ * @LastEditTime: 2020-12-12 10:31:19
+-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(多)文件上传客户端</title>
+<style>
+  .container {
+    width: 70vw;
+    min-width: 600px;
+    margin: 3em auto;
+
+    background-color: #007d20;
+    color: white;
+    font-size: 1.1em;
+
+    padding: 0.5em 1em 3em;
+    border-radius: 1em;
+  }
+  .container h2 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  form fieldset {
+
+    display: flex;
+    justify-content: space-between;
+  }
+  form fieldset#image {
+    flex-flow: row wrap;
+    justify-content: initial;
+    /* flex其实也有弹性单元的概念，不过这不是官方的说法，它的提出是我学习Grid时发现的，只是它是交叉方向的，不设置默认是拉伸stretch */
+    /* 在项目中若不设置，则图片宽度和高度都一样，这样有的图片就被拉伸了，不是按图片比例缩放 */
+    align-items:center;
+  }
+  form fieldset#image img {
+    margin: 5px 10px;
+  }
+</style>
+  </head>
+  <body>
+<div class="container">
+  <h2>PHP实现的(多)文件上传</h2>
+  <form action="upload.php" method="POST" enctype="multipart/form-data">
+    <fieldset>
+      <legend>选择上传文件</legend>
+      <input type="file" id="file" name="js_file[]" multiple />
+      <button>上传服务器</button>
+    </fieldset>
+    <fieldset id="image" style="display: none;"></fieldset>
+  </form>
+</div>
+<script>
+  const file = document.querySelector('#file');
+  const fdset = document.querySelector('#image');
+
+  file.addEventListener('change', showImage, false);      
+  function showImage() {
+    //   上传文件信息保存在input的DOM的files属性中
+    let files = file.files;
+    let imgArr = [];
+    for (let item of Object.values(files)) {
+      if (item.type.includes('image')) imgArr.push(item);
+    }
+      fdset.setAttribute('style','display:none;');
+    if (imgArr.length > 0) {
+      // 先清空内容再刷新
+      fdset.setAttribute('style','display:block;');
+      fdset.innerHTML = null;
+      const legend = document.createElement('legend');
+      legend.innerHTML = `准备上传${imgArr.length}张图片`;
+      fdset.appendChild(legend);
+      for (let [index, item] of imgArr.entries()) {
+        const reader = new FileReader();
+        reader.readAsDataURL(item);
+        reader.onload = () => {
+          // const img = new Image();
+          const img=document.createElement('img');
+          // reader.result为获取结果
+          img.src = reader.result;
+          img.width = '150';      
+          // 将用户选择的图片显示到指定元素中
+          fdset.appendChild(img);
+        };
+      }
+      }
+  }
+</script>
+  </body>
+</html>
