@@ -1,0 +1,8 @@
+{
+    "name": "freegroup/woxiaoyao",
+    "description": "study composer",
+    "license": "MIT",
+    "require": {
+        "gregwar/captcha":"*"
+    }
+}
