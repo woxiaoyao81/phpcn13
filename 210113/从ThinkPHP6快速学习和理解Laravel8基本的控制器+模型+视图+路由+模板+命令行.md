@@ -96,7 +96,7 @@ The current UNIX timestamp is {{ time() }}.
 
 这里要说下，它和TP6模板语法一样，也支持函数，即表达式都可以（其实vuejs和小程序也一样）。
 
-> **显示非转义字符:** 默认情况下， Blade {{ }} 语句将被 PHP 的 htmlspecialchars 函数自动转义以防范 XSS 攻击。如果您不想您的数据被转义，那么您可使用如下的语法，这里要TP6区分开了，TP6是用`| raw`来原样输出
+> **显示非转义字符:** 默认情况下， Blade {{ }} 语句将被 PHP 的 htmlspecialchars 函数自动转义以防范 XSS 攻击。如果您不想您的数据被转义，那么您可使用如下的语法，即变量前后都加双感叹号!!，这里要TP6区分开了，TP6是用`| raw`来原样输出
 
 ```php
 Hello, {!! $name !!}.
