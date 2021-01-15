@@ -87,7 +87,7 @@ php artisan key:generate
 
 ### 1、显示数据
 
-在TP6中自带模板默认是{}大括号来显示数据，而Laravel的Blade模板是双大括号{{}}，也是目前vuejs和小程序最常用的"Mustache"模板语法，在模板解析时，会自动转化为php语句，并使用htmlspecialchars函数自动转义以防范 XSS 攻击，也就是缓存文件中e函数，在TP6是直接使用htmlspecialchars函数。如下面显示数据
+在TP6中自带模板默认是{}大括号来显示数据，而Laravel的Blade模板是双大括号{{}}，也是目前vuejs和小程序最常用的"Mustache"模板语法，在模板解析时，会自动转化为php语句，并使用htmlspecialchars函数自动转义以防范 XSS 攻击，也就是缓存文件中e函数，在TP6是直接使用htmlentities函数，htmlspecialchars和htmlentities都是将特殊字符转换为 HTML 实体，不过有点区别，可网上查询下。如下面显示数据
 
 ```php
 Hello, {{ $name }}.
